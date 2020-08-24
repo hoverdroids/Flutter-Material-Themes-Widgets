@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:material_themes_widgets/drawers/elastic_drawer.dart';
+import 'package:material_themes_widgets/drawers/liquid_drawer.dart';
+import 'package:material_themes_manager/material_themes_manager.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider<MaterialThemesManager>(
+      builder: (context) => MaterialThemesManager(),
+      child:MyApp())
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -62,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-      drawer: ElasticDrawer(),
+      drawer: ThemedLiquidDrawer(),
     );
   }
 }

@@ -3,22 +3,59 @@ import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/painting.dart';
 
-//Derived from: https://www.youtube.com/watch?v=1KurAaGLwHc&t=1602s
-class ElasticDrawer extends StatefulWidget {
-
+class ThemedLiquidDrawer extends StatelessWidget {
   final Widget content;
   final double percentOfWidth;
-  final double pixelsShownWhenClosed;
   final int archHeight;
   final bool showCurvedByDefault;
   final Paint paint;
   final Color startColor;
   final Color endColor;
 
-  ElasticDrawer({
+  ThemedLiquidDrawer({
+    this.content,
+    this.percentOfWidth,
+    this.archHeight,
+    this.showCurvedByDefault,
+    this.paint,
+    this.startColor,
+    this.endColor
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MaterialThemesManager> (
+      builder: (context, themeManager, child) {
+        //Construct a default widget in order to fall back on default values when the optional params aren't passed
+        var defaultLiquidDrawer = LiquidDrawer();
+      
+        return LiquidDrawer(
+            content: content != null ? content : defaultLiquidDrawer.content,
+            percentOfWidth: percentOfWidth != null ? percentOfWidth : defaultLiquidDrawer.percentOfWidth,
+            archHeight: archHeight != null ? archHeight : defaultLiquidDrawer.archHeight,
+            showCurvedByDefault: showCurvedByDefault != null ? showCurvedByDefault : defaultLiquidDrawer.showCurvedByDefault,
+            paint: paint != null ? paint : defaultLiquidDrawer.paint,
+            startColor: startColor != null ? startColor : defaultLiquidDrawer.startColor,
+            endColor: endColor != null ? endColor : defaultLiquidDrawer.endColor
+        );
+      });
+  }
+}
+
+//Derived from: https://www.youtube.com/watch?v=1KurAaGLwHc&t=1602s
+class LiquidDrawer extends StatefulWidget {
+
+  final Widget content;
+  final double percentOfWidth;
+  final int archHeight;
+  final bool showCurvedByDefault;
+  final Paint paint;
+  final Color startColor;
+  final Color endColor;
+
+  LiquidDrawer({
     this.content,
     this.percentOfWidth = 0.70,
-    this.pixelsShownWhenClosed = 0.0,
     this.archHeight = 75,
     this.showCurvedByDefault = true,
     this.paint,
@@ -27,10 +64,9 @@ class ElasticDrawer extends StatefulWidget {
   });
 
   @override
-  _ElasticDrawerState createState() => _ElasticDrawerState(
+  _LiquidDrawerState createState() => _LiquidDrawerState(
     content: content != null ? content : Container(),//TODO - we can't pass null but can't instantiate the Container as a default because, "the default value of an optional param must be constant"
     percentOfWidth: percentOfWidth,
-    pixelsShownWhenClosed: pixelsShownWhenClosed,
     archHeight: archHeight,
     showCurvedByDefault: showCurvedByDefault,
     paint: paint,
@@ -39,23 +75,19 @@ class ElasticDrawer extends StatefulWidget {
   );
 }
 
-class _ElasticDrawerState extends State<ElasticDrawer> {
+class _LiquidDrawerState extends State<LiquidDrawer> {
 
   final Widget content;
   final double percentOfWidth;
-  final int animationDuration;
-  final double pixelsShownWhenClosed;
   final int archHeight;
   final bool showCurvedByDefault;
   final Paint paint;
   final Color startColor;
   final Color endColor;
 
-  _ElasticDrawerState({
+  _LiquidDrawerState({
     this.content,
     this.percentOfWidth,
-    this.animationDuration,
-    this.pixelsShownWhenClosed,
     this.archHeight,
     this.showCurvedByDefault,
     this.paint,
@@ -66,7 +98,6 @@ class _ElasticDrawerState extends State<ElasticDrawer> {
   GlobalKey globalKey = GlobalKey();//TODO - does this need a more descriptive name?
   Offset _offset = Offset(0,0);
   List<double> limits = [0,0,0,0,0,0];
-
   bool isScrolling = false;
 
   @override
@@ -95,12 +126,11 @@ class _ElasticDrawerState extends State<ElasticDrawer> {
       child: Drawer(
           child: SizedBox(
             width: double.infinity,
-            child: GestureDetector(//TODO - swipe left to close
+            child: GestureDetector(
               onPanUpdate: (details) {
                 setState((){
                   isScrolling = true;
                   _offset = details.localPosition;
-                  print("Offset: $_offset sidebarSize:$sidebarSize");
                 });
               },
               onPanEnd: (details) {
@@ -115,7 +145,7 @@ class _ElasticDrawerState extends State<ElasticDrawer> {
                 children: <Widget>[
                   CustomPaint(
                     size: Size(sidebarSize, mediaQuery.height),
-                    painter: DrawerPainter(offset: _offset, archHeight: archHeight, paint: getPaint(sidebarSize, mediaQuery.height)),
+                    painter: DrawerPainter(offset: _offset, archHeight: archHeight, paint: getPaint(sidebarSize, mediaQuery.height), showCurvedByDefault: showCurvedByDefault),
                   ),
                   content,
                 ],
@@ -143,13 +173,16 @@ class DrawerPainter extends CustomPainter {
   final int archHeight;
   final Offset offset;
   Paint customPaint;
+  bool showCurvedByDefault;
 
-  DrawerPainter({this.offset, this.archHeight, paint}) {
+  DrawerPainter({this.offset, this.archHeight, paint, this.showCurvedByDefault}) {
       customPaint = paint != null ? paint : Paint()..color = Colors.white..style = PaintingStyle.fill;
   }
 
   double getControlPointX(double width) {
-    if (offset.dx <= width) {
+    if(showCurvedByDefault) {
+      return width + archHeight;
+    } else if (offset.dx <= width) {
       return width;
     } else if (offset.dx >= width + archHeight) {
       return width + archHeight;

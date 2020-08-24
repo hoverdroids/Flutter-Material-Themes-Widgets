@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  material_themes_manager: ^0.0.2
+  material_themes_manager: ^0.0.3
 
 dev_dependencies:
   flutter_test:
