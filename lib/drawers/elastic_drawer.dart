@@ -37,13 +37,16 @@ class _ElasticDrawerState extends State<ElasticDrawer> {
   final double pixelsShownWhenClosed;
   final int archHeight;
   final bool isAlwaysArched;
+  //final double defaultArchX;
+  //final double defaultArchY;
 
   _ElasticDrawerState({this.content, this.percentOfWidth, this.animationDuration, this.pixelsShownWhenClosed, this.archHeight, this.isAlwaysArched});
 
   GlobalKey globalKey = GlobalKey();//TODO - does this need a more descriptive name?
-  bool isMenuOpen = false;
   Offset _offset = Offset(0,0);
   List<double> limits = [0,0,0,0,0,0];
+
+  bool firstBuild = true;
 
   @override
   void initState() {
@@ -53,38 +56,38 @@ class _ElasticDrawerState extends State<ElasticDrawer> {
 
   @override
   Widget build(BuildContext context) {
-
+    print("Buld");
     Size mediaQuery = MediaQuery.of(context).size;
-    double sidebarSize = mediaQuery.width * percentOfWidth;
-    double menuContainerHeight = mediaQuery.height / 2;
+    double sidebarSize = mediaQuery.width * percentOfWidth;//TODO - the drawer is always the same width percent!
+
+    //Build is called each time the paint redraws and hence this offset will override the previous offset that was set in onPanUpdate.
+    //So, to start out with a curve while still allowing the user's motion to move the curve, we must add the following check
+    if(firstBuild) {
+      firstBuild = false;
+      _offset = Offset(sidebarSize + archHeight.toDouble(), mediaQuery.height/2);
+      //_offset = Offset(0, 0);
+    }
 
     return Container(
       width: sidebarSize,
       child: Drawer(
-        child: AnimatedPositioned(
-          duration: Duration(milliseconds: animationDuration),
-          left: isMenuOpen ? 0 : -sidebarSize + pixelsShownWhenClosed,
-          top: 0,
-          curve: Curves.elasticOut,
-          child: SizedBox(//TODO - change this to a scrollView
-            width:sidebarSize,
+          //width:sidebarSize/2,
+         // height: double.infinity,
+          child: SizedBox(
+            width: double.infinity,
             child: GestureDetector(//TODO - swipe left to close
               onPanUpdate: (details) {
-                if(details.localPosition.dx <= sidebarSize) {
+                //if(details.localPosition.dx >= sidebarSize && details.localPosition.dx <= sidebarSize + archHeight) {
                   setState((){
                     _offset = details.localPosition;
+                    print("Offset: $_offset sidebarSize:$sidebarSize");
                   });
-                }
-
-                if(details.localPosition.dx>sidebarSize - pixelsShownWhenClosed && details.delta.distanceSquared > 2){
-                  setState(() {
-                    isMenuOpen = true;
-                  });
-                }
+                //}
               },
               onPanEnd: (details) {
                 setState(() {
-                  _offset = Offset(0,0);
+                  //_offset = Offset(0,0);
+                  _offset = Offset(sidebarSize + archHeight.toDouble(), mediaQuery.height/2);
                 });
               },
               child: Stack(
@@ -93,13 +96,12 @@ class _ElasticDrawerState extends State<ElasticDrawer> {
                     size: Size(sidebarSize, mediaQuery.height),
                     painter: DrawerPainter(offset: _offset, archHeight: archHeight),
                   ),
-                  content,
+                  Text("yo"),
                 ],
               ),
             ),
           ),
         ),
-      ),
     );
   }
 }
@@ -112,22 +114,30 @@ class DrawerPainter extends CustomPainter {
   DrawerPainter({ this.offset, this.archHeight });
 
   double getControlPointX(double width) {
-    if(offset.dx == 0) {
+    /*if(offset.dx == 0) {
       return width;
     } else {
       return offset.dx > width ? offset.dx : width + archHeight;
+    }*/
+    if (offset.dx <= width) {
+      return width;
+    } else if (offset.dx >= width + archHeight) {
+      return width + archHeight;
+    } else {
+      return offset.dx;
     }
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = Colors.white..style = PaintingStyle.fill;
+    print("Painting dx:${offset.dx} dy:${offset.dy}");
+    Paint paint = Paint()..color = Colors.red..style = PaintingStyle.fill;
     Path path = Path();
-    path.moveTo(-size.width, 0);
+    path.moveTo(0, 0);
     path.lineTo(size.width, 0);
     path.quadraticBezierTo(getControlPointX(size.width), offset.dy, size.width, size.height);
     path.lineTo(size.width, size.height);
-    path.lineTo(-size.width, size.height);
+    path.lineTo(0, size.height);
     path.close();
 
     canvas.drawPath(path, paint);
