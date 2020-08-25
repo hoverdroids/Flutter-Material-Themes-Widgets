@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_themes_widgets/drawers/liquid_drawer.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
+import 'package:material_themes_widgets/lists/scaling_items_list.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -68,7 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-      drawer: ThemedLiquidDrawer(),
+      drawer: ThemedLiquidDrawer(
+        content: ScalingItemsList("assets/food_1.jpg"),
+      ),
     );
   }
 }
