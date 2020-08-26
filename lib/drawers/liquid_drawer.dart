@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +66,7 @@ class LiquidDrawer extends StatefulWidget {
 
   @override
   _LiquidDrawerState createState() => _LiquidDrawerState(
-    content: content != null ? content : Container(),//TODO - we can't pass null but can't instantiate the Container as a default because, "the default value of an optional param must be constant"
+    child: content != null ? content : Container(),//TODO - we can't pass null but can't instantiate the Container as a default because, "the default value of an optional param must be constant"
     percentOfWidth: percentOfWidth,
     archHeight: archHeight,
     showCurvedByDefault: showCurvedByDefault,
@@ -77,7 +78,7 @@ class LiquidDrawer extends StatefulWidget {
 
 class _LiquidDrawerState extends State<LiquidDrawer> {
 
-  final Widget content;
+  final Widget child;
   final double percentOfWidth;
   final int archHeight;
   final bool showCurvedByDefault;
@@ -86,7 +87,7 @@ class _LiquidDrawerState extends State<LiquidDrawer> {
   final Color endColor;
 
   _LiquidDrawerState({
-    this.content,
+    this.child,
     this.percentOfWidth,
     this.archHeight,
     this.showCurvedByDefault,
@@ -124,35 +125,35 @@ class _LiquidDrawerState extends State<LiquidDrawer> {
     return Container(
       width: sidebarSize,
       child: Drawer(
-          child: SizedBox(
-            width: double.infinity,
-            child: GestureDetector(
-              onPanUpdate: (details) {
-                setState((){
-                  isScrolling = true;
-                  _offset = details.localPosition;
-                });
-              },
-              onPanEnd: (details) {
-                setState(() {
-                  isScrolling = false;
-                  var finalDx = showCurvedByDefault ? sidebarSize + archHeight.toDouble() : 0;
-                  var finalDy = showCurvedByDefault ? mediaQuery.height/2 : 0;
-                  _offset = Offset(finalDx, finalDy);
-                });
-              },
-              child: Stack(
-                children: <Widget>[
-                  CustomPaint(
-                    size: Size(sidebarSize, mediaQuery.height),
-                    painter: DrawerPainter(offset: _offset, archHeight: archHeight, paint: getPaint(sidebarSize, mediaQuery.height), showCurvedByDefault: showCurvedByDefault),
-                  ),
-                  content,
-                ],
+        child: SizedBox(
+              width: double.infinity,
+              child: GestureDetector(
+                onPanUpdate: (details) {
+                  setState((){
+                    isScrolling = true;
+                    _offset = details.localPosition;
+                  });
+                },
+                onPanEnd: (details) {
+                  setState(() {
+                    isScrolling = false;
+                    var finalDx = showCurvedByDefault ? sidebarSize + archHeight.toDouble() : 0;
+                    var finalDy = showCurvedByDefault ? mediaQuery.height/2 : 0;
+                    _offset = Offset(finalDx, finalDy);
+                  });
+                },
+                child: Stack(
+                  children: <Widget>[
+                    CustomPaint(
+                      size: Size(sidebarSize, mediaQuery.height),
+                      painter: DrawerPainter(offset: _offset, archHeight: archHeight, paint: getPaint(sidebarSize, mediaQuery.height), showCurvedByDefault: showCurvedByDefault),
+                    ),
+                    child,
+                  ],
+                ),
               ),
             ),
-          ),
-        ),
+      ),
     );
   }
 
@@ -195,7 +196,7 @@ class DrawerPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Path path = Path();
     path.moveTo(0, 0);
-    path.lineTo(size.width, 0);
+    path.lineTo(size.width-200, 0);
     path.quadraticBezierTo(getControlPointX(size.width), offset.dy, size.width, size.height);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);

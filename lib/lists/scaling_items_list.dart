@@ -6,6 +6,7 @@ class ScalingItemsList extends StatefulWidget {
   String imageUrl;
   ClipPathType clipPathType;
   //TODO - image padding for boiler plate header image
+  //also look at https://pub.dev/packages/polygon_clipper
 
   ScalingItemsList(this.imageUrl, {this.clipPathType = ClipPathType.ROUNDED_DOWN});
 
@@ -27,7 +28,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
 
     return Container(
       height: mediaQuery.height,
-      width: double.infinity,
+      width: 1200,
       child: Column(
         children: <Widget>[
           Flexible(

@@ -3,6 +3,8 @@ import 'package:material_themes_widgets/drawers/liquid_drawer.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/lists/scaling_items_list.dart';
 import 'package:provider/provider.dart';
+import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
+import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 
 void main() {
   runApp(
@@ -69,8 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-      drawer: ThemedLiquidDrawer(
-        content: ScalingItemsList("assets/food_1.jpg"),
+      drawer: SimpleClipPathDrawer(
+        child: ScalingItemsList("assets/food_1.jpg"),
+        clipPathType: ClipPathType.CLOUDS,
       ),
     );
   }
