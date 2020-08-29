@@ -8,12 +8,12 @@ import 'grayscale_theme_list_items_page.dart';
 import 'main_theme_list_items_page.dart';
 import 'wireframe_theme_list_items_page.dart';
 
-class MainPager extends StatefulWidget {
-  MainPager({Key key}) : super(key: key);
-  _MainPagerState createState() => _MainPagerState();
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MainPagerState extends State<MainPager> {
+class _HomePageState extends State<HomePage> {
 
   int _selectedItem = 0;
 
