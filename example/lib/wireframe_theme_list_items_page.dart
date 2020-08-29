@@ -20,9 +20,9 @@ class WireframeThemeListItemsPage extends StatelessWidget {
           actions: <Widget>[
             ThemedSwitch(
               type: ThemeGroupType.MOM,
-              value: Provider.of<MaterialThemesManager>(context).isDarkModeEnabled,
+              value: context.watch<MaterialThemesManager>().isDarkModeEnabled,
               onChanged: (boolVal) {
-                Provider.of<MaterialThemesManager>(context).updateDarkModeEnabled(boolVal);
+                context.read<MaterialThemesManager>().updateDarkModeEnabled(boolVal);
               },
             )
           ],
