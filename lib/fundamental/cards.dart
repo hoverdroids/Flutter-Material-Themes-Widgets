@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
+import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:provider/provider.dart';
+
+import 'icons.dart';
+
+class ThemedCard4 extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MaterialThemesManager>(
+        builder: (context, themeManager, widget) {
+          return Card(
+            color: themeManager.getTheme(ThemeGroupType.POM).cardTheme.color,
+            child: ListTile(
+              title: ThemedTitle("Title A", type: ThemeGroupType.MOM),
+              subtitle: ThemedSubTitle("SubTitle A", type: ThemeGroupType.MOM),
+              leading: ThemedIcon(Icons.alarm, type: ThemeGroupType.MOM),
+              trailing: ThemedIcon(Icons.chevron_right, type: ThemeGroupType.MOM),
+            ),
+          );
+        }
+    );
+  }
+}
+
+
 
 class ThemedCard2 extends Card {
   ThemedCard2({child}) : super(child: child);

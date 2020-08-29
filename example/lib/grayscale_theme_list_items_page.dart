@@ -31,19 +31,7 @@ class GrayscaleThemeListItemsPage extends StatelessWidget {
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, pos) {
-              return Consumer<MaterialThemesManager>(
-                builder: (context, themeManager, widget) {
-                  return Card(
-                    color: themeManager.getTheme(ThemeGroupType.POM).cardTheme.color,
-                    child: ListTile(
-                      title: ThemedTitle("Title $pos", type: ThemeGroupType.MOM),
-                      subtitle: ThemedSubTitle("SubTitle $pos", type: ThemeGroupType.MOM),
-                      leading: ThemedIcon(Icons.alarm, type: ThemeGroupType.MOM),
-                      trailing: ThemedIcon(Icons.chevron_right, type: ThemeGroupType.MOM),
-                    ),
-                  );
-                }
-              );
+              return ThemedCard4();
             },
           ),
         )
