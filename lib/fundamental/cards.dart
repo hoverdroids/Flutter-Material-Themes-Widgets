@@ -15,26 +15,30 @@ class ThemedCard3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [
-          Container(
-            height: 200,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  //TODO - extend the ThemeData so we can use gradients
-                  Colors.red,
-                  Colors.blueAccent,
-                ],
-              ),
-            ),
+    return Consumer<MaterialThemesManager>(
+      builder: (context, themeManager, child) {
+        return Container(
+          child: Stack(
+              children: [
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        //TODO - extend the ThemeData so we can use gradients
+                        Colors.blueAccent,//Provider.of<MaterialThemesManager>(context).getTheme(type).cardTheme.color,
+                        Provider.of<MaterialThemesManager>(context).getTheme(type).cardTheme.color,
+                      ],
+                    ),
+                  ),
+                ),
+                Card(child: child)
+              ]
           ),
-          Card(child: child)
-        ]
-      ),
+        );
+      },
     );
   }
 }
