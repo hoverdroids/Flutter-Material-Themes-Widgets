@@ -34,8 +34,8 @@ class SimpleClipPathDrawer extends StatelessWidget {
                       end: Alignment.bottomCenter,
                       colors: [
                         //TODO - extend the ThemeData so we can use gradients
-                        Provider.of<MaterialThemesManager>(context).getTheme(type).cardTheme.color,
-                        Provider.of<MaterialThemesManager>(context).getTheme(type).cardTheme.color,
+                        context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
+                        context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
                       ],
                     ),
                   ),

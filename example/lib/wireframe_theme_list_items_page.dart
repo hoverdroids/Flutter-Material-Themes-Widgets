@@ -13,7 +13,7 @@ class WireframeThemeListItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Provider.of<MaterialThemesManager>(context).getTheme(ThemeGroupType.MOM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
+          backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
           title: ThemedTitle('WireFrame', type: ThemeGroupType.MOM),
           //elevation: 0,//removes the shadow
           leading: ThemedIcon(Icons.menu, type: ThemeGroupType.MOM),

@@ -15,8 +15,8 @@ class ThemedCard3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MaterialThemesManager>(
-      builder: (context, themeManager, child) {
+    //return Consumer<MaterialThemesManager>(
+     // builder: (context, themeManager, child) {
         return Container(
           child: Stack(
               children: [
@@ -29,7 +29,7 @@ class ThemedCard3 extends StatelessWidget {
                       colors: [
                         //TODO - extend the ThemeData so we can use gradients
                         Colors.blueAccent,//Provider.of<MaterialThemesManager>(context).getTheme(type).cardTheme.color,
-                        Provider.of<MaterialThemesManager>(context).getTheme(type).cardTheme.color,
+                        context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
                       ],
                     ),
                   ),
@@ -38,8 +38,8 @@ class ThemedCard3 extends StatelessWidget {
               ]
           ),
         );
-      },
-    );
+      //},
+    //);
   }
 }
 

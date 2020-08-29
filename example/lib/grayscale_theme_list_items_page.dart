@@ -13,7 +13,7 @@ class GrayscaleThemeListItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Provider.of<MaterialThemesManager>(context).getTheme(ThemeGroupType.MOM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
+          backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
           title: ThemedTitle('Grayscale', type: ThemeGroupType.MOM),
           //elevation: 0,//removes the shadow
           leading: ThemedIcon(Icons.menu, type: ThemeGroupType.MOM),
@@ -31,13 +31,18 @@ class GrayscaleThemeListItemsPage extends StatelessWidget {
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, pos) {
-              return Card(
-                child: ListTile(
-                  title: ThemedTitle("Title $pos", type: ThemeGroupType.MOM),
-                  subtitle: ThemedSubTitle("SubTitle $pos", type: ThemeGroupType.MOM),
-                  leading: ThemedIcon(Icons.alarm, type: ThemeGroupType.MOM),
-                  trailing: ThemedIcon(Icons.chevron_right, type: ThemeGroupType.MOM),
-                ),
+              return Consumer<MaterialThemesManager>(
+                builder: (context, themeManager, widget) {
+                  return Card(
+                    color: themeManager.getTheme(ThemeGroupType.POM).cardTheme.color,
+                    child: ListTile(
+                      title: ThemedTitle("Title $pos", type: ThemeGroupType.MOM),
+                      subtitle: ThemedSubTitle("SubTitle $pos", type: ThemeGroupType.MOM),
+                      leading: ThemedIcon(Icons.alarm, type: ThemeGroupType.MOM),
+                      trailing: ThemedIcon(Icons.chevron_right, type: ThemeGroupType.MOM),
+                    ),
+                  );
+                }
               );
             },
           ),

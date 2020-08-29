@@ -13,7 +13,7 @@ class MainThemeListItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Provider.of<MaterialThemesManager>(context).getTheme(ThemeGroupType.POM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
+          backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.POM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
           title: ThemedTitle('Primary on Main', type: ThemeGroupType.MOP),
           //elevation: 0,//removes the shadow
           leading: ThemedIcon(Icons.menu, type: ThemeGroupType.MOP),
