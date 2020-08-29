@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:material_themes_widgets/fundamental/icons.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_widgets/fundamental/toggles.dart';
+import 'package:material_themes_widgets/fundamental/cards.dart';
 
 //This will appear as the user expects with standard theming in light/dark (e.g. white/black bg with colors on buttons and titles, all else are greys)
 class MainThemeListItemsPage extends StatelessWidget {
@@ -30,8 +31,7 @@ class MainThemeListItemsPage extends StatelessWidget {
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, pos) {
-              return Card(
-                elevation: 0,
+              return ThemedCard3(
                 child: ListTile(
                   title: ThemedTitle("Title $pos", type: ThemeGroupType.POM),
                   subtitle: ThemedSubTitle("SubTitle $pos", type: ThemeGroupType.MOM),
