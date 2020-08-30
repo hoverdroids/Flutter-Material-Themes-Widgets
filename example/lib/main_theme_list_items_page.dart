@@ -31,7 +31,7 @@ class MainThemeListItemsPage extends StatelessWidget {
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, pos) {
-              return ThemedCard3(
+              return ThemedCard(
                 child: ListTile(
                   title: ThemedTitle("Title $pos", type: ThemeGroupType.POM),
                   subtitle: ThemedSubTitle("SubTitle $pos", type: ThemeGroupType.MOM),

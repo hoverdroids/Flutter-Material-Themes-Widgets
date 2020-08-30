@@ -31,7 +31,7 @@ class WireframeThemeListItemsPage extends StatelessWidget {
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, pos) {
-              return ThemedCard3(
+              return ThemedCard(
                 child: ListTile(
                   title: ThemedTitle("Title $pos", type: ThemeGroupType.MOM),
                   subtitle: ThemedSubTitle("SubTitle $pos", type: ThemeGroupType.MOM),

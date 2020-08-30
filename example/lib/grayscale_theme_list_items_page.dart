@@ -31,7 +31,7 @@ class GrayscaleThemeListItemsPage extends StatelessWidget {
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, pos) {
-              return ThemedCard4();
+              return ThemedListTileCard(title: "Title $pos", subtitle: "Subtitle $pos");
             },
           ),
         )

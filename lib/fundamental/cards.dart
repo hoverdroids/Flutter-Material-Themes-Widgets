@@ -5,116 +5,109 @@ import 'package:provider/provider.dart';
 
 import 'icons.dart';
 
-class ThemedCard4 extends StatelessWidget {
+class ThemedCard extends Card {
+  
+  final ThemeGroupType type;
+  
+  ThemedCard({
+    key,
+    this.type = ThemeGroupType.MOM,
+    shadowColor,
+    elevation,
+    shape,
+    borderOnForeground = true,
+    margin,
+    clipBehavior,
+    child,
+    semanticContainer = true,
+  }): super(
+    key: key,
+    shadowColor: shadowColor,
+    elevation: elevation,
+    shape: shape,
+    borderOnForeground: borderOnForeground,
+    margin: margin,
+    clipBehavior: clipBehavior,
+    child: child,
+    semanticContainer: semanticContainer,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MaterialThemesManager>(
-        builder: (context, themeManager, widget) {
-          return Card(
-            color: themeManager.getTheme(ThemeGroupType.POM).cardTheme.color,
-            child: ListTile(
-              title: ThemedTitle("Title A", type: ThemeGroupType.MOM),
-              subtitle: ThemedSubTitle("SubTitle A", type: ThemeGroupType.MOM),
-              leading: ThemedIcon(Icons.alarm, type: ThemeGroupType.MOM),
-              trailing: ThemedIcon(Icons.chevron_right, type: ThemeGroupType.MOM),
-            ),
-          );
-        }
+    return Card(
+      key: key,
+      color: context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
+      shadowColor: shadowColor,
+      elevation: elevation,
+      shape: shape,
+      borderOnForeground: borderOnForeground,
+      margin: margin,
+      clipBehavior: clipBehavior,
+      child: child,
+      semanticContainer: semanticContainer,
     );
   }
 }
 
-
-
-class ThemedCard2 extends Card {
-  ThemedCard2({child}) : super(child: child);
-}
-
-class ThemedCard3 extends StatelessWidget {
+class ThemedListTileCard extends Card {
 
   final ThemeGroupType type;
-  final Widget child;
+  final IconData leadingIcon;
+  final ThemeGroupType leadingType;
+  final String title;
+  final ThemeGroupType titleType;
+  final String subtitle;
+  final ThemeGroupType subtitleType;
+  final IconData trailingIcon;
+  final ThemeGroupType trailingType;
 
-  ThemedCard3({this.child, this.type = ThemeGroupType.MOM});
-
-  @override
-  Widget build(BuildContext context) {
-    //return Consumer<MaterialThemesManager>(
-     // builder: (context, themeManager, child) {
-        return Container(
-          child: Stack(
-              children: [
-                Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        //TODO - extend the ThemeData so we can use gradients
-                        Colors.blueAccent,//Provider.of<MaterialThemesManager>(context).getTheme(type).cardTheme.color,
-                        context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
-                      ],
-                    ),
-                  ),
-                ),
-                Card(child: child)
-              ]
-          ),
-        );
-      //},
-    //);
-  }
-}
-
-class ThemedCard extends StatelessWidget {
-
-  final Key key;
-  final ThemeGroupType type;
-  final Color shadowColor;
-  final double elevation;
-  final ShapeBorder shape;
-  final bool borderOnForeground;
-  final EdgeInsetsGeometry margin;
-  final Clip clipBehavior;
-  final Widget child;
-  final bool semanticContainer;
-  
-  ThemedCard({
-    this.key,
+  ThemedListTileCard({
+    key,
     this.type = ThemeGroupType.MOM,
-    this.shadowColor,
-    this.elevation,
-    this.shape,
-    this.borderOnForeground = true,
-    this.margin,
-    this.clipBehavior,
-    this.child,
-    this.semanticContainer = true,
-  });
-  
+    this.leadingIcon,
+    this.leadingType = ThemeGroupType.MOM,
+    this.title,
+    this.titleType = ThemeGroupType.POM,
+    this.subtitle,
+    this.subtitleType = ThemeGroupType.MOM,
+    this.trailingIcon,
+    this.trailingType = ThemeGroupType.MOM,
+    shadowColor,
+    elevation,
+    shape,
+    borderOnForeground = true,
+    margin,
+    clipBehavior,
+    semanticContainer = true,
+  }): super(
+    key: key,
+    shadowColor: shadowColor,
+    elevation: elevation,
+    shape: shape,
+    borderOnForeground: borderOnForeground,
+    margin: margin,
+    clipBehavior: clipBehavior,
+    semanticContainer: semanticContainer,
+  );
+
   @override
   Widget build(BuildContext context) {
-
-    //construct a default widget in order to fall back on default values when the optional params aren't passed
-    var defaultCard = Card();
-
-    return Consumer<MaterialThemesManager>(
-      builder: (context, themeManager, child) {
-        return Card(
-          //key: key != null ? key : defaultCard.key,
-          color: themeManager.getTheme(type).cardTheme.color,
-          //shadowColor: shadowColor != null ? shadowColor : defaultCard.shadowColor,
-          //elevation: elevation != null ? elevation : defaultCard.elevation,
-          //shape: shape != null ? shape : defaultCard.shape,
-          //borderOnForeground: borderOnForeground != null ? borderOnForeground : defaultCard.borderOnForeground,
-          //margin: margin != null ? margin : defaultCard.margin,
-          //clipBehavior: clipBehavior != null ? clipBehavior : defaultCard.clipBehavior,
-          child: child != null ? child : defaultCard.child,
-          //semanticContainer: semanticContainer != null ? semanticContainer : defaultCard.semanticContainer,
-        );
-      },
+    return Card(
+      key: key,
+      color: context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
+      shadowColor: shadowColor,
+      elevation: elevation,
+      shape: shape,
+      borderOnForeground: borderOnForeground,
+      margin: margin,
+      clipBehavior: clipBehavior,
+      child:  ListTile(
+        title: title == null ? null : ThemedTitle(title, type: titleType),
+        subtitle: subtitle == null ? null : ThemedSubTitle(subtitle, type: subtitleType),
+        leading: leadingIcon == null ? null : ThemedIcon(leadingIcon, type: leadingType),
+        trailing: trailingIcon == null ? null : ThemedIcon(trailingIcon, type: trailingType),
+      ),
+      semanticContainer: semanticContainer,
     );
   }
 }

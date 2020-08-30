@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/scaling_items_list.dart';
-
+import 'package:material_themes_widgets/screens/login_screen.dart';
 import 'grayscale_theme_list_items_page.dart';
 import 'main_theme_list_items_page.dart';
 import 'wireframe_theme_list_items_page.dart';
+import 'package:material_themes_manager/material_themes_manager.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -60,6 +62,11 @@ class _HomePageState extends State<HomePage> {
             ]
         ),
         clipPathType: ClipPathType.CLOUDS,
+      ),
+      endDrawer: SimpleClipPathDrawer(
+        child: LoginScreen(),
+        clipPathType: ClipPathType.CLOUDS,
+        backgroundGradientType: BackgroundGradientType.PRIMARY,
       ),
       /*bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
