@@ -8,12 +8,13 @@ import 'icons.dart';
 class ThemedCard extends Card {
   
   final ThemeGroupType type;
+  final ElevationLevel elevationLevel;
   
   ThemedCard({
     key,
     this.type = ThemeGroupType.MOM,
     shadowColor,
-    elevation,
+    this.elevationLevel = ElevationLevel.LOW,
     shape,
     borderOnForeground = true,
     margin,
@@ -23,7 +24,6 @@ class ThemedCard extends Card {
   }): super(
     key: key,
     shadowColor: shadowColor,
-    elevation: elevation,
     shape: shape,
     borderOnForeground: borderOnForeground,
     margin: margin,
@@ -38,7 +38,7 @@ class ThemedCard extends Card {
       key: key,
       color: context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
       shadowColor: shadowColor,
-      elevation: elevation,
+      elevation: context.watch<MaterialThemesManager>().getTheme(type, elevationLevel: elevationLevel).cardTheme.elevation,
       shape: shape,
       borderOnForeground: borderOnForeground,
       margin: margin,
@@ -60,6 +60,7 @@ class ThemedListTileCard extends Card {
   final ThemeGroupType subtitleType;
   final IconData trailingIcon;
   final ThemeGroupType trailingType;
+  final ElevationLevel elevationLevel;
 
   ThemedListTileCard({
     key,
@@ -73,7 +74,7 @@ class ThemedListTileCard extends Card {
     this.trailingIcon,
     this.trailingType = ThemeGroupType.MOM,
     shadowColor,
-    elevation,
+    this.elevationLevel = ElevationLevel.LOW,
     shape,
     borderOnForeground = true,
     margin,
@@ -82,7 +83,6 @@ class ThemedListTileCard extends Card {
   }): super(
     key: key,
     shadowColor: shadowColor,
-    elevation: elevation,
     shape: shape,
     borderOnForeground: borderOnForeground,
     margin: margin,
@@ -96,7 +96,7 @@ class ThemedListTileCard extends Card {
       key: key,
       color: context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
       shadowColor: shadowColor,
-      elevation: elevation,
+      elevation: context.watch<MaterialThemesManager>().getTheme(type, elevationLevel: elevationLevel).cardTheme.elevation,
       shape: shape,
       borderOnForeground: borderOnForeground,
       margin: margin,

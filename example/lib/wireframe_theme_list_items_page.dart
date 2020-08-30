@@ -32,8 +32,9 @@ class WireframeThemeListItemsPage extends StatelessWidget {
             itemCount: 10,
             itemBuilder: (context, pos) {
               return ThemedCard(
+                elevationLevel: ElevationLevel.FLAT,
                 child: ListTile(
-                  title: ThemedTitle("Title $pos", type: ThemeGroupType.MOM),
+                  title: ThemedTitle("Title $pos", type: ThemeGroupType.MOM, emphasis: Emphasis.HIGH),
                   subtitle: ThemedSubTitle("SubTitle $pos", type: ThemeGroupType.MOM),
                   leading: ThemedIcon(Icons.alarm, type: ThemeGroupType.MOM),
                   trailing: ThemedIcon(Icons.chevron_right, type: ThemeGroupType.MOM),

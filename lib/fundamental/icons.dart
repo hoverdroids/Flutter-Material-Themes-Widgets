@@ -6,12 +6,21 @@ class ThemedIcon extends StatelessWidget {
 
   final IconData icon;
   final Key key;
-  final double size;//TODO - break down by simple sizes vs pixels: IconSize iconSize;
+  final IconSize size;
   final ThemeGroupType type;
   final String semanticLabel;
   final TextDirection textDirection;
 
-  ThemedIcon(this.icon, {this.type  = ThemeGroupType.MOM, this.key, this.size, this.semanticLabel, this.textDirection});
+  ThemedIcon(
+      this.icon,
+      {
+        this.type  = ThemeGroupType.MOM,
+        this.key,
+        this.size = IconSize.SMALL,
+        this.semanticLabel,
+        this.textDirection
+      }
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +33,7 @@ class ThemedIcon extends StatelessWidget {
         return Icon(
           icon,
           key: key != null ? key : defaultIcon.key,
-          size: size != null ? size : defaultIcon.size,
+          size: themeManager.getTheme(type, iconSize: size).iconTheme.size,
           color: themeManager.getTheme(type).iconTheme.color,
           semanticLabel: semanticLabel != null ? semanticLabel : defaultIcon.semanticLabel,
           textDirection: textDirection != null ? textDirection : defaultIcon.textDirection,
