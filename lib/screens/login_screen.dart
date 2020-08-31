@@ -45,7 +45,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ThemedEmailEntry(showLabel: showLabels, showForgotEmail: showForgots),
                     //mediumTransparentDivider,//TODO - make the dividers conditional on showLabel (if showLable, don't add divider)
                     ThemedPasswordEntry(showLabel: showLabels, showForgotPassword: showForgots),
-                    ThemedCheckbox(text: "Remeber me")
+                    //ThemedCheckbox(text: "Remeber me")
+                    //TODO - look back at PikaJo and get the social media icons
+                    RaisedButton(
+                        color: Colors.white,
+                        onPressed: () => print("pressed login"),
+                        child: ThemedTitle("Login", type: ThemeGroupType.SOM)),
                   ],
                 ),
               ),
