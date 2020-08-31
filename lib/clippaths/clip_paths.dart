@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //Derived from: https://www.developerlibs.com/2019/08/flutter-draw-custom-shaps-clip-path.html
 enum ClipPathType {
+  NONE,
   ROUNDED_DOWN,
   ROUNDED_UP,
   TRIANGLE_DOWN,
@@ -33,13 +34,23 @@ class SimpleClipPath extends CustomClipper<Path> {
         return getJagged(size);
       case ClipPathType.CLOUDS:
         return getClouds(size);
-      default:
+      case ClipPathType.BOILER_PLATE:
         return getBoilerPlate(size);
+      default:
+        return getNone(size);
     }
   }
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+
+  Path getNone(Size size) {
+    Path path = Path();
+    path.lineTo(size.width, 0.0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0.0, size.height);
+    return path;
+  }
 
   Path getRoundedDown(Size size) {
     Path path = Path();

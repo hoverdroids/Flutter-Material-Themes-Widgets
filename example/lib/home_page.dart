@@ -65,8 +65,9 @@ class _HomePageState extends State<HomePage> {
       ),
       endDrawer: SimpleClipPathDrawer(
         child: LoginScreen(),
-        clipPathType: ClipPathType.CLOUDS,
-        backgroundGradientType: BackgroundGradientType.PRIMARY,
+        padding: 0.0,
+        clipPathType: ClipPathType.NONE,
+        backgroundGradientType: BackgroundGradientType.SECONDARY,
       ),
       /*bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[

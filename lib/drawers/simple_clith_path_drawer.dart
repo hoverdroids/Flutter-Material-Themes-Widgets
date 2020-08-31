@@ -21,6 +21,7 @@ class SimpleClipPathDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       child: Padding(
         child: ClipPath(
           child: Drawer(
