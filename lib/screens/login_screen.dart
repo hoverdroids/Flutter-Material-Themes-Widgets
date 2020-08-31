@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/forms/form_fields.dart';
+import 'package:material_themes_widgets/fundamental/checkboxes.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -43,7 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     //largeTransparentDivider,
                     ThemedEmailEntry(showLabel: showLabels, showForgotEmail: showForgots),
                     //mediumTransparentDivider,//TODO - make the dividers conditional on showLabel (if showLable, don't add divider)
-                    ThemedPasswordEntry(showLabel: showLabels, showForgotPassword: showForgots)
+                    ThemedPasswordEntry(showLabel: showLabels, showForgotPassword: showForgots),
+                    ThemedCheckbox(text: "Remeber me")
                   ],
                 ),
               ),
