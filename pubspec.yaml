@@ -1,6 +1,6 @@
 name: material_themes_widgets
 description: Widgets that use the Material Themes Manager by default in order to allow for theme udpates
-version: 0.0.1
+version: 0.0.3
 homepage: http://hoverdroids.com
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
 
   material_themes_manager: ^0.0.16
+  provider: ^4.0.4
 
 dev_dependencies:
   flutter_test:

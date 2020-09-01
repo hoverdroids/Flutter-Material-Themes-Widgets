@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
         child: LoginScreen(),
         padding: 0.0,
         clipPathType: ClipPathType.NONE,
-        backgroundGradientType: BackgroundGradientType.SECONDARY,
+        backgroundGradientType: BackgroundGradientType.PRIMARY,
       ),
       /*bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[

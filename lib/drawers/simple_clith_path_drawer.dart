@@ -10,18 +10,27 @@ class SimpleClipPathDrawer extends StatelessWidget {
   final double padding;
   final ClipPathType clipPathType;
   final BackgroundGradientType backgroundGradientType;
+  final double width;
+  final double widthPercent;
+  //TODO - show tab or a number of pixels when closed, to indicate a drawer exists
 
   SimpleClipPathDrawer({
     this.child,
     this.padding = paddingSmall,
     this.clipPathType = ClipPathType.BOILER_PLATE,
     this.backgroundGradientType = BackgroundGradientType.MAIN_BG,
+    this.width,
+    this.widthPercent = 0.70
   });
 
   @override
   Widget build(BuildContext context) {
+
+    Size mediaQuery = MediaQuery.of(context).size;
+    double calculatedWidth = mediaQuery.width * widthPercent;
+
     return Container(
-      width: double.infinity,
+      width: width != null ? width : calculatedWidth,
       child: Padding(
         child: ClipPath(
           child: Drawer(
