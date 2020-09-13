@@ -52,13 +52,11 @@ class _HomePageState extends State<HomePage> {
         child: ScalingItemsList(
             "assets/food_1.jpg",
             [
-              ListItemModel("My Item 1", Icons.add, iconClickedCallback: () => print("Clicked item 1")),
-              ListItemModel("My Item 2", Icons.account_circle, iconClickedCallback: () => print("Clicked item 1")),
-              ListItemModel("My Item 3", Icons.ac_unit, iconClickedCallback: () => print("Clicked item 1")),
-              ListItemModel("My Item 4", Icons.access_alarm, iconClickedCallback: () => print("Clicked item 1")),
-              ListItemModel("My Item 5", Icons.access_time, iconClickedCallback: () => print("Clicked item 1")),
-              ListItemModel("My Item 6", Icons.accessible, iconClickedCallback: () => print("Clicked item 1")),
-              ListItemModel("My Item 7", Icons.filter_drama, iconClickedCallback: () => print("Clicked item 1"))
+              ListItemModel(text: "Drama Mama"),
+              ListItemModel(text: "Drama Papa", icon: Icons.filter_drama),
+              ListItemModel(text: "Your drama", icon: Icons.add, itemClickedCallback: () => print("Clicked your drama")),
+              ListItemModel(icon: Icons.account_circle),
+              ListItemModel(icon: Icons.access_alarm, itemClickedCallback: () => print("Clicked item 4")),
             ]
         ),
         clipPathType: ClipPathType.CLOUDS,

@@ -11,23 +11,86 @@ class ScalingItemsList extends StatefulWidget {
   final String imageUrl;
   final ClipPathType clipPathType;
   final List<ListItemModel> listItems;
+  final int headerFlex;
+  final int itemsFlex;
+  final ThemeGroupType type;
 
   //TODO - image padding for boiler plate header image
   //also look at https://pub.dev/packages/polygon_clipper
 
-  ScalingItemsList(this.imageUrl, this.listItems, {this.clipPathType = ClipPathType.ROUNDED_DOWN});
+  ScalingItemsList(
+      this.imageUrl,
+      this.listItems,
+      {
+        this.clipPathType = ClipPathType.ROUNDED_DOWN,
+        this.headerFlex = 2,
+        this.itemsFlex = 4,
+        this.type = ThemeGroupType.MOM,
+      }
+  );
 
   @override
-  _ScalingItemsListState createState() => _ScalingItemsListState(imageUrl, listItems, clipPathType);
+  _ScalingItemsListState createState() => _ScalingItemsListState(imageUrl, listItems, clipPathType, headerFlex, itemsFlex, type);
 }
 
 class _ScalingItemsListState extends State<ScalingItemsList> {
 
-  String imageUrl;
-  ClipPathType clipPathType;
-  List<ListItemModel> listItems;
+  final String imageUrl;
+  final ClipPathType clipPathType;
+  final List<ListItemModel> listItems;
+  final int headerFlex;
+  final int itemsFlex;
+  final ThemeGroupType type;
 
-  _ScalingItemsListState(this.imageUrl, this.listItems, this.clipPathType);
+  _ScalingItemsListState(
+      this.imageUrl,
+      this.listItems,
+      this.clipPathType,
+      this.headerFlex,
+      this.itemsFlex,
+      this.type);
+
+  Widget _createIconWidget(BuildContext context, ListItemModel model) {
+    if (model.icon == null) {
+      return null;
+
+    } else if (model.itemClickedCallback == null) {
+      return ThemedIcon(
+          model.icon,
+          type: type
+      );
+
+    } else {
+      return GestureDetector(
+        onTap: model.itemClickedCallback,
+        child: ThemedIcon(
+          model.icon,
+          type: type,
+        ),
+      );
+    }
+  }
+
+  Widget _createTextWidget(BuildContext context, ListItemModel model) {
+    if (model.text == null) {
+      return null;
+
+    } else if (model.itemClickedCallback == null) {
+      return ThemedTitle(
+        model.text,
+        type: type,
+      );
+
+    } else {
+      return GestureDetector(
+        onTap: model.itemClickedCallback,
+        child: ThemedTitle(
+          model.text,
+          type: type,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,28 +98,13 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
     Size mediaQuery = MediaQuery.of(context).size;
 
     var children = <Widget>[];
-    listItems.forEach((element) {
-      var iconWidget = element.iconClickedCallback == null
-        ? ThemedIcon(
-            element.icon,
-            type: ThemeGroupType.MOM,
-          )
-        : GestureDetector(
-            onTap: element.iconClickedCallback,
-            child: ThemedIcon(
-              element.icon,
-              type: ThemeGroupType.MOM,
-            ),
-          );
+    listItems.forEach((model) {
 
       var listItemWidget = Flexible(
           flex: 1,
           child: ListTile(
-            leading: iconWidget,
-            title: ThemedTitle(
-              element.text,
-              type: ThemeGroupType.MOM,
-            ),
+            leading: _createIconWidget(context, model),
+            title: _createTextWidget(context, model),
           )
       );
       children.add(listItemWidget);
@@ -67,7 +115,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       child: Column(
         children: <Widget>[
           Flexible(
-            flex: 2,
+            flex: headerFlex,
             child: ClipPath(
               child: Image(
                 image: AssetImage(imageUrl),
@@ -78,7 +126,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
             ),
           ),
           Flexible(
-            flex: 4,
+            flex: itemsFlex,
             child: Column(
               children: children,
             ),

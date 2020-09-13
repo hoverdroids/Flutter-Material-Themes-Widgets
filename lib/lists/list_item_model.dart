@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ListItemModel {
   String text;
   IconData icon;
-  Function iconClickedCallback;
+  Function itemClickedCallback;
 
-  ListItemModel(this.text, this.icon, {this.iconClickedCallback});
+  ListItemModel({this.text, this.icon, this.itemClickedCallback});
 }
