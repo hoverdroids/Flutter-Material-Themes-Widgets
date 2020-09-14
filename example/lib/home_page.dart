@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   int _selectedItem = 0;
 
   //TODO - are any/all of the following possible/
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //TODO - each page needs its own appbar and navbar to prove the point
     return Scaffold(
+      key: _scaffoldKey,
       body: PageView(
         children: _pages,
         onPageChanged: (index){
@@ -49,6 +51,10 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
       drawer: SimpleClipPathDrawer(
+        leftIconType: ThemeGroupType.MOI,
+        leftIconClickedCallback: () => Navigator.pop(context),
+        rightIconType: ThemeGroupType.MOI,
+        rightIconClickedCallback: () => _scaffoldKey.currentState.openEndDrawer(),
         child: ScalingItemsList(
             "assets/food_1.jpg",
             [
@@ -57,7 +63,9 @@ class _HomePageState extends State<HomePage> {
               ListItemModel(text: "Your drama", icon: Icons.add, itemClickedCallback: () => print("Clicked your drama")),
               ListItemModel(icon: Icons.account_circle),
               ListItemModel(icon: Icons.access_alarm, itemClickedCallback: () => print("Clicked item 4")),
-            ]
+            ],
+          headerFlex: 4,
+          itemsFlex: 1,
         ),
         clipPathType: ClipPathType.CLOUDS,
       ),

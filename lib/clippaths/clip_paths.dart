@@ -9,15 +9,18 @@ enum ClipPathType {
   WAVE,
   JAGGED,
   CLOUDS,
-  BOILER_PLATE
+  BOILER_PLATE,
+  DIAGONAL_LEFT,
+  DIAGONAL_RIGHT
 }
 
 class SimpleClipPath extends CustomClipper<Path> {
 
   ClipPathType type;
   double radius;
+  double percentOfHeight;
 
-  SimpleClipPath({this.type = ClipPathType.ROUNDED_DOWN, this.radius = 10.0});
+  SimpleClipPath({this.type = ClipPathType.ROUNDED_DOWN, this.radius = 10.0, this.percentOfHeight = 50.0});
 
   @override
   Path getClip(Size size) {
@@ -36,6 +39,10 @@ class SimpleClipPath extends CustomClipper<Path> {
         return getClouds(size);
       case ClipPathType.BOILER_PLATE:
         return getBoilerPlate(size);
+      case ClipPathType.DIAGONAL_LEFT:
+        return getDiagonal(size, true, percentOfHeight);
+      case ClipPathType.DIAGONAL_RIGHT:
+        return getDiagonal(size, false, percentOfHeight);
       default:
         return getNone(size);
     }
@@ -135,4 +142,23 @@ class SimpleClipPath extends CustomClipper<Path> {
         clockwise: true, radius: Radius.circular(radius));
     return path;
   }
+
+  Path getDiagonal(Size size, bool isBottomLeftToTopRight, double percentOfHeight) {
+    Path path = Path();
+
+    var pixelsFromTop = (size.height * percentOfHeight) / 100.0;
+
+    if(isBottomLeftToTopRight) {
+      path.lineTo(size.width, 0);
+      path.lineTo(size.width, size.height - pixelsFromTop);
+      path.lineTo(0, size.height);
+    } else {
+      path.lineTo(size.width, 0);
+      path.lineTo(size.width, size.height);
+      path.lineTo(0, size.height - pixelsFromTop);
+    }
+
+    return path;
+  }
+
 }
