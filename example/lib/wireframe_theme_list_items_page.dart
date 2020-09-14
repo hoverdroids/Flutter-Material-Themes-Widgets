@@ -9,6 +9,11 @@ import 'package:material_themes_widgets/fundamental/cards.dart';
 //This will appear as the user expects with standard theming in light/dark (e.g. white/black bg with colors on buttons and titles, all else are greys)
 class WireframeThemeListItemsPage extends StatelessWidget {
   //TODO - there will be no difference between wirefram and grayscale without a palette change that uses borders instead of fills
+
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  WireframeThemeListItemsPage(this.scaffoldKey);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +21,11 @@ class WireframeThemeListItemsPage extends StatelessWidget {
           backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
           title: ThemedTitle('WireFrame', type: ThemeGroupType.MOM),
           //elevation: 0,//removes the shadow
-          leading: ThemedIcon(Icons.menu, type: ThemeGroupType.MOM),
+          leading: ThemedIconButton(
+            Icons.menu,
+            type: ThemeGroupType.MOM,
+            onPressedCallback: () => scaffoldKey.currentState.openDrawer(),
+          ),
           actions: <Widget>[
             ThemedSwitch(
               type: ThemeGroupType.MOM,

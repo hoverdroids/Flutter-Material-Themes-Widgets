@@ -9,6 +9,10 @@ import 'package:material_themes_widgets/fundamental/cards.dart';
 //This will appear as the user expects with standard theming in light/dark (e.g. white/black bg with colors on buttons and titles, all else are greys)
 class GrayscaleThemeListItemsPage extends StatelessWidget {
 
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  GrayscaleThemeListItemsPage(this.scaffoldKey);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +20,11 @@ class GrayscaleThemeListItemsPage extends StatelessWidget {
           backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
           title: ThemedTitle('Grayscale', type: ThemeGroupType.MOM),
           //elevation: 0,//removes the shadow
-          leading: ThemedIcon(Icons.menu, type: ThemeGroupType.MOM),
+          leading: ThemedIconButton(
+            Icons.menu,
+            type: ThemeGroupType.MOM,
+            onPressedCallback: () => scaffoldKey.currentState.openDrawer(),
+          ),
           actions: <Widget>[
             ThemedSwitch(
               type: ThemeGroupType.MOM,

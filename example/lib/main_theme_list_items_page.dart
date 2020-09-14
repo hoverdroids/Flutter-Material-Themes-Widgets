@@ -9,6 +9,10 @@ import 'package:material_themes_widgets/fundamental/cards.dart';
 //This will appear as the user expects with standard theming in light/dark (e.g. white/black bg with colors on buttons and titles, all else are greys)
 class MainThemeListItemsPage extends StatelessWidget {
 
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  MainThemeListItemsPage(this.scaffoldKey);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +20,11 @@ class MainThemeListItemsPage extends StatelessWidget {
           backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.POM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
           title: ThemedTitle('Primary on Main', type: ThemeGroupType.MOP),
           //elevation: 0,//removes the shadow
-          leading: ThemedIcon(Icons.menu, type: ThemeGroupType.MOP),
+          leading: ThemedIconButton(
+              Icons.menu,
+              type: ThemeGroupType.MOP,
+              onPressedCallback: () => scaffoldKey.currentState.openDrawer(),
+          ),
           actions: <Widget>[
             ThemedSwitch(
               type: ThemeGroupType.MOP,

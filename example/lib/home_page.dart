@@ -24,11 +24,6 @@ class _HomePageState extends State<HomePage> {
   //primary (ie primary cards on primary bg)
   //what you'd expect (ie primary cards on white/black bg)
   //inverted (ie white/black cards on primary bg)
-  var _pages = [
-    WireframeThemeListItemsPage(),
-    GrayscaleThemeListItemsPage(),
-    MainThemeListItemsPage(),
-  ];
   var _pageController = PageController();
 
   @override
@@ -37,7 +32,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _scaffoldKey,
       body: PageView(
-        children: _pages,
+        children: <Widget>[
+          WireframeThemeListItemsPage(_scaffoldKey),
+          GrayscaleThemeListItemsPage(_scaffoldKey),
+          MainThemeListItemsPage(_scaffoldKey),
+        ],
         onPageChanged: (index){
           setState(() {
             _selectedItem = index;
@@ -70,6 +69,9 @@ class _HomePageState extends State<HomePage> {
         clipPathType: ClipPathType.CLOUDS,
       ),
       endDrawer: SimpleClipPathDrawer(
+        leftIconType: ThemeGroupType.MOP,
+        leftIconClickedCallback: () => Navigator.pop(context),
+        showRightIcon: false,
         child: LoginScreen(),
         padding: 0.0,
         clipPathType: ClipPathType.NONE,
