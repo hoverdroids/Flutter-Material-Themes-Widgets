@@ -1,9 +1,13 @@
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/fundamental/icons.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
+import 'package:provider/provider.dart';
+
+import 'card_item.dart';
 
 //Intended to be a short list of equally distributed items with an image at the top
 class ScalingItemsList extends StatefulWidget {
@@ -118,7 +122,72 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       children.add(listItemWidget);
     });
 
-    return Container(
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 300.0,
+            child: Stack(
+              children: <Widget>[
+                ClipPath(
+                  child: Image(
+                    image: AssetImage(imageUrl),
+                    width: mediaQuery.width,
+                    height: 250,
+                    fit: BoxFit.fitHeight,
+                  ),
+                  clipper: SimpleClipPath(type: clipPathType),
+                ),
+                Align(
+                  alignment: Alignment(0, 1),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      CircularProfileAvatar(
+                        '',
+                        child: Image(
+                          image: AssetImage("assets/female.png"),
+                          width: mediaQuery.width,
+                          height: 250,
+                          fit: BoxFit.fitHeight,
+                        ),
+                        backgroundColor: context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
+                        borderColor: context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
+                        borderWidth: 4.0,
+                        radius: 60.0,
+                      ),
+                      SizedBox(height: 4.0),
+                      Text(
+                        "Neecoder X",
+                        style: TextStyle(
+                          fontSize: 21.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Developer",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => CardItem(),
+            shrinkWrap: true,
+            itemCount: 2,
+          )
+        ],
+      ),
+    );
+
+    /*return Container(
       height: mediaQuery.height,
       width: mediaQuery.width,
       child: Stack(
@@ -144,8 +213,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
             ],
           ),
           Align (
-            alignment: Alignment.center,
-            heightFactor: 0.20,
+            alignment: Alignment(0, 1),
             child: CircleAvatar(
               radius: mediaQuery.width / 8.0,
               backgroundColor: Color(0xffFDCF09),
@@ -157,6 +225,6 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
           ),
         ],
       ),
-    );
+    );*/
   }
 }
