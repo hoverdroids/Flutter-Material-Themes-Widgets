@@ -7,8 +7,6 @@ import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
 
-import 'card_item.dart';
-
 //Intended to be a short list of equally distributed items with an image at the top
 class ScalingItemsList extends StatefulWidget {
 
@@ -109,19 +107,6 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
 
     Size mediaQuery = MediaQuery.of(context).size;
 
-    var children = <Widget>[];
-    listItems.forEach((model) {
-
-      var listItemWidget = Flexible(
-          flex: 1,
-          child: ListTile(
-            leading: _createIconWidget(context, model),
-            title: _createTextWidget(context, model),
-          )
-      );
-      children.add(listItemWidget);
-    });
-
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -179,9 +164,15 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
           ),
           ListView.builder(
             physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => CardItem(),
+            itemBuilder: (context, index) => Flexible(
+                flex: 1,
+                child: ListTile(
+                  leading: _createIconWidget(context, listItems[index]),
+                  title: _createTextWidget(context, listItems[index]),
+                )
+            ),
             shrinkWrap: true,
-            itemCount: 2,
+            itemCount: listItems.length,
           )
         ],
       ),
@@ -212,17 +203,8 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
               ),
             ],
           ),
-          Align (
-            alignment: Alignment(0, 1),
-            child: CircleAvatar(
-              radius: mediaQuery.width / 8.0,
-              backgroundColor: Color(0xffFDCF09),
-              child: CircleAvatar(
-                radius: mediaQuery.width / 8.0 - 0,
-                backgroundImage: AssetImage('assets/female.png'),
-              ),
-            ),
-          ),
+
+
         ],
       ),
     );*/
