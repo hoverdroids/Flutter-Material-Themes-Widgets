@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ListItemModel {
-  String text;
-  IconData icon;
-  Function itemClickedCallback;
 
-  ListItemModel({this.text, this.icon, this.itemClickedCallback});
+  Function itemClickedCallback;
+  Function itemLongClickedCallback;
+  IconData leadingIcon;
+  Function leadingIconClickedCallback;
+  String title;
+  String subtitle;
+  IconData trailingIcon;
+  Function trailingIconClickedCallback;
+
+  ListItemModel({
+    this.itemClickedCallback,
+    this.itemLongClickedCallback,
+    this.leadingIcon,
+    this.leadingIconClickedCallback,
+    this.title,
+    this.subtitle,
+    this.trailingIcon,
+    this.trailingIconClickedCallback
+  });
 }

@@ -52,29 +52,46 @@ class ThemedCard extends Card {
 class ThemedListTileCard extends Card {
 
   final ThemeGroupType type;
+  final ElevationLevel elevationLevel;
+  final Function itemClickedCallback;
+  final Function itemLongClickedCallback;
+
   final IconData leadingIcon;
   final ThemeGroupType leadingType;
+  final Emphasis leadingEmphasis;
+  final Function leadingIconClickedCallback;
   final String title;
   final ThemeGroupType titleType;
+  final Emphasis titleEmphasis;
   final String subtitle;
   final ThemeGroupType subtitleType;
+  final Emphasis subtitleEmphasis;
   final IconData trailingIcon;
   final ThemeGroupType trailingType;
-  final ElevationLevel elevationLevel;
+  final Emphasis trailingEmphasis;
+  final Function trailingIconClickedCallback;
 
   ThemedListTileCard({
     key,
     this.type = ThemeGroupType.MOM,
+    this.elevationLevel = ElevationLevel.LOW,
+    this.itemClickedCallback,
+    this.itemLongClickedCallback,
     this.leadingIcon,
     this.leadingType = ThemeGroupType.MOM,
+    this.leadingEmphasis = Emphasis.NONE,
+    this.leadingIconClickedCallback,
     this.title,
     this.titleType = ThemeGroupType.POM,
+    this.titleEmphasis = Emphasis.HIGH,
     this.subtitle,
     this.subtitleType = ThemeGroupType.MOM,
+    this.subtitleEmphasis = Emphasis.NONE,
     this.trailingIcon,
     this.trailingType = ThemeGroupType.MOM,
+    this.trailingEmphasis = Emphasis.NONE,
+    this.trailingIconClickedCallback,
     shadowColor,
-    this.elevationLevel = ElevationLevel.LOW,
     shape,
     borderOnForeground = true,
     margin,
@@ -102,10 +119,30 @@ class ThemedListTileCard extends Card {
       margin: margin,
       clipBehavior: clipBehavior,
       child:  ListTile(
-        title: title == null ? null : ThemedTitle(title, type: titleType),
-        subtitle: subtitle == null ? null : ThemedSubTitle(subtitle, type: subtitleType),
-        leading: leadingIcon == null ? null : ThemedIcon(leadingIcon, type: leadingType),
-        trailing: trailingIcon == null ? null : ThemedIcon(trailingIcon, type: trailingType),
+        onTap: itemClickedCallback,
+        onLongPress: itemLongClickedCallback,
+        title: title == null ? null : ThemedTitle(
+          title,
+          type: titleType,
+          emphasis: titleEmphasis,
+        ),
+        subtitle: subtitle == null ? null : ThemedSubTitle(
+          subtitle,
+          type: subtitleType,
+          emphasis: subtitleEmphasis,
+        ),
+        leading: leadingIcon == null ? null : ThemedIconButton(
+          leadingIcon,
+          type: leadingType,
+          onPressedCallback: leadingIconClickedCallback,
+          emphasis: leadingEmphasis,
+        ),
+        trailing: trailingIcon == null ? null : ThemedIconButton(
+          trailingIcon,
+          type: trailingType,
+          onPressedCallback: trailingIconClickedCallback,
+          emphasis: trailingEmphasis,
+        ),
       ),
       semanticContainer: semanticContainer,
     );
