@@ -12,12 +12,13 @@ import 'package:provider/provider.dart';
 class ScalingItemsList extends StatefulWidget {
 
   final int headerFlex;
+  final AlignmentGeometry headerAlignment;
   final String imageUrl;
-  final double imagePadding;
+  final EdgeInsetsGeometry imagePadding;
   final ClipPathType clipPathType;
   final List<ListItemModel> listItems;
   final int itemsFlex;
-  final double listPadding;
+  final EdgeInsetsGeometry listPadding;
   final ThemeGroupType cardType;
   final ElevationLevel cardElevationLevel;
   final ThemeGroupType leadingIconType;
@@ -28,6 +29,8 @@ class ScalingItemsList extends StatefulWidget {
   final Emphasis subtitleEmphasis;
   final ThemeGroupType trailingIconType;
   final Emphasis trailingEmphasis;
+  final bool isHeaderSticky;
+  final bool isAvatarEnabled;
 
   //TODO - can use circular avatar and polygon clipper for the avatar shape
   //also look at https://pub.dev/packages/polygon_clipper
@@ -36,11 +39,12 @@ class ScalingItemsList extends StatefulWidget {
       this.listItems,
       {
         this.imageUrl,
-        this.imagePadding = 0.0,
+        this.imagePadding,
         this.clipPathType = ClipPathType.NONE,
-        this.headerFlex = 2,
-        this.itemsFlex = 4,
-        this.listPadding = 20.0,
+        this.headerFlex = 1,
+        this.headerAlignment = AlignmentDirectional.center,
+        this.itemsFlex = 2,
+        this.listPadding,
         this.cardType = ThemeGroupType.MOM,
         this.cardElevationLevel = ElevationLevel.FLAT,
         this.leadingIconType = ThemeGroupType.MOM,
@@ -50,13 +54,16 @@ class ScalingItemsList extends StatefulWidget {
         this.subtitleType = ThemeGroupType.MOM,
         this.subtitleEmphasis = Emphasis.NONE,
         this.trailingIconType = ThemeGroupType.MOM,
-        this.trailingEmphasis = Emphasis.NONE
+        this.trailingEmphasis = Emphasis.NONE,
+        this.isHeaderSticky = true,
+        this.isAvatarEnabled = true
       }
   );
 
   @override
   _ScalingItemsListState createState() => _ScalingItemsListState(
       headerFlex,
+      headerAlignment,
       imageUrl,
       imagePadding,
       clipPathType,
@@ -72,7 +79,9 @@ class ScalingItemsList extends StatefulWidget {
       subtitleType,
       subtitleEmphasis,
       trailingIconType,
-      trailingEmphasis
+      trailingEmphasis,
+      isHeaderSticky,
+      isAvatarEnabled
   );
 }
 
@@ -80,11 +89,12 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
 
   final List<ListItemModel> listItems;
   final String imageUrl;
-  final double imagePadding;
+  EdgeInsetsGeometry imagePadding;
   final ClipPathType clipPathType;
   final int headerFlex;
+  final AlignmentGeometry headerAlignment;
   final int itemsFlex;
-  final double listPadding;
+  EdgeInsetsGeometry listPadding;
   final ThemeGroupType cardType;
   final ElevationLevel cardElevationLevel;
   final ThemeGroupType leadingIconType;
@@ -95,9 +105,12 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
   final Emphasis subtitleEmphasis;
   final ThemeGroupType trailingIconType;
   final Emphasis trailingEmphasis;
+  final bool isHeaderSticky;
+  final bool isAvatarEnabled;
 
   _ScalingItemsListState(
       this.headerFlex,
+      this.headerAlignment,
       this.imageUrl,
       this.imagePadding,
       this.clipPathType,
@@ -113,11 +126,45 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       this.subtitleType,
       this.subtitleEmphasis,
       this.trailingIconType,
-      this.trailingEmphasis
-  );
+      this.trailingEmphasis,
+      this.isHeaderSticky,
+      this.isAvatarEnabled,
+  ){
+    imagePadding = imagePadding != null ? imagePadding : EdgeInsets.symmetric(
+        horizontal: 0.0,
+        vertical: 0.0
+    );
+
+    listPadding = listPadding != null ? listPadding : EdgeInsets.symmetric(
+        horizontal: 0.0,
+        vertical: 0.0
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    Size mediaQuery = MediaQuery.of(context).size;
+
+    return isHeaderSticky ? _createStickyHeaderList() : _createScrollView();
+  }
+
+  Widget _createStickyHeaderList() {
+    return  Column(
+      children: <Widget>[
+        Flexible(
+            flex: headerFlex,
+            child: _createHeader()
+        ),
+        Flexible(
+            flex: itemsFlex,
+            child: _createList(false)
+        ),
+      ],
+    );
+  }
+
+  Widget _createScrollView() {
 
     Size mediaQuery = MediaQuery.of(context).size;
 
@@ -125,87 +172,123 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       child: Column(
         children: <Widget>[
           Container(
-            height: mediaQuery.height * 3 / 4,//TODO
-            child: Stack(
-              children: <Widget>[
-                ClipPath(
-                  child: Image(
-                    image: AssetImage(imageUrl),
-                    width: mediaQuery.width,
-                    height: mediaQuery.height * 3 / 4,//TODO
-                    fit: BoxFit.fitHeight,
-                  ),
-                  clipper: SimpleClipPath(type: clipPathType),
-                ),
-                Align(
-                  alignment: Alignment(0, 1),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      CircularProfileAvatar(
-                        '',
-                        child: Image(
-                          image: AssetImage("assets/female.png"),//TODO
-                          width: mediaQuery.width,
-                          height: 250,//TODO
-                          fit: BoxFit.fitHeight,
-                        ),
-                        backgroundColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
-                        borderColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
-                        borderWidth: 4.0,
-                        radius: 60.0,
-                      ),
-                      SizedBox(height: 4.0),
-                      Text(
-                        "Neecoder X",//TODO
-                        style: TextStyle(
-                          fontSize: 21.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "Developer",//TODO
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            height: mediaQuery.height * headerFlex / (headerFlex + itemsFlex),
+            child: _createHeader(),
+          ),
+          Container(
+            child: _createList(true),
+          )
+        ]
+      )
+    );
+  }
+
+  Widget _createHeader() {
+
+    var children = <Widget>[];
+
+    if (imageUrl != null) {
+      children.add(_createHeaderImage());
+    }
+
+    //TODO - gradient
+
+    //TODO - avatar
+    if (isAvatarEnabled) {
+      children.add(_createAvatar());
+    }
+
+    return Container(
+      padding: imagePadding,
+      child: Stack(
+        alignment: headerAlignment,
+        children: children
+      ),
+    );
+  }
+
+  Widget _createHeaderImage() {
+    return ClipPath(
+      child: Image(
+        image: AssetImage(imageUrl),
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.fitHeight,
+      ),
+      clipper: SimpleClipPath(type: clipPathType),
+    );
+  }
+
+  Widget _createHeaderGradient() {
+
+  }
+
+  Widget _createAvatar() {
+    Size mediaQuery = MediaQuery.of(context).size;
+    return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          CircularProfileAvatar(
+            '',
+            child: Image(
+              image: AssetImage("assets/female.png"),//TODO
+              width: mediaQuery.width,
+              height: 250,//TODO
+              fit: BoxFit.fitHeight,
+            ),
+            backgroundColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
+            borderColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
+            borderWidth: 4.0,
+            radius: 60.0,
+          ),
+          SizedBox(height: 4.0),
+          Text(
+            "Neecoder X",//TODO
+            style: TextStyle(
+              fontSize: 21.0,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => Flexible(
-                flex: 1,
-                child: ThemedListTileCard(
-                  type: cardType,
-                  elevationLevel: cardElevationLevel,
-                  itemClickedCallback: listItems[index].itemClickedCallback,
-                  itemLongClickedCallback: listItems[index].itemLongClickedCallback,
-                  leadingIcon: listItems[index].leadingIcon,
-                  leadingType: leadingIconType,
-                  leadingEmphasis: leadingEmphasis,
-                  leadingIconClickedCallback: listItems[index].leadingIconClickedCallback,
-                  title: listItems[index].title,
-                  titleType: titleType,
-                  titleEmphasis: titleEmphasis,
-                  subtitle: listItems[index].subtitle,
-                  subtitleType: subtitleType,
-                  subtitleEmphasis: subtitleEmphasis,
-                  trailingIcon: listItems[index].trailingIcon,
-                  trailingType: trailingIconType,
-                  trailingEmphasis: trailingEmphasis,
-                  trailingIconClickedCallback: listItems[index].trailingIconClickedCallback,
-                )
+          Text(
+            "Developer",//TODO
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey[700],
             ),
-            shrinkWrap: true,
-            itemCount: listItems.length,
-          )
+          ),
         ],
+    );
+  }
+
+  Widget _createList(bool isInScrollview) {
+    return  ListView.builder(
+      physics: isInScrollview ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
+      itemBuilder: (context, index) => Flexible(
+          flex: 1,
+          child: ThemedListTileCard(
+            type: cardType,
+            elevationLevel: cardElevationLevel,
+            itemClickedCallback: listItems[index].itemClickedCallback,
+            itemLongClickedCallback: listItems[index].itemLongClickedCallback,
+            leadingIcon: listItems[index].leadingIcon,
+            leadingType: leadingIconType,
+            leadingEmphasis: leadingEmphasis,
+            leadingIconClickedCallback: listItems[index].leadingIconClickedCallback,
+            title: listItems[index].title,
+            titleType: titleType,
+            titleEmphasis: titleEmphasis,
+            subtitle: listItems[index].subtitle,
+            subtitleType: subtitleType,
+            subtitleEmphasis: subtitleEmphasis,
+            trailingIcon: listItems[index].trailingIcon,
+            trailingType: trailingIconType,
+            trailingEmphasis: trailingEmphasis,
+            trailingIconClickedCallback: listItems[index].trailingIconClickedCallback,
+          )
       ),
+      shrinkWrap: true,
+      itemCount: listItems.length,
+      padding: listPadding,
     );
   }
 }
