@@ -14,7 +14,7 @@ class ScalingItemsList extends StatefulWidget {
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
   final String imageUrl;
-  final EdgeInsetsGeometry imagePadding;
+  final EdgeInsetsGeometry headerPadding;
   final SimpleClipPath imageClipPath;
   final List<ListItemModel> listItems;
   final int itemsFlex;
@@ -39,7 +39,7 @@ class ScalingItemsList extends StatefulWidget {
       this.listItems,
       {
         this.imageUrl,
-        this.imagePadding,
+        this.headerPadding,
         this.imageClipPath,
         this.headerFlex = 1,
         this.headerAlignment = AlignmentDirectional.bottomCenter,
@@ -65,7 +65,7 @@ class ScalingItemsList extends StatefulWidget {
       headerFlex,
       headerAlignment,
       imageUrl,
-      imagePadding,
+      headerPadding,
       imageClipPath,
       listItems,
       itemsFlex,
@@ -89,7 +89,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
 
   final List<ListItemModel> listItems;
   final String imageUrl;
-  EdgeInsetsGeometry imagePadding;
+  EdgeInsetsGeometry headerPadding;
   SimpleClipPath imageClipPath;
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
@@ -112,7 +112,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       this.headerFlex,
       this.headerAlignment,
       this.imageUrl,
-      this.imagePadding,
+      this.headerPadding,
       this.imageClipPath,
       this.listItems,
       this.itemsFlex,
@@ -130,13 +130,14 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       this.isHeaderSticky,
       this.isAvatarEnabled,
   ){
-    imagePadding = imagePadding != null ? imagePadding : EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0);
+    headerPadding = headerPadding != null ? headerPadding : EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0);
 
-    listPadding = listPadding != null ? listPadding : EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0);
+    listPadding = listPadding != null ? listPadding : EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0);
 
     imageClipPath = imageClipPath != null ? imageClipPath : SimpleClipPath(
-        type: ClipPathType.DIAGONAL_LEFT,
-        percentOfHeight: 80.0
+        type: ClipPathType.DIAGONAL,
+        leftPercentOfHeight: 80.0,
+        rightPercentOfHeight: 30.0
     );
   }
 
@@ -195,7 +196,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
     }
 
     return Container(
-      padding: imagePadding,
+      padding: headerPadding,
       child: Stack(
         alignment: headerAlignment,
         children: children
