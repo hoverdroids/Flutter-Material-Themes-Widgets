@@ -15,7 +15,7 @@ class ScalingItemsList extends StatefulWidget {
   final AlignmentGeometry headerAlignment;
   final String imageUrl;
   final EdgeInsetsGeometry imagePadding;
-  final ClipPathType clipPathType;
+  final SimpleClipPath imageClipPath;
   final List<ListItemModel> listItems;
   final int itemsFlex;
   final EdgeInsetsGeometry listPadding;
@@ -40,9 +40,9 @@ class ScalingItemsList extends StatefulWidget {
       {
         this.imageUrl,
         this.imagePadding,
-        this.clipPathType = ClipPathType.NONE,
+        this.imageClipPath,
         this.headerFlex = 1,
-        this.headerAlignment = AlignmentDirectional.center,
+        this.headerAlignment = AlignmentDirectional.bottomCenter,
         this.itemsFlex = 2,
         this.listPadding,
         this.cardType = ThemeGroupType.MOM,
@@ -66,7 +66,7 @@ class ScalingItemsList extends StatefulWidget {
       headerAlignment,
       imageUrl,
       imagePadding,
-      clipPathType,
+      imageClipPath,
       listItems,
       itemsFlex,
       listPadding,
@@ -90,7 +90,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
   final List<ListItemModel> listItems;
   final String imageUrl;
   EdgeInsetsGeometry imagePadding;
-  final ClipPathType clipPathType;
+  SimpleClipPath imageClipPath;
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
   final int itemsFlex;
@@ -113,7 +113,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       this.headerAlignment,
       this.imageUrl,
       this.imagePadding,
-      this.clipPathType,
+      this.imageClipPath,
       this.listItems,
       this.itemsFlex,
       this.listPadding,
@@ -130,22 +130,18 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       this.isHeaderSticky,
       this.isAvatarEnabled,
   ){
-    imagePadding = imagePadding != null ? imagePadding : EdgeInsets.symmetric(
-        horizontal: 0.0,
-        vertical: 0.0
-    );
+    imagePadding = imagePadding != null ? imagePadding : EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0);
 
-    listPadding = listPadding != null ? listPadding : EdgeInsets.symmetric(
-        horizontal: 0.0,
-        vertical: 0.0
+    listPadding = listPadding != null ? listPadding : EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0);
+
+    imageClipPath = imageClipPath != null ? imageClipPath : SimpleClipPath(
+        type: ClipPathType.DIAGONAL_LEFT,
+        percentOfHeight: 80.0
     );
   }
 
   @override
   Widget build(BuildContext context) {
-
-    Size mediaQuery = MediaQuery.of(context).size;
-
     return isHeaderSticky ? _createStickyHeaderList() : _createScrollView();
   }
 
@@ -215,7 +211,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
         height: double.infinity,
         fit: BoxFit.fitHeight,
       ),
-      clipper: SimpleClipPath(type: clipPathType),
+      clipper: imageClipPath,
     );
   }
 
