@@ -14,6 +14,7 @@ class HeaderList extends StatefulWidget {
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
   final String imageUrl;
+  final BackgroundGradientType headerGradientType;
   final EdgeInsetsGeometry headerPadding;
   final EdgeInsetsGeometry avatarPadding;
   final SimpleClipPath imageClipPath;
@@ -41,6 +42,7 @@ class HeaderList extends StatefulWidget {
       this.listItems,
       {
         this.imageUrl,
+        this.headerGradientType,
         this.headerPadding,
         this.avatarPadding,
         this.imageClipPath,
@@ -69,6 +71,7 @@ class HeaderList extends StatefulWidget {
       headerFlex,
       headerAlignment,
       imageUrl,
+      headerGradientType,
       headerPadding,
       avatarPadding,
       imageClipPath,
@@ -95,6 +98,7 @@ class _HeaderListState extends State<HeaderList> {
 
   final List<ListItemModel> listItems;
   final String imageUrl;
+  final BackgroundGradientType headerGradientType;
   EdgeInsetsGeometry headerPadding;
   EdgeInsetsGeometry avatarPadding;
   SimpleClipPath imageClipPath;
@@ -120,6 +124,7 @@ class _HeaderListState extends State<HeaderList> {
       this.headerFlex,
       this.headerAlignment,
       this.imageUrl,
+      this.headerGradientType,
       this.headerPadding,
       this.avatarPadding,
       this.imageClipPath,
@@ -202,7 +207,9 @@ class _HeaderListState extends State<HeaderList> {
       children.add(_createHeaderImage());
     }
 
-    //TODO - gradient
+    if (headerGradientType != null) {
+      children.add(_createHeaderGradient());
+    }
 
     //TODO - avatar
     if (isAvatarEnabled) {
@@ -231,7 +238,10 @@ class _HeaderListState extends State<HeaderList> {
   }
 
   Widget _createHeaderGradient() {
-
+    return ClipPath(
+      child: context.watch<MaterialThemesManager>().getBackgroundGradient(headerGradientType),
+      clipper: imageClipPath,
+    );
   }
 
   Widget _createAvatar() {

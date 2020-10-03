@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
             ],
           //cardElevationLevel: ElevationLevel.FLAT,
           imageUrl: "assets/food_1.jpg",
+          headerGradientType: BackgroundGradientType.PRIMARY,
           //headerFlex: 4,
           //itemsFlex: 2,
           //isHeaderSticky: true,
