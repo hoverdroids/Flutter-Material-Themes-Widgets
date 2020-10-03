@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
-import 'package:material_themes_widgets/lists/scaling_items_list.dart';
+import 'package:material_themes_widgets/lists/header_list.dart';
 import 'package:material_themes_widgets/screens/login_screen.dart';
 import 'grayscale_theme_list_items_page.dart';
 import 'main_theme_list_items_page.dart';
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
         leftIconClickedCallback: () => Navigator.pop(context),
         rightIconType: ThemeGroupType.MOI,
         rightIconClickedCallback: () => _scaffoldKey.currentState.openEndDrawer(),
-        child: ScalingItemsList(
+        child: HeaderList(
             [
               ListItemModel(title: "Drama Mama", subtitle: "Lookie here", trailingIcon: Icons.more_vert),
               ListItemModel(title: "Drama Papa", leadingIcon: Icons.filter_drama),
@@ -67,12 +67,12 @@ class _HomePageState extends State<HomePage> {
               ListItemModel(leadingIcon: Icons.account_circle),
               ListItemModel(leadingIcon: Icons.access_alarm, itemClickedCallback: () => print("Clicked item 4")),
             ],
-          cardElevationLevel: ElevationLevel.FLAT,
+          //cardElevationLevel: ElevationLevel.FLAT,
           imageUrl: "assets/food_1.jpg",
           //headerFlex: 4,
           //itemsFlex: 2,
-          isHeaderSticky: true,
-          isAvatarEnabled: true,
+          //isHeaderSticky: true,
+          //isAvatarEnabled: true,
           //headerAlignment: AlignmentDirectional.bottomCenter,
         ),
         clipPathType: ClipPathType.CLOUDS,

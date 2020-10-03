@@ -9,7 +9,7 @@ import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
 
 //Intended to be a short list of equally distributed items with an image at the top
-class ScalingItemsList extends StatefulWidget {
+class HeaderList extends StatefulWidget {
 
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
@@ -37,7 +37,7 @@ class ScalingItemsList extends StatefulWidget {
   //TODO - can use circular avatar and polygon clipper for the avatar shape
   //also look at https://pub.dev/packages/polygon_clipper
 
-  ScalingItemsList(
+  HeaderList(
       this.listItems,
       {
         this.imageUrl,
@@ -65,7 +65,7 @@ class ScalingItemsList extends StatefulWidget {
   );
 
   @override
-  _ScalingItemsListState createState() => _ScalingItemsListState(
+  _HeaderListState createState() => _HeaderListState(
       headerFlex,
       headerAlignment,
       imageUrl,
@@ -91,7 +91,7 @@ class ScalingItemsList extends StatefulWidget {
   );
 }
 
-class _ScalingItemsListState extends State<ScalingItemsList> {
+class _HeaderListState extends State<HeaderList> {
 
   final List<ListItemModel> listItems;
   final String imageUrl;
@@ -116,7 +116,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
   final bool isAvatarEnabled;
   final double heightBetween;
 
-  _ScalingItemsListState(
+  _HeaderListState(
       this.headerFlex,
       this.headerAlignment,
       this.imageUrl,
