@@ -15,6 +15,7 @@ class ScalingItemsList extends StatefulWidget {
   final AlignmentGeometry headerAlignment;
   final String imageUrl;
   final EdgeInsetsGeometry headerPadding;
+  final EdgeInsetsGeometry avatarPadding;
   final SimpleClipPath imageClipPath;
   final List<ListItemModel> listItems;
   final int itemsFlex;
@@ -41,6 +42,7 @@ class ScalingItemsList extends StatefulWidget {
       {
         this.imageUrl,
         this.headerPadding,
+        this.avatarPadding,
         this.imageClipPath,
         this.headerFlex = 1,
         this.headerAlignment = AlignmentDirectional.bottomCenter,
@@ -68,6 +70,7 @@ class ScalingItemsList extends StatefulWidget {
       headerAlignment,
       imageUrl,
       headerPadding,
+      avatarPadding,
       imageClipPath,
       listItems,
       itemsFlex,
@@ -93,6 +96,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
   final List<ListItemModel> listItems;
   final String imageUrl;
   EdgeInsetsGeometry headerPadding;
+  EdgeInsetsGeometry avatarPadding;
   SimpleClipPath imageClipPath;
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
@@ -117,6 +121,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       this.headerAlignment,
       this.imageUrl,
       this.headerPadding,
+      this.avatarPadding,
       this.imageClipPath,
       this.listItems,
       this.itemsFlex,
@@ -135,9 +140,11 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       this.isAvatarEnabled,
       this.heightBetween
   ){
-    headerPadding = headerPadding != null ? headerPadding : EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0);
+    headerPadding = headerPadding != null ? headerPadding : EdgeInsets.all(0.0);
 
-    listPadding = listPadding != null ? listPadding : EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0);
+    avatarPadding = avatarPadding != null ? avatarPadding : EdgeInsets.all(0.0);
+
+    listPadding = listPadding != null ? listPadding : EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0);
 
     imageClipPath = imageClipPath != null ? imageClipPath : SimpleClipPath(
         type: ClipPathType.DIAGONAL,
@@ -229,7 +236,9 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
 
   Widget _createAvatar() {
     Size mediaQuery = MediaQuery.of(context).size;
-    return Column(
+    return Container(
+      padding: avatarPadding,
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           CircularProfileAvatar(
@@ -261,6 +270,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
             ),
           ),
         ],
+      ),
     );
   }
 
