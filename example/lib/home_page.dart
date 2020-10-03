@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
               ListItemModel(leadingIcon: Icons.account_circle),
               ListItemModel(leadingIcon: Icons.access_alarm, itemClickedCallback: () => print("Clicked item 4")),
             ],
+          cardElevationLevel: ElevationLevel.LOW,
           imageUrl: "assets/food_1.jpg",
           headerFlex: 4,
           itemsFlex: 1,

@@ -125,14 +125,14 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 300.0,//TODO
+            height: mediaQuery.height * 3 / 4,//TODO
             child: Stack(
               children: <Widget>[
                 ClipPath(
                   child: Image(
                     image: AssetImage(imageUrl),
                     width: mediaQuery.width,
-                    height: 250,//TODO
+                    height: mediaQuery.height * 3 / 4,//TODO
                     fit: BoxFit.fitHeight,
                   ),
                   clipper: SimpleClipPath(type: clipPathType),

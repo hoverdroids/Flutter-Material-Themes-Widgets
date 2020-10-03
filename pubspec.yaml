@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  material_themes_manager: ^0.0.16
+  material_themes_manager: ^0.0.17
   provider: ^4.0.4
   circular_profile_avatar: ^1.0.6
 
