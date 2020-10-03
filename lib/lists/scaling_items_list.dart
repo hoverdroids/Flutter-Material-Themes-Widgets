@@ -31,6 +31,7 @@ class ScalingItemsList extends StatefulWidget {
   final Emphasis trailingEmphasis;
   final bool isHeaderSticky;
   final bool isAvatarEnabled;
+  final double heightBetween;
 
   //TODO - can use circular avatar and polygon clipper for the avatar shape
   //also look at https://pub.dev/packages/polygon_clipper
@@ -56,7 +57,8 @@ class ScalingItemsList extends StatefulWidget {
         this.trailingIconType = ThemeGroupType.MOM,
         this.trailingEmphasis = Emphasis.NONE,
         this.isHeaderSticky = true,
-        this.isAvatarEnabled = true
+        this.isAvatarEnabled = true,
+        this.heightBetween = 20.0
       }
   );
 
@@ -81,7 +83,8 @@ class ScalingItemsList extends StatefulWidget {
       trailingIconType,
       trailingEmphasis,
       isHeaderSticky,
-      isAvatarEnabled
+      isAvatarEnabled,
+      heightBetween
   );
 }
 
@@ -107,6 +110,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
   final Emphasis trailingEmphasis;
   final bool isHeaderSticky;
   final bool isAvatarEnabled;
+  final double heightBetween;
 
   _ScalingItemsListState(
       this.headerFlex,
@@ -129,8 +133,9 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
       this.trailingEmphasis,
       this.isHeaderSticky,
       this.isAvatarEnabled,
+      this.heightBetween
   ){
-    headerPadding = headerPadding != null ? headerPadding : EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0);
+    headerPadding = headerPadding != null ? headerPadding : EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0);
 
     listPadding = listPadding != null ? listPadding : EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0);
 
@@ -153,6 +158,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
             flex: headerFlex,
             child: _createHeader()
         ),
+        SizedBox(height: heightBetween),
         Flexible(
             flex: itemsFlex,
             child: _createList(false)
@@ -172,6 +178,7 @@ class _ScalingItemsListState extends State<ScalingItemsList> {
             height: mediaQuery.height * headerFlex / (headerFlex + itemsFlex),
             child: _createHeader(),
           ),
+          SizedBox(height: heightBetween),
           Container(
             child: _createList(true),
           )
