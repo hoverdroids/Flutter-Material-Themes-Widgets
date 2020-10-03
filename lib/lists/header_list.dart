@@ -14,6 +14,8 @@ class HeaderList extends StatefulWidget {
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
   final String imageUrl;
+  final BlendMode imageBlendMode;
+  final Color imageBlendColor;
   final BackgroundGradientType headerGradientType;
   final EdgeInsetsGeometry headerPadding;
   final EdgeInsetsGeometry avatarPadding;
@@ -42,6 +44,8 @@ class HeaderList extends StatefulWidget {
       this.listItems,
       {
         this.imageUrl,
+        this.imageBlendColor,
+        this.imageBlendMode,
         this.headerGradientType,
         this.headerPadding,
         this.avatarPadding,
@@ -71,6 +75,8 @@ class HeaderList extends StatefulWidget {
       headerFlex,
       headerAlignment,
       imageUrl,
+      imageBlendMode,
+      imageBlendColor,
       headerGradientType,
       headerPadding,
       avatarPadding,
@@ -98,6 +104,8 @@ class _HeaderListState extends State<HeaderList> {
 
   final List<ListItemModel> listItems;
   final String imageUrl;
+  final BlendMode imageBlendMode;
+  final Color imageBlendColor;
   final BackgroundGradientType headerGradientType;
   EdgeInsetsGeometry headerPadding;
   EdgeInsetsGeometry avatarPadding;
@@ -124,6 +132,8 @@ class _HeaderListState extends State<HeaderList> {
       this.headerFlex,
       this.headerAlignment,
       this.imageUrl,
+      this.imageBlendMode,
+      this.imageBlendColor,
       this.headerGradientType,
       this.headerPadding,
       this.avatarPadding,
@@ -232,6 +242,8 @@ class _HeaderListState extends State<HeaderList> {
         width: double.infinity,
         height: double.infinity,
         fit: BoxFit.fitHeight,
+        colorBlendMode: imageBlendMode,
+        color: imageBlendColor,
       ),
       clipper: imageClipPath,
     );
