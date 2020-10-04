@@ -339,8 +339,8 @@ class _HeaderListState extends State<HeaderList> {
         height: double.infinity,
         fit: BoxFit.fitHeight,
       ),
-      backgroundColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
-      borderColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
+      backgroundColor: context.watch<MaterialThemesManager>().colorPalette().primary,
+      borderColor: context.watch<MaterialThemesManager>().colorPalette().primary,
       borderWidth: avatarImageBorderWidth,
       radius: avatarImageRadius,
     );

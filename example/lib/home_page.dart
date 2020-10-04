@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
           //isAvatarEnabled: true,
           //headerAlignment: AlignmentDirectional.bottomCenter,
           avatarClickedCallback: () => _scaffoldKey.currentState.openEndDrawer(),
-          usePolygonAvatar: true,
+          //usePolygonAvatar: true,
         ),
         clipPathType: ClipPathType.CLOUDS,
       ),
