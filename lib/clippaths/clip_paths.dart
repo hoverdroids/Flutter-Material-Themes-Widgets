@@ -10,7 +10,8 @@ enum ClipPathType {
   JAGGED,
   CLOUDS,
   BOILER_PLATE,
-  DIAGONAL
+  DIAGONAL,
+  ROUNDED_CORNERS
 }
 
 class SimpleClipPath extends CustomClipper<Path> {
@@ -45,7 +46,9 @@ class SimpleClipPath extends CustomClipper<Path> {
       case ClipPathType.BOILER_PLATE:
         return getBoilerPlate(size);
       case ClipPathType.DIAGONAL:
-        return getDiagonal(size, true, leftPercentOfHeight, rightPercentOfHeight);
+        return getDiagonal(size);
+      case ClipPathType.ROUNDED_CORNERS:
+        return getRoundedCorners(size);
       default:
         return getNone(size);
     }
@@ -146,7 +149,7 @@ class SimpleClipPath extends CustomClipper<Path> {
     return path;
   }
 
-  Path getDiagonal(Size size, bool isBottomLeftToTopRight, double leftPercentOfHeight, double rightPercentOfHeight) {
+  Path getDiagonal(Size size) {
 
     var rightPixelsFromTop = (size.height * rightPercentOfHeight) / 100.0;
     var leftPixelsFromTop = (size.height * leftPercentOfHeight) / 100.0;
@@ -159,4 +162,16 @@ class SimpleClipPath extends CustomClipper<Path> {
     return path;
   }
 
+  Path getRoundedCorners(Size size) {
+    var path = new Path();
+    path.lineTo(0.0, size.height - radius);
+    path.quadraticBezierTo(0.0, size.height, radius, size.height);
+    path.lineTo(size.width - radius, size.height);
+    path.quadraticBezierTo(size.width, size.height, size.width, size.height - radius);
+    path.lineTo(size.width, radius);//was 50
+    path.quadraticBezierTo(size.width, 0.0, size.width - radius, 0.0);//was 30, - 20, 30
+    path.lineTo(radius, 0.0);//was 20, 5
+    path.quadraticBezierTo(0.0, 0.0, 0.0, radius);
+    return path;
+  }
 }
