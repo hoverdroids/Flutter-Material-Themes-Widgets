@@ -250,8 +250,9 @@ class _HeaderListState extends State<HeaderList> {
   }
 
   Widget _createHeaderGradient() {
+    var opacities = imageUrl == null ? [1.0] : [0.8];
     return ClipPath(
-      child: context.watch<MaterialThemesManager>().getBackgroundGradient(headerGradientType),
+      child: context.watch<MaterialThemesManager>().getBackgroundGradient(headerGradientType, opacities: opacities),
       clipper: imageClipPath,
     );
   }

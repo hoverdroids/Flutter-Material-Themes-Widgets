@@ -136,7 +136,7 @@ packages:
       name: material_themes_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.17"
+    version: "0.0.18"
   material_themes_widgets:
     dependency: "direct main"
     description:
