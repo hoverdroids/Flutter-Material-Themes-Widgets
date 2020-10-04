@@ -6,6 +6,7 @@ import 'package:material_themes_widgets/fundamental/cards.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:provider/provider.dart';
+import 'package:polygon_clipper/polygon_clipper.dart';
 
 //Intended to be a short list of equally distributed items with an image at the top
 class HeaderList extends StatefulWidget {
@@ -45,6 +46,7 @@ class HeaderList extends StatefulWidget {
   final double avatarImageBorderWidth;
   final double avatarImageRadius;
   final Function avatarClickedCallback;
+  final bool usePolygonAvatar;
 
   //TODO - can use circular avatar and polygon clipper for the avatar shape
   //also look at https://pub.dev/packages/polygon_clipper
@@ -85,7 +87,8 @@ class HeaderList extends StatefulWidget {
         this.avatarImageUrl = "assets/female.png",
         this.avatarImageBorderWidth = 4.0,
         this.avatarImageRadius = 70.0,
-        this.avatarClickedCallback
+        this.avatarClickedCallback,
+        this.usePolygonAvatar = false
       }
   );
 
@@ -125,7 +128,8 @@ class HeaderList extends StatefulWidget {
       avatarImageUrl,
       avatarImageBorderWidth,
       avatarImageRadius,
-      avatarClickedCallback
+      avatarClickedCallback,
+      usePolygonAvatar
   );
 }
 
@@ -166,6 +170,7 @@ class _HeaderListState extends State<HeaderList> {
   final double avatarImageBorderWidth;
   final double avatarImageRadius;
   final Function avatarClickedCallback;
+  final bool usePolygonAvatar;
 
   _HeaderListState(
       this.headerFlex,
@@ -202,7 +207,8 @@ class _HeaderListState extends State<HeaderList> {
       this.avatarImageUrl,
       this.avatarImageBorderWidth,
       this.avatarImageRadius,
-      this.avatarClickedCallback
+      this.avatarClickedCallback,
+      this.usePolygonAvatar
   ){
     headerPadding = headerPadding != null ? headerPadding : EdgeInsets.all(0.0);
 
@@ -314,24 +320,63 @@ class _HeaderListState extends State<HeaderList> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            CircularProfileAvatar(
-              '',
+            usePolygonAvatar ? _createPolygonAvatar() : _createCircularAvatar(),
+            SizedBox(height: 4.0),
+            ThemedTitle(avatarTitle, type: avatarTitleType, emphasis: avatarTitleEmphasis),
+            ThemedSubTitle(avatarSubtitle, type: avatarSubtitleType, emphasis: avatarSubtitleEmphasis)
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _createCircularAvatar() {
+    return CircularProfileAvatar(
+      '',
+      child: Image(
+        image: AssetImage(avatarImageUrl),
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.fitHeight,
+      ),
+      backgroundColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
+      borderColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
+      borderWidth: avatarImageBorderWidth,
+      radius: avatarImageRadius,
+    );
+  }
+
+  Widget _createPolygonAvatar() {
+    return Container(
+      width: avatarImageRadius * 2.0,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          ClipPolygon(
+            sides: 6,
+            borderRadius: 5.0, // Default 0.0 degrees
+            rotate: 90.0,
+            child: Container(color: context.watch<MaterialThemesManager>().colorPalette().primary),
+          ),
+          Container(
+            width: (avatarImageRadius - avatarImageBorderWidth) * 2.0,
+            child: ClipPolygon(
+              sides: 6,
+              borderRadius: 5.0, // Default 0.0 degrees
+              rotate: 90.0, // Default 0.0 degrees
+              /*boxShadows: [
+              PolygonBoxShadow(color: Colors.black, elevation: 1.0),
+              PolygonBoxShadow(color: Colors.grey, elevation: 5.0)
+            ],*/
               child: Image(
                 image: AssetImage(avatarImageUrl),
                 width: double.infinity,
                 height: double.infinity,
                 fit: BoxFit.fitHeight,
               ),
-              backgroundColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
-              borderColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
-              borderWidth: avatarImageBorderWidth,
-              radius: avatarImageRadius,
             ),
-            SizedBox(height: 4.0),
-            ThemedTitle(avatarTitle, type: avatarTitleType, emphasis: avatarTitleEmphasis),
-            ThemedSubTitle(avatarSubtitle, type: avatarSubtitleType, emphasis: avatarSubtitleEmphasis)
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
