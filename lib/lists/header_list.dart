@@ -1,11 +1,10 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 import 'package:material_themes_widgets/fundamental/cards.dart';
-import 'package:material_themes_widgets/lists/list_item_model.dart';
-import 'package:material_themes_widgets/fundamental/icons.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
-import 'package:material_themes_manager/material_themes_manager.dart';
+import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:provider/provider.dart';
 
 //Intended to be a short list of equally distributed items with an image at the top
@@ -36,6 +35,16 @@ class HeaderList extends StatefulWidget {
   final bool isHeaderSticky;
   final bool isAvatarEnabled;
   final double heightBetween;
+  final String avatarTitle;
+  final ThemeGroupType avatarTitleType;
+  final Emphasis avatarTitleEmphasis;
+  final String avatarSubtitle;
+  final ThemeGroupType avatarSubtitleType;
+  final Emphasis avatarSubtitleEmphasis;
+  final String avatarImageUrl;
+  final double avatarImageBorderWidth;
+  final double avatarImageRadius;
+  final Function avatarClickedCallback;
 
   //TODO - can use circular avatar and polygon clipper for the avatar shape
   //also look at https://pub.dev/packages/polygon_clipper
@@ -66,7 +75,17 @@ class HeaderList extends StatefulWidget {
         this.trailingEmphasis = Emphasis.NONE,
         this.isHeaderSticky = true,
         this.isAvatarEnabled = true,
-        this.heightBetween = 20.0
+        this.heightBetween = 20.0,
+        this.avatarTitle = "First Last Name",
+        this.avatarTitleType = ThemeGroupType.POM,
+        this.avatarTitleEmphasis = Emphasis.HIGH,
+        this.avatarSubtitle = "Tag Line",
+        this.avatarSubtitleType = ThemeGroupType.MOM,
+        this.avatarSubtitleEmphasis = Emphasis.NONE,
+        this.avatarImageUrl = "assets/female.png",
+        this.avatarImageBorderWidth = 4.0,
+        this.avatarImageRadius = 70.0,
+        this.avatarClickedCallback
       }
   );
 
@@ -96,7 +115,17 @@ class HeaderList extends StatefulWidget {
       trailingEmphasis,
       isHeaderSticky,
       isAvatarEnabled,
-      heightBetween
+      heightBetween,
+      avatarTitle,
+      avatarTitleType,
+      avatarTitleEmphasis,
+      avatarSubtitle,
+      avatarSubtitleType,
+      avatarSubtitleEmphasis,
+      avatarImageUrl,
+      avatarImageBorderWidth,
+      avatarImageRadius,
+      avatarClickedCallback
   );
 }
 
@@ -127,6 +156,16 @@ class _HeaderListState extends State<HeaderList> {
   final bool isHeaderSticky;
   final bool isAvatarEnabled;
   final double heightBetween;
+  final String avatarTitle;
+  final ThemeGroupType avatarTitleType;
+  final Emphasis avatarTitleEmphasis;
+  final String avatarSubtitle;
+  final ThemeGroupType avatarSubtitleType;
+  final Emphasis avatarSubtitleEmphasis;
+  final String avatarImageUrl;
+  final double avatarImageBorderWidth;
+  final double avatarImageRadius;
+  final Function avatarClickedCallback;
 
   _HeaderListState(
       this.headerFlex,
@@ -153,7 +192,17 @@ class _HeaderListState extends State<HeaderList> {
       this.trailingEmphasis,
       this.isHeaderSticky,
       this.isAvatarEnabled,
-      this.heightBetween
+      this.heightBetween,
+      this.avatarTitle,
+      this.avatarTitleType,
+      this.avatarTitleEmphasis,
+      this.avatarSubtitle,
+      this.avatarSubtitleType,
+      this.avatarSubtitleEmphasis,
+      this.avatarImageUrl,
+      this.avatarImageBorderWidth,
+      this.avatarImageRadius,
+      this.avatarClickedCallback
   ){
     headerPadding = headerPadding != null ? headerPadding : EdgeInsets.all(0.0);
 
@@ -258,41 +307,31 @@ class _HeaderListState extends State<HeaderList> {
   }
 
   Widget _createAvatar() {
-    Size mediaQuery = MediaQuery.of(context).size;
     return Container(
       padding: avatarPadding,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          CircularProfileAvatar(
-            '',
-            child: Image(
-              image: AssetImage("assets/female.png"),//TODO
-              width: mediaQuery.width,
-              height: 250,//TODO
-              fit: BoxFit.fitHeight,
+      child: GestureDetector(
+        onTap: avatarClickedCallback,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            CircularProfileAvatar(
+              '',
+              child: Image(
+                image: AssetImage(avatarImageUrl),
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.fitHeight,
+              ),
+              backgroundColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
+              borderColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
+              borderWidth: avatarImageBorderWidth,
+              radius: avatarImageRadius,
             ),
-            backgroundColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
-            borderColor: context.watch<MaterialThemesManager>().getTheme(cardType).cardTheme.color,
-            borderWidth: 4.0,
-            radius: 60.0,
-          ),
-          SizedBox(height: 4.0),
-          Text(
-            "Neecoder X",//TODO
-            style: TextStyle(
-              fontSize: 21.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            "Developer",//TODO
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.grey[700],
-            ),
-          ),
-        ],
+            SizedBox(height: 4.0),
+            ThemedTitle(avatarTitle, type: avatarTitleType, emphasis: avatarTitleEmphasis),
+            ThemedSubTitle(avatarSubtitle, type: avatarSubtitleType, emphasis: avatarSubtitleEmphasis)
+          ],
+        ),
       ),
     );
   }
