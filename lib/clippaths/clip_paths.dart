@@ -18,14 +18,18 @@ class SimpleClipPath extends CustomClipper<Path> {
 
   ClipPathType type;
   double radius;
-  double leftPercentOfHeight;
-  double rightPercentOfHeight;
+  double topLeftPercentOfHeight;
+  double bottomLeftPercentOfHeight;
+  double topRightPercentOfHeight;
+  double bottomRightPercentOfHeight;
 
   SimpleClipPath({
     this.type = ClipPathType.ROUNDED_DOWN,
-    this.radius = 10.0,
-    this.leftPercentOfHeight = 50.0,
-    this.rightPercentOfHeight = 50.0
+    this.radius = 20.0,
+    this.topLeftPercentOfHeight = 0.0,
+    this.bottomLeftPercentOfHeight = 100.0,
+    this.topRightPercentOfHeight = 0.0,
+    this.bottomRightPercentOfHeight = 100.0
   });
 
   @override
@@ -151,27 +155,37 @@ class SimpleClipPath extends CustomClipper<Path> {
 
   Path getDiagonal(Size size) {
 
-    var rightPixelsFromTop = (size.height * rightPercentOfHeight) / 100.0;
-    var leftPixelsFromTop = (size.height * leftPercentOfHeight) / 100.0;
+    var topLeftPixelsFromTop = (size.height * topLeftPercentOfHeight) / 100.0;
+    var bottomLeftPixelsFromTop = (size.height * bottomLeftPercentOfHeight) / 100.0;
+    var topRightPixelsFromTop = (size.height * topRightPercentOfHeight) / 100.0;
+    var bottomRightPixelsFromTop = (size.height * bottomRightPercentOfHeight) / 100.0;
 
     Path path = Path();
-    path.lineTo(size.width, 0);
-    path.lineTo(size.width, rightPixelsFromTop);
-    path.lineTo(0, leftPixelsFromTop);
+    path.moveTo(0, topLeftPixelsFromTop);
+    path.lineTo(size.width, topRightPixelsFromTop);
+    path.lineTo(size.width, bottomRightPixelsFromTop);
+    path.lineTo(0, bottomLeftPixelsFromTop);
 
     return path;
   }
 
   Path getRoundedCorners(Size size) {
+
+    var topLeftPixelsFromTop = (size.height * topLeftPercentOfHeight) / 100.0;
+    var bottomLeftPixelsFromTop = (size.height * bottomLeftPercentOfHeight) / 100.0;
+    var topRightPixelsFromTop = (size.height * topRightPercentOfHeight) / 100.0;
+    var bottomRightPixelsFromTop = (size.height * bottomRightPercentOfHeight) / 100.0;
+
     var path = new Path();
-    path.lineTo(0.0, size.height - radius);
-    path.quadraticBezierTo(0.0, size.height, radius, size.height);
-    path.lineTo(size.width - radius, size.height);
-    path.quadraticBezierTo(size.width, size.height, size.width, size.height - radius);
-    path.lineTo(size.width, radius);//was 50
-    path.quadraticBezierTo(size.width, 0.0, size.width - radius, 0.0);//was 30, - 20, 30
-    path.lineTo(radius, 0.0);//was 20, 5
-    path.quadraticBezierTo(0.0, 0.0, 0.0, radius);
+    path.moveTo(0.0, topLeftPixelsFromTop + radius);
+    path.lineTo(0.0, bottomLeftPixelsFromTop - radius);
+    path.quadraticBezierTo(0.0, bottomLeftPixelsFromTop, radius, bottomLeftPixelsFromTop);
+    path.lineTo(size.width - radius, bottomRightPixelsFromTop);
+    path.quadraticBezierTo(size.width, bottomRightPixelsFromTop, size.width, bottomRightPixelsFromTop - radius);
+    path.lineTo(size.width, topRightPixelsFromTop + radius);
+    path.quadraticBezierTo(size.width, topRightPixelsFromTop, size.width - radius, topRightPixelsFromTop);
+    path.lineTo(radius, topLeftPixelsFromTop);//was 20, 5
+    path.quadraticBezierTo(0.0, topLeftPixelsFromTop, 0.0, topLeftPixelsFromTop + radius);
     return path;
   }
 }

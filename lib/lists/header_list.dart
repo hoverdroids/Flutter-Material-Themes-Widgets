@@ -218,8 +218,8 @@ class _HeaderListState extends State<HeaderList> {
 
     imageClipPath = imageClipPath != null ? imageClipPath : SimpleClipPath(
         type: ClipPathType.DIAGONAL,
-        leftPercentOfHeight: 80.0,
-        rightPercentOfHeight: 30.0
+        bottomLeftPercentOfHeight: 80.0,
+        bottomRightPercentOfHeight: 30.0
     );
   }
 
