@@ -136,14 +136,14 @@ packages:
       name: material_themes_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.21"
+    version: "0.0.23"
   material_themes_widgets:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.10"
+    version: "0.0.12"
   meta:
     dependency: transitive
     description:
