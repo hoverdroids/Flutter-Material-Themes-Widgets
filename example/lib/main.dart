@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
 import 'home_page.dart';
+import 'package:material_themes_widgets/screens/onboarding_screen.dart';
 
 void main() {
   runApp(
@@ -26,9 +27,14 @@ class App extends StatelessWidget {
           themeMode: themeManager.getThemeMode(),
           theme: themeManager.getPrimaryLightTheme(),
           darkTheme: themeManager.getPrimaryDarkTheme(),
-          home: Container(
+          home: OnboardingScreen(
+            title: "Yo Mamma",
+            imageUrl: "assets/food_1.jpg",
+            description: "alkjasldjf askldjf asdf kasas dflasjd fkljasd klfjas d fjkasd",
+          )
+          /*home: Container(
             child: HomePage(),
-          ),
+          ),*/
         );
       },
     );
