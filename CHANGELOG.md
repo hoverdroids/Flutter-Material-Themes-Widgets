@@ -1,3 +1,4 @@
+## [0.0.10] - Updated ThemeManager to 0.0.21
 ## [0.0.9] - Updated ThemeManager to 0.0.20
 ## [0.0.8] - Updated clip paths to use topLeft/botLef/topRight/botRight
 ## [0.0.7] - Added rounded corners to clipPathType
