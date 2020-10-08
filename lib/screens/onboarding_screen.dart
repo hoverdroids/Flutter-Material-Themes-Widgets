@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
+import 'package:material_themes_widgets/fundamental/blob.dart';
+import 'package:material_themes_widgets/fundamental/buttons_media.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:provider/provider.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class OnboardingScreen extends Container {
 
@@ -28,6 +30,7 @@ class OnboardingScreen extends Container {
   final int imageFlex;
   final EdgeInsets imagePadding;
   final EdgeInsetsGeometry screenPadding;
+  final String audioUrl;
 
   OnboardingScreen(
       {
@@ -51,7 +54,8 @@ class OnboardingScreen extends Container {
         this.imageBlendColor,
         this.imageFlex = 4,
         this.imagePadding,
-        this.screenPadding = const EdgeInsets.all(20.0)
+        this.screenPadding = const EdgeInsets.all(20.0),
+        this.audioUrl
       }
   ) {
     imageClipPath = imageClipPath != null ? imageClipPath : SimpleClipPath(
@@ -114,6 +118,44 @@ class OnboardingScreen extends Container {
     var bottom = isDescriptionPresent ? 0.0 : 20.0;
     var defPadding = EdgeInsets.fromLTRB(20.0, top, 20.0, bottom);
 
+    var children = <Widget>[];
+    var image = Image(
+      image: AssetImage(imageUrl),
+      width: double.infinity,
+      height: double.infinity,
+      fit: BoxFit.fitHeight,
+      colorBlendMode: imageBlendMode,
+      color: imageBlendColor,
+    );
+    children.add(image);
+
+    var image2 = Center(
+      child: SizedBox(
+          height: 200,
+          width: 200,
+          child: ThemedPlayButton(
+            pauseIcon: Icon(Icons.pause, color: Colors.black, size: 90),
+            playIcon: Icon(Icons.play_arrow, color: Colors.black, size: 90),
+            onPressed: () {},
+          ),
+      )
+    );
+
+    //if (audioUrl != null) {
+      /*var pausePlay = Center(
+          child: SizedBox(
+            height: 20,
+            width: 20,
+            child: PlayButton(
+              pauseIcon: Icon(Icons.pause, color: Colors.black, size: 90),
+              playIcon: Icon(Icons.play_arrow, color: Colors.black, size: 90),
+              onPressed: () {},
+            ),
+          ));
+
+      children.add(pausePlay);*/
+    //}
+
     return Flexible(
       flex: imageFlex,
       child: Center(
@@ -122,13 +164,12 @@ class OnboardingScreen extends Container {
           child: Container(
             decoration: context.watch<MaterialThemesManager>().getBoxDecorationShadow(),
             child: ClipPath(
-              child: Image(
-                image: AssetImage(imageUrl),
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.fitHeight,
-                colorBlendMode: imageBlendMode,
-                color: imageBlendColor,
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  image,
+                  image2
+                ],
               ),
               clipper: imageClipPath,
             ),
@@ -136,6 +177,10 @@ class OnboardingScreen extends Container {
         ),
       ),
     );
+  }
+
+  Widget _createPlayButton() {
+    return Container();
   }
 
   Widget _createDescription() {
