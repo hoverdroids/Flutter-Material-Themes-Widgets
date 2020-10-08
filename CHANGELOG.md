@@ -1,3 +1,4 @@
+## [0.0.14] - Added pause/play button that pauses/plays audio when clicked
 ## [0.0.13] - Added onboarding_screen
 ## [0.0.12] - Updated ThemeManager to 0.0.23
 ## [0.0.11] - Updated ThemeManager to 0.0.22

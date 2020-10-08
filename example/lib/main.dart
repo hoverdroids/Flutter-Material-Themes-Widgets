@@ -32,6 +32,7 @@ class App extends StatelessWidget {
               title: "Yo Mamma",
               imageUrl: "assets/food_1.jpg",
               description: "alkjasldjf askldjf asdf kasas dflasjd fkljasd klfjas d fjkasd",
+              audioUrl: "assets/audios/demo.mp3",
             )
           )
 

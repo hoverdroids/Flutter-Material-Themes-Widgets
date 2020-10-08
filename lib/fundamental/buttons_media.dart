@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:material_themes_widgets/fundamental/icons.dart';
+import 'package:material_themes_manager/material_themes_manager.dart';
 import 'blob.dart';
+import 'package:provider/provider.dart';
 
 //Inspired by: https://levelup.gitconnected.com/flutter-tutorial-music-button-animation-744616b14501
 class ThemedPlayButton extends StatefulWidget {
@@ -11,12 +13,14 @@ class ThemedPlayButton extends StatefulWidget {
   final Icon playIcon;
   final Icon pauseIcon;
   final VoidCallback onPressed;
+  final double widthHeight;
 
   ThemedPlayButton({
     @required this.onPressed,
     this.initialIsPlaying = false,
     this.playIcon = const Icon(Icons.play_arrow),
     this.pauseIcon = const Icon(Icons.pause),
+    this.widthHeight = 100
   });
 
   @override
@@ -24,6 +28,8 @@ class ThemedPlayButton extends StatefulWidget {
 }
 
 class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProviderStateMixin {
+
+  //_ThemedPlayButtonState({this.widthHeight = 80});
 
   static const _kToggleDuration = Duration(milliseconds: 300);
   static const _kRotationDuration = Duration(seconds: 5);
@@ -68,38 +74,40 @@ class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProvider
   Widget _buildIcon(bool isPlaying) {
     return SizedBox.expand(
       key: ValueKey<bool>(isPlaying),
-      child:
-      IconButton(
-        icon: isPlaying ? widget.pauseIcon : widget.playIcon,
+      child: IconButton(
+        icon:isPlaying ? widget.pauseIcon : widget.playIcon,
         onPressed: _onToggle,
       ),
     );
   }
 
+  double widthHeight = 50;
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(minWidth: 48, minHeight: 48),
+    return SizedBox(
+        height: 100,//TODO - these need to used button sizes from the themesManager because the size in pixels is ignore when passed to constructor
+        width: 100,
       child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          if (_showWaves) ...[
-            ThemedBlob(color: Color(0xff0092ff), scale: _scale, rotation: _rotation),
-            ThemedBlob(color: Color(0xff4ac7b7), scale: _scale, rotation: _rotation * 2 - 30),
-            ThemedBlob(color: Color(0xffa4a6f6), scale: _scale, rotation: _rotation * 3 - 45),
+          alignment: Alignment.center,
+          children: <Widget>[
+            if (_showWaves) ...[
+              ThemedBlob(color: context.watch<MaterialThemesManager>().colorPalette().primary, scale: _scale, rotation: _rotation),
+              ThemedBlob(color: context.watch<MaterialThemesManager>().colorPalette().secondary, scale: _scale, rotation: _rotation * 2 - 30),
+              ThemedBlob(color: context.watch<MaterialThemesManager>().colorPalette().primaryAccent, scale: _scale, rotation: _rotation * 3 - 45),
+            ],
+            Container(
+              //constraints: BoxConstraints.expand(),
+              child: AnimatedSwitcher(
+                child: _buildIcon(isPlaying),
+                duration: _kToggleDuration,
+              ),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+            ),
           ],
-          Container(
-            constraints: BoxConstraints.expand(),
-            child: AnimatedSwitcher(
-              child: _buildIcon(isPlaying),
-              duration: _kToggleDuration,
-            ),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-            ),
-          ),
-        ],
+        //),
       ),
     );
   }

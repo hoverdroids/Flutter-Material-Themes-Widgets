@@ -32,6 +32,10 @@ class OnboardingScreen extends Container {
   final EdgeInsetsGeometry screenPadding;
   final String audioUrl;
 
+  final assetsAudioPlayer = AssetsAudioPlayer();
+  bool _isAudioPlaying = false;
+  bool _isAudioLoaded = false;
+
   OnboardingScreen(
       {
         this.title,
@@ -118,44 +122,6 @@ class OnboardingScreen extends Container {
     var bottom = isDescriptionPresent ? 0.0 : 20.0;
     var defPadding = EdgeInsets.fromLTRB(20.0, top, 20.0, bottom);
 
-    var children = <Widget>[];
-    var image = Image(
-      image: AssetImage(imageUrl),
-      width: double.infinity,
-      height: double.infinity,
-      fit: BoxFit.fitHeight,
-      colorBlendMode: imageBlendMode,
-      color: imageBlendColor,
-    );
-    children.add(image);
-
-    var image2 = Center(
-      child: SizedBox(
-          height: 200,
-          width: 200,
-          child: ThemedPlayButton(
-            pauseIcon: Icon(Icons.pause, color: Colors.black, size: 90),
-            playIcon: Icon(Icons.play_arrow, color: Colors.black, size: 90),
-            onPressed: () {},
-          ),
-      )
-    );
-
-    //if (audioUrl != null) {
-      /*var pausePlay = Center(
-          child: SizedBox(
-            height: 20,
-            width: 20,
-            child: PlayButton(
-              pauseIcon: Icon(Icons.pause, color: Colors.black, size: 90),
-              playIcon: Icon(Icons.play_arrow, color: Colors.black, size: 90),
-              onPressed: () {},
-            ),
-          ));
-
-      children.add(pausePlay);*/
-    //}
-
     return Flexible(
       flex: imageFlex,
       child: Center(
@@ -167,8 +133,36 @@ class OnboardingScreen extends Container {
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  image,
-                  image2
+                  Image(
+                    image: AssetImage(imageUrl),
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.fitHeight,
+                    colorBlendMode: imageBlendMode,
+                    color: imageBlendColor,
+                  ),
+                  if (audioUrl != null) ...[
+                    Center(
+                        child: ThemedPlayButton(
+                          pauseIcon: Icon(Icons.pause, color: Colors.black, size: 48),
+                          playIcon: Icon(Icons.play_arrow, color: Colors.black, size: 48),
+                          onPressed: () {
+                            if (!_isAudioLoaded) {
+                              _isAudioPlaying = true;
+                              _isAudioLoaded = true;
+                              assetsAudioPlayer.open(Audio(audioUrl));
+                              assetsAudioPlayer.play();
+                            } else if (_isAudioPlaying) {
+                              _isAudioPlaying = false;
+                              assetsAudioPlayer.pause();
+                            } else {
+                              _isAudioPlaying = true;
+                              assetsAudioPlayer.play();
+                            }
+                          },
+                        )
+                    )
+                  ]
                 ],
               ),
               clipper: imageClipPath,
