@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/forms/form_fields.dart';
-import 'package:material_themes_widgets/fundamental/checkboxes.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 
 class LoginScreen extends StatefulWidget {
 
   final bool showLabels;
   final bool showForgots;
+  final Function onTapRegister;
 
-  LoginScreen({this.showLabels = true, this.showForgots = true});
+  LoginScreen({this.showLabels = true, this.showForgots = true, this.onTapRegister});
 
   @override
   _LoginScreenState createState() => _LoginScreenState(showLabels: showLabels, showForgots: showForgots);
@@ -21,8 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final bool showLabels;
   final bool showForgots;
+  final Function onTapRegister;
+  final Function onTapLogin;
 
-  _LoginScreenState({this.showLabels = true, this.showForgots = true});
+  _LoginScreenState({this.showLabels = true, this.showForgots = true, this.onTapRegister, this.onTapLogin});
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +51,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     //TODO - look back at PikaJo and get the social media icons
                     RaisedButton(
                         color: Colors.white,
-                        onPressed: () => print("pressed login"),
-                        child: ThemedTitle("Login", type: ThemeGroupType.SOM)),
+                        onPressed: () =>  onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
+                        child: ThemedTitle("Login", type: ThemeGroupType.POM)),
+                    Container(
+                      alignment: Alignment.center,
+                      child: FlatButton(
+                        onPressed: onTapRegister != null ? onTapRegister : () => print("Tapped Register"),
+                        padding: EdgeInsets.only(top: 20.0),
+                        child: ThemedSubTitle2("Register", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+                        shape: StadiumBorder(),
+                      ),
+                    )
                   ],
                 ),
               ),

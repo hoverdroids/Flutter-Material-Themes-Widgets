@@ -1,3 +1,5 @@
+## [0.0.16] - Fixed errors when 0.0.15
+## [0.0.15] - Added register button to login screen
 ## [0.0.14] - Added pause/play button that pauses/plays audio when clicked
 ## [0.0.13] - Added onboarding_screen
 ## [0.0.12] - Updated ThemeManager to 0.0.23
