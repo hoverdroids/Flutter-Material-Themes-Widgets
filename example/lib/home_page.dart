@@ -94,6 +94,8 @@ class _HomePageState extends State<HomePage> {
           onPasswordChangedCallback: (value) => {
             print("Password changed" + value)
           },
+          onTapLogin: () => print("On tap login2"),
+          onTapRegister: () => print("on tap register2"),
         ),
         padding: 0.0,
         clipPathType: ClipPathType.NONE,
