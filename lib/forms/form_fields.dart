@@ -232,3 +232,91 @@ class _ThemedPasswordEntryState extends State<ThemedPasswordEntry> {
     );
   }
 }
+
+
+class ThemedStringEntry extends StatefulWidget {
+
+  final ThemeGroupType textFieldBackgroundType;
+  final ValueChanged<String> onStringChangedCallback;
+  final FormFieldValidator<String> validator;
+  final String hintText;
+  final bool obscureText;
+  final Widget prefixIcon;
+
+  ThemedStringEntry({
+    this.textFieldBackgroundType = ThemeGroupType.MOM,
+    this.onStringChangedCallback,
+    this.validator,
+    this.hintText,
+    this.obscureText = false,
+    this.prefixIcon
+  });
+
+  _ThemedStringEntryState createState() => _ThemedStringEntryState(
+    this.textFieldBackgroundType,
+    this.onStringChangedCallback,
+    this.validator,
+    this.hintText,
+    this.obscureText,
+    this.prefixIcon
+  );
+}
+
+class _ThemedStringEntryState extends State<ThemedStringEntry> {
+
+  final ThemeGroupType textFieldBackgroundType;
+  final ValueChanged<String> onStringChangedCallback;
+  final FormFieldValidator<String> validator;
+  final String hintText;
+  final bool obscureText;
+  final Widget prefixIcon;
+
+  _ThemedStringEntryState(
+    this.textFieldBackgroundType,
+    this.onStringChangedCallback,
+    this.validator,
+    this.hintText,
+    this.obscureText,
+    this.prefixIcon
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      decoration: BoxDecoration (//TODO - move this styling to ThemeManager?
+        color: context.watch<MaterialThemesManager>().getTheme(textFieldBackgroundType).scaffoldBackgroundColor,//TODO - this should be card color, right?
+        borderRadius: BorderRadius.circular(largeBorderRadius),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 2.0,
+            offset: Offset(2, 2),
+          ),
+        ],
+      ),
+      height: 60.0,
+      child: TextFormField(
+        style: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+        obscureText: obscureText,
+        decoration: InputDecoration(//TODO - make this work without an icon. It doesn't at the moment!
+          border: InputBorder.none,//hide the bottom EditText underscore bar
+          contentPadding: EdgeInsets.only(top: paddingSmall),
+          prefixIcon: prefixIcon != null ? prefixIcon : Container(width: 0,height: 0),
+          hintText: hintText != null ? hintText : "Balla",
+          hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+        ),
+        validator: validator != null ? validator : (value) => null,
+        onChanged: (val) {
+          setState(() => {
+            if(onStringChangedCallback != null) {
+              onStringChangedCallback(val)
+            } else {
+              print("Changed:" + (hintText != null ? hintText : "Balla"))
+            }
+          });
+        },
+      ),
+    );
+  }
+}

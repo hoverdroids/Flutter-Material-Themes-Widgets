@@ -4,7 +4,7 @@ import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/header_list.dart';
-import 'package:material_themes_widgets/screens/login_screen.dart';
+import 'package:material_themes_widgets/screens/profile_screen.dart';
 import 'grayscale_theme_list_items_page.dart';
 import 'main_theme_list_items_page.dart';
 import 'wireframe_theme_list_items_page.dart';
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
         leftIconType: ThemeGroupType.MOP,
         leftIconClickedCallback: () => Navigator.pop(context),
         showRightIcon: false,
-        child: LoginScreen(
+        child: ProfileScreen(
           onEmailChangedCallback: (value) => {
             print("Email changed" + value)
           },
