@@ -6,13 +6,13 @@ import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:provider/provider.dart';
 
 //TODO - clean this up and make it much easier to provide a simple theme field
-class ThemedEmailEntry extends StatelessWidget {
-
+class ThemedEmailEntry extends StatefulWidget {
   final bool showLabel;
   final bool showForgotEmail;
   final Function onTapForgotEmail;
   final ThemeGroupType labelType;
   final ThemeGroupType textFieldBackgroundType;
+  final ValueChanged<String> onEmailChangedCallback;
 
   ThemedEmailEntry({
     this.showLabel = true,
@@ -20,24 +20,51 @@ class ThemedEmailEntry extends StatelessWidget {
     this.onTapForgotEmail,
     this.labelType = ThemeGroupType.MOP,
     this.textFieldBackgroundType = ThemeGroupType.MOM,
-  }) : super();
+    this.onEmailChangedCallback
+  });
+
+  _ThemedEmailEntryState createState() => _ThemedEmailEntryState(
+    showLabel,
+    showForgotEmail,
+    onTapForgotEmail,
+    labelType,
+    textFieldBackgroundType,
+    onEmailChangedCallback
+  );
+}
+
+class _ThemedEmailEntryState extends State<ThemedEmailEntry> {
+
+  final bool showLabel;
+  final bool showForgotEmail;
+  final Function onTapForgotEmail;
+  final ThemeGroupType labelType;
+  final ThemeGroupType textFieldBackgroundType;
+  final ValueChanged<String> onEmailChangedCallback;
+
+  _ThemedEmailEntryState(
+    this.showLabel,
+    this.showForgotEmail,
+    this.onTapForgotEmail,
+    this.labelType,
+    this.textFieldBackgroundType,
+    this.onEmailChangedCallback
+  );
 
   @override
   Widget build(BuildContext context) {
-
-    var children = <Widget>[];
-    if (showLabel) {
-      children.add(ThemedSubTitle2('Email', type: labelType, emphasis: Emphasis.HIGH));
-      children.add(miniTransparentDivider);
-    }
-    children.add(_buildEditText(context));
-    if (showForgotEmail) {
-      children.add(_buildForgotEmail(context));
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: children,
+      children: <Widget>[
+        if (showLabel) ... [
+          ThemedSubTitle2('Email', type: labelType, emphasis: Emphasis.HIGH),
+          miniTransparentDivider
+        ],
+        _buildEditText(context),
+        if (showForgotEmail) ... [
+          _buildForgotEmail(context)
+        ]
+      ],
     );
   }
 
@@ -68,7 +95,7 @@ class ThemedEmailEntry extends StatelessWidget {
         ],
       ),
       height: 60.0,
-      child: TextField(
+      child: TextFormField(
         keyboardType: TextInputType.emailAddress,
         style: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
         decoration: InputDecoration(
@@ -78,19 +105,28 @@ class ThemedEmailEntry extends StatelessWidget {
           hintText: 'Email',
           hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
         ),
+        validator: (val) => val.isEmpty ? 'Enter an email' : null,
+        onChanged: (val){
+          setState(() => {
+            if(onEmailChangedCallback != null) {
+              onEmailChangedCallback(val)
+            }
+          });
+        },
       ),
     );
   }
 }
 
 //TODO - clean this up and make it much easier to provide a simple theme field
-class ThemedPasswordEntry extends StatelessWidget {
+class ThemedPasswordEntry extends StatefulWidget {
 
-  final bool showLabel;
-  final bool showForgotPassword;
-  final Function onTapForgotPassword;
-  final ThemeGroupType labelType;
-  final ThemeGroupType textFieldBackgroundType;
+    final bool showLabel;
+    final bool showForgotPassword;
+    final Function onTapForgotPassword;
+    final ThemeGroupType labelType;
+    final ThemeGroupType textFieldBackgroundType;
+    final ValueChanged<String> onPasswordChangedCallback;
 
   ThemedPasswordEntry({
     this.showLabel = true,
@@ -98,7 +134,36 @@ class ThemedPasswordEntry extends StatelessWidget {
     this.onTapForgotPassword,
     this.labelType = ThemeGroupType.MOP,
     this.textFieldBackgroundType = ThemeGroupType.MOM,
-  }) : super();
+    this.onPasswordChangedCallback
+  });
+
+  _ThemedPasswordEntryState createState() => _ThemedPasswordEntryState(
+    this.showLabel,
+    this.showForgotPassword,
+    this.onTapForgotPassword,
+    this.labelType,
+    this.textFieldBackgroundType,
+    this.onPasswordChangedCallback
+  );
+}
+
+class _ThemedPasswordEntryState extends State<ThemedPasswordEntry> {
+
+  final bool showLabel;
+  final bool showForgotPassword;
+  final Function onTapForgotPassword;
+  final ThemeGroupType labelType;
+  final ThemeGroupType textFieldBackgroundType;
+  final ValueChanged<String> onPasswordChangedCallback;
+
+  _ThemedPasswordEntryState(
+    this.showLabel,
+    this.showForgotPassword,
+    this.onTapForgotPassword,
+    this.labelType,
+    this.textFieldBackgroundType,
+    this.onPasswordChangedCallback
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -145,16 +210,24 @@ class ThemedPasswordEntry extends StatelessWidget {
         ],
       ),
       height: 60.0,
-      child: TextField(
+      child: TextFormField(
         style: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+        obscureText: true,
         decoration: InputDecoration(
-          //TODO - hide password as we type
           border: InputBorder.none,//hide the bottom EditText underscore bar
           contentPadding: EdgeInsets.only(top: paddingSmall),
           prefixIcon: ThemedIcon(Icons.lock, type:ThemeGroupType.MOM),
           hintText: 'Password',
           hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
         ),
+        validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+        onChanged: (val){
+          setState(() => {
+            if(onPasswordChangedCallback != null) {
+              onPasswordChangedCallback(val)
+            }
+          });
+        },
       ),
     );
   }

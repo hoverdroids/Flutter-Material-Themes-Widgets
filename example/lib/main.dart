@@ -27,18 +27,18 @@ class App extends StatelessWidget {
           themeMode: themeManager.getThemeMode(),
           theme: themeManager.getPrimaryLightTheme(),
           darkTheme: themeManager.getPrimaryDarkTheme(),
-          home: Scaffold(
+          /*home: Scaffold(
             body: OnboardingScreen(
               title: "Yo Mamma",
               imageUrl: "assets/food_1.jpg",
               description: "alkjasldjf askldjf asdf kasas dflasjd fkljasd klfjas d fjkasd",
               audioUrl: "assets/audios/demo.mp3",
             )
-          )
+          )*/
 
-          /*home: Container(
+          home: Container(
             child: HomePage(),
-          ),*/
+          ),
         );
       },
     );

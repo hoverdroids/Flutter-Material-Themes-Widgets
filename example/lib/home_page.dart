@@ -87,7 +87,14 @@ class _HomePageState extends State<HomePage> {
         leftIconType: ThemeGroupType.MOP,
         leftIconClickedCallback: () => Navigator.pop(context),
         showRightIcon: false,
-        child: LoginScreen(),
+        child: LoginScreen(
+          onEmailChangedCallback: (value) => {
+            print("Email changed" + value)
+          },
+          onPasswordChangedCallback: (value) => {
+            print("Password changed" + value)
+          },
+        ),
         padding: 0.0,
         clipPathType: ClipPathType.NONE,
         backgroundGradientType: BackgroundGradientType.PRIMARY,

@@ -1,3 +1,4 @@
+## [0.0.18] - Added ValueChanged listeners to email/password fields. Added validators.
 ## [0.0.17] - Passing through onTapRegister and onTapLogin
 ## [0.0.16] - Fixed errors when 0.0.15
 ## [0.0.15] - Added register button to login screen
