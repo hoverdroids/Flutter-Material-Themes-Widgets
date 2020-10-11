@@ -75,7 +75,7 @@ class ThemedEmailEntry extends StatelessWidget {
           border: InputBorder.none,//hide the bottom EditText underscore bar
           contentPadding: EdgeInsets.only(top: paddingSmall),
           prefixIcon: ThemedIcon(Icons.email, type:ThemeGroupType.MOM),
-          hintText: 'Enter your Email',
+          hintText: 'Email',
           hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
         ),
       ),
@@ -103,19 +103,18 @@ class ThemedPasswordEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var children = <Widget>[];
-    if (showLabel) {
-      children.add(ThemedSubTitle2('Password', type: labelType, emphasis: Emphasis.HIGH));
-      children.add(miniTransparentDivider);
-    }
-    children.add(_buildEditText(context));
-    if (showForgotPassword) {
-      children.add(_buildForgotPassword(context));
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: children,
+      children: <Widget>[
+        if(showLabel) ... [
+          ThemedSubTitle2('Password', type: labelType, emphasis: Emphasis.HIGH),
+          miniTransparentDivider
+        ],
+        _buildEditText(context),
+        if(showForgotPassword) ... [
+          _buildForgotPassword(context)
+        ]
+      ],
     );
   }
 
@@ -153,7 +152,7 @@ class ThemedPasswordEntry extends StatelessWidget {
           border: InputBorder.none,//hide the bottom EditText underscore bar
           contentPadding: EdgeInsets.only(top: paddingSmall),
           prefixIcon: ThemedIcon(Icons.lock, type:ThemeGroupType.MOM),
-          hintText: 'Enter your Password',
+          hintText: 'Password',
           hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
         ),
       ),

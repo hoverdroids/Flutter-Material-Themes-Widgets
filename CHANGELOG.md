@@ -1,3 +1,4 @@
+## [0.0.17] - Passing through onTapRegister and onTapLogin
 ## [0.0.16] - Fixed errors when 0.0.15
 ## [0.0.15] - Added register button to login screen
 ## [0.0.14] - Added pause/play button that pauses/plays audio when clicked

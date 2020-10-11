@@ -10,11 +10,12 @@ class LoginScreen extends StatefulWidget {
   final bool showLabels;
   final bool showForgots;
   final Function onTapRegister;
+  final Function onTapLogin;
 
-  LoginScreen({this.showLabels = true, this.showForgots = true, this.onTapRegister});
+  LoginScreen({this.showLabels = true, this.showForgots = true, this.onTapRegister, this.onTapLogin});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState(showLabels: showLabels, showForgots: showForgots);
+  _LoginScreenState createState() => _LoginScreenState(showLabels: showLabels, showForgots: showForgots, onTapRegister: onTapRegister, onTapLogin: onTapLogin);
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -43,23 +44,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     ThemedH4("Sign In", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
-                    //largeTransparentDivider,
+                    if(!showLabels) ... [
+                      SizedBox(height: 20.0)
+                    ],
                     ThemedEmailEntry(showLabel: showLabels, showForgotEmail: showForgots),
-                    //mediumTransparentDivider,//TODO - make the dividers conditional on showLabel (if showLable, don't add divider)
+                    if(!showLabels) ... [
+                      SizedBox(height: 20.0)
+                    ],
                     ThemedPasswordEntry(showLabel: showLabels, showForgotPassword: showForgots),
                     //ThemedCheckbox(text: "Remeber me")
                     //TODO - look back at PikaJo and get the social media icons
                     RaisedButton(
-                        color: Colors.white,
-                        onPressed: () =>  onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
-                        child: ThemedTitle("Login", type: ThemeGroupType.POM)),
+                      color: Colors.white,
+                      onPressed: () =>  onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
+                      child: ThemedTitle("Login", type: ThemeGroupType.POM),
+                      shape: StadiumBorder(),
+                    ),
+                    SizedBox(height: 20.0),
                     Container(
                       alignment: Alignment.center,
                       child: FlatButton(
                         onPressed: onTapRegister != null ? onTapRegister : () => print("Tapped Register"),
-                        padding: EdgeInsets.only(top: 20.0),
                         child: ThemedSubTitle2("Register", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
-                        shape: StadiumBorder(),
                       ),
                     )
                   ],
