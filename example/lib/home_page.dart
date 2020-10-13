@@ -99,6 +99,7 @@ class _HomePageState extends State<HomePage> {
             isFooterSticky: true,
             isFooterVertical: false,
             isLogin: false,
+            showLabels: false,
           )
         ),
         padding: 0.0,

@@ -236,64 +236,121 @@ class _ThemedPasswordEntryState extends State<ThemedPasswordEntry> {
 
 class ThemedStringEntry extends StatefulWidget {
 
-  final ThemeGroupType labelType;
+  final bool showLabel;
   final String labelText;
-  final ThemeGroupType textFieldBackgroundType;
+  final ThemeGroupType labelType;
+  final Emphasis labelEmphasis;
+  final TextAlign labelTextAlign;
+
+  final IconData prefixIcon;
+  final ThemeGroupType prefixIconType;
+  final Emphasis prefixIconEmphasis;
+
+  final String text;
+  final ThemeGroupType textType;
+  final Emphasis textEmphasis;
+  //TODO final TextAlign textAlign;
+  final bool obscureText;
+
+  final String hintText;
+  final ThemeGroupType hintTextType;
+  final Emphasis hintTextEmphasis;
+  //TODO final TextAlign hintTextAlign;
+
+  final ThemeGroupType backgroundType;
   final ValueChanged<String> onStringChangedCallback;
   final FormFieldValidator<String> validator;
-  final String hintText;
-  final bool obscureText;
-  final Widget prefixIcon;
-  final bool showLabel;
 
   ThemedStringEntry({
+    this.showLabel = true,
+    this.labelText = "",
     this.labelType = ThemeGroupType.MOM,
-    this.labelText = "Label",
-    this.textFieldBackgroundType = ThemeGroupType.MOM,
-    this.onStringChangedCallback,
-    this.validator,
-    this.hintText,
-    this.obscureText = false,
+    this.labelEmphasis = Emphasis.HIGH,
+    this.labelTextAlign = TextAlign.start,
     this.prefixIcon,
-    this.showLabel = true
+    this.prefixIconType = ThemeGroupType.MOM,
+    this.prefixIconEmphasis = Emphasis.HIGH,
+    this.text = "",
+    this.textType = ThemeGroupType.MOM,
+    this.textEmphasis = Emphasis.HIGH,
+    this.obscureText = false,
+    this.hintText = "",
+    this.hintTextType = ThemeGroupType.MOM,
+    this.hintTextEmphasis = Emphasis.NONE,
+    this.backgroundType = ThemeGroupType.MOM,
+    this.onStringChangedCallback,
+    this.validator
   });
 
   _ThemedStringEntryState createState() => _ThemedStringEntryState(
-      this.labelType,
+      this.showLabel,
       this.labelText,
-      this.textFieldBackgroundType,
-      this.onStringChangedCallback,
-      this.validator,
-      this.hintText,
-      this.obscureText,
+      this.labelType,
+      this.labelEmphasis,
+      this.labelTextAlign,
       this.prefixIcon,
-      this.showLabel
+      this.prefixIconType,
+      this.prefixIconEmphasis,
+      this.text,
+      this.textType,
+      this.textEmphasis,
+      this.obscureText,
+      this.hintText,
+      this.hintTextType,
+      this.hintTextEmphasis,
+      this.backgroundType,
+      this.onStringChangedCallback,
+      this.validator
   );
 }
 
 class _ThemedStringEntryState extends State<ThemedStringEntry> {
 
-  final ThemeGroupType labelType;
+  final bool showLabel;
   final String labelText;
-  final ThemeGroupType textFieldBackgroundType;
+  final ThemeGroupType labelType;
+  final Emphasis labelEmphasis;
+  final TextAlign labelTextAlign;
+
+  final IconData prefixIcon;
+  final ThemeGroupType prefixIconType;
+  final Emphasis prefixIconEmphasis;
+
+  final String text;
+  final ThemeGroupType textType;
+  final Emphasis textEmphasis;
+  //TODO final TextAlign textAlign;
+  final bool obscureText;
+
+  final String hintText;
+  final ThemeGroupType hintTextType;
+  final Emphasis hintTextEmphasis;
+  //TODO final TextAlign hintTextAlign;
+
+  final ThemeGroupType backgroundType;
   final ValueChanged<String> onStringChangedCallback;
   final FormFieldValidator<String> validator;
-  final String hintText;
-  final bool obscureText;
-  final Widget prefixIcon;
-  final bool showLabel;
 
   _ThemedStringEntryState(
-      this.labelType,
-      this.labelText,
-      this.textFieldBackgroundType,
-      this.onStringChangedCallback,
-      this.validator,
-      this.hintText,
-      this.obscureText,
-      this.prefixIcon,
-      this.showLabel
-      );
+    this.showLabel,
+    this.labelText,
+    this.labelType,
+    this.labelEmphasis,
+    this.labelTextAlign,
+    this.prefixIcon,
+    this.prefixIconType,
+    this.prefixIconEmphasis,
+    this.text,
+    this.textType,
+    this.textEmphasis,
+    this.obscureText,
+    this.hintText,
+    this.hintTextType,
+    this.hintTextEmphasis,
+    this.backgroundType,
+    this.onStringChangedCallback,
+    this.validator
+  );
 
   FormFieldValidator<String> _validator() {
     return validator != null ? validator : (value) => null;//return null indicates the field is valid
@@ -309,16 +366,17 @@ class _ThemedStringEntryState extends State<ThemedStringEntry> {
     });
   }
 
-  Widget _buildTextField() {
+  Widget _buildIconTextField() {
     return TextFormField(
-      style: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+      style: context.watch<MaterialThemesManager>().getTheme(textType, emphasis: textEmphasis).textTheme.subtitle1,
       obscureText: obscureText,
+      initialValue: text,
       decoration: InputDecoration(
         border: InputBorder.none,//hide the bottom EditText underscore bar
         contentPadding: EdgeInsets.only(top: paddingSmall),
-        prefixIcon: prefixIcon,
-        hintText: hintText != null ? hintText : "Hint Text",
-        hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+        prefixIcon: ThemedIcon(prefixIcon, type: prefixIconType, emphasis: prefixIconEmphasis),
+        hintText: hintText != null ? hintText : "",
+        hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType, emphasis: hintTextEmphasis).textTheme.subtitle1,
       ),
       validator: _validator(),
       onChanged: (val) => _onChanged(val),
@@ -327,15 +385,15 @@ class _ThemedStringEntryState extends State<ThemedStringEntry> {
 
   //When icon is null, we can't simply check for null to provide prefixIcon and contentPadding because the layout positioning is wrong.
   //The only way to make iconText and text works is with two separate builder functions
-  Widget _buildIconTextFields() {
+  Widget _buildTextField() {
     return TextFormField(
-      style: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+      style: context.watch<MaterialThemesManager>().getTheme(textType, emphasis: textEmphasis).textTheme.subtitle1,
       obscureText: obscureText,
-      decoration: InputDecoration(//TODO - make this work without an icon. It doesn't at the moment!
+      decoration: InputDecoration(
         border: InputBorder.none,//hide the bottom EditText underscore bar
         contentPadding: EdgeInsets.symmetric(horizontal: paddingSmall),
         hintText: hintText != null ? hintText : "",
-        hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+        hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType).textTheme.subtitle1,
       ),
       validator: _validator(),
       onChanged: (val) => _onChanged(val),
@@ -347,13 +405,12 @@ class _ThemedStringEntryState extends State<ThemedStringEntry> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        //if(showLabel) ... [ ThemedSubTitle2('Email', type: labelType, emphasis: Emphasis.HIGH) ],
-        ThemedSubTitle2(labelText, type: labelType, textAlign: TextAlign.start),
+        if (showLabel) ThemedSubTitle2(labelText, type: labelType, emphasis: labelEmphasis, textAlign: labelTextAlign),
         miniTransparentDivider,
         Container(
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration (//TODO - move this styling to ThemeManager?
-              color: context.watch<MaterialThemesManager>().getTheme(textFieldBackgroundType).scaffoldBackgroundColor,//TODO - this should be card color, right?
+              color: context.watch<MaterialThemesManager>().getTheme(backgroundType).scaffoldBackgroundColor,//TODO - this should be card color, right?
               borderRadius: BorderRadius.circular(largeBorderRadius),
               boxShadow: [
                 BoxShadow(
@@ -364,7 +421,7 @@ class _ThemedStringEntryState extends State<ThemedStringEntry> {
               ],
             ),
             height: 60.0,
-            child: prefixIcon != null ? _buildIconTextFields() : _buildIconTextFields()
+            child: prefixIcon != null ? _buildIconTextField() : _buildTextField()
         )
       ],
     );

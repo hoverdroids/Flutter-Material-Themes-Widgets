@@ -7,6 +7,23 @@ import 'package:material_themes_widgets/fundamental/texts.dart';
 class LoginRegisterScreen extends StatefulWidget {
 
   final bool showLabels;
+  final ThemeGroupType labelType;
+  final Emphasis labelEmphasis;
+  final TextAlign labelTextAlign;
+
+  final ThemeGroupType prefixIconType;
+  final Emphasis prefixIconEmphasis;
+
+  final ThemeGroupType textType;
+  final Emphasis textEmphasis;
+  //TODO final TextAlign textAlign;
+  final bool obscureText;
+
+  final ThemeGroupType hintTextType;
+  final Emphasis hintTextEmphasis;
+  //TODO final TextAlign hintTextAlign;
+
+  final ThemeGroupType textFieldBackgroundType;
   final bool showForgots;
   final ValueChanged<String> onEmailChangedCallback;
   bool showEmail;
@@ -45,7 +62,18 @@ class LoginRegisterScreen extends StatefulWidget {
 
   LoginRegisterScreen({
     this.showLabels = true,
-    this.showForgots = true,
+    this.labelType = ThemeGroupType.MOP,
+    this.labelEmphasis = Emphasis.NONE,
+    this.labelTextAlign = TextAlign.start,
+    this.prefixIconType = ThemeGroupType.MOM,
+    this.prefixIconEmphasis = Emphasis.HIGH,
+    this.textType = ThemeGroupType.MOM,
+    this.textEmphasis = Emphasis.HIGH,
+    this.obscureText = false,
+    this.hintTextType = ThemeGroupType.MOM,
+    this.hintTextEmphasis = Emphasis.NONE,
+    this.textFieldBackgroundType = ThemeGroupType.MOP,
+    this.showForgots = false,
     this.onEmailChangedCallback,
     this.showEmail,
     this.onPasswordChangedCallback,
@@ -97,6 +125,16 @@ class LoginRegisterScreen extends StatefulWidget {
   @override
   _LoginRegisterScreenState createState() => _LoginRegisterScreenState(
     showLabels,
+    labelType,
+    labelEmphasis,
+    labelTextAlign,
+    prefixIconType,
+    prefixIconEmphasis,
+    textType,
+    textEmphasis,
+    hintTextType,
+    hintTextEmphasis,
+    textFieldBackgroundType,
     showForgots,
     onEmailChangedCallback,
     showEmail,
@@ -138,6 +176,23 @@ class LoginRegisterScreen extends StatefulWidget {
 class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   final bool showLabels;
+  final ThemeGroupType labelType;
+  final Emphasis labelEmphasis;
+  final TextAlign labelTextAlign;
+
+  final ThemeGroupType prefixIconType;
+  final Emphasis prefixIconEmphasis;
+
+  final ThemeGroupType textType;
+  final Emphasis textEmphasis;
+  //TODO final TextAlign textAlign;
+
+  final ThemeGroupType hintTextType;
+  final Emphasis hintTextEmphasis;
+  //TODO final TextAlign hintTextAlign;
+
+  final ThemeGroupType textFieldBackgroundType;
+
   final bool showForgots;
   final ValueChanged<String> onEmailChangedCallback;
   final bool showEmail;
@@ -178,6 +233,16 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   _LoginRegisterScreenState(
     this.showLabels,
+    this.labelType,
+    this.labelEmphasis,
+    this.labelTextAlign,
+    this.prefixIconType,
+    this.prefixIconEmphasis,
+    this.textType,
+    this.textEmphasis,
+    this.hintTextType,
+    this.hintTextEmphasis,
+    this.textFieldBackgroundType,
     this.showForgots,
     this.onEmailChangedCallback,
     this.showEmail,
@@ -215,6 +280,15 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     this.isLogin
   );
 
+  Widget _buildHeader() {
+    var loginRegTitle = isLogin ? "Login" : "Register";
+    var title = screenTitle != null ? screenTitle : loginRegTitle;
+    return Padding(
+      padding: headerPadding,
+      child:ThemedH4(title, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH)
+    );
+  }
+
   Widget _buildContent() {
     return Container(
       child: Form(
@@ -240,47 +314,47 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   if(!isHeaderSticky) ... [ _buildHeader() ],
                   smallTransparentDivider,
                   if (showEmail) ... [
-                    ThemedStringEntry(labelText: "Email", onStringChangedCallback: onEmailChangedCallback),
+                    _buildStringEntry(labelText: "Email", hintText: showLabels ? "" : "Email", onStringChangedCallback: onEmailChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showPassword) ... [
-                    ThemedStringEntry(labelText: "Password", onStringChangedCallback: onPasswordChangedCallback),
+                    _buildStringEntry(labelText: "Password", hintText: showLabels ? "" : "Password", onStringChangedCallback: onPasswordChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showFirstName) ... [
-                    ThemedStringEntry(labelText: "First Name", onStringChangedCallback: onFirstNameChangedCallback),
+                    _buildStringEntry(labelText: "First Name", hintText: showLabels ? "" : "First Name", onStringChangedCallback: onFirstNameChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showLastName) ... [
-                    ThemedStringEntry(labelText: "Last Name", onStringChangedCallback: onLastNameChangedCallback),
+                    _buildStringEntry(labelText: "Last Name", hintText: showLabels ? "" : "Last Name", onStringChangedCallback: onLastNameChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showTagline) ... [
-                    ThemedStringEntry(labelText: "Tagline", hintText: "e.g. Adventurer", onStringChangedCallback: onTaglineChangedCallback),
+                    _buildStringEntry(labelText: "Tagline", hintText: showLabels ? "e.g. Adventurer" : "Tagline", onStringChangedCallback: onTaglineChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showPronouns) ... [
-                    ThemedStringEntry(labelText: "Pronouns", onStringChangedCallback: onPronounsChangedCallback),
+                    _buildStringEntry(labelText: "Pronouns", hintText: showLabels ? "" : "Pronouns", onStringChangedCallback: onPronounsChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showOrganization) ... [
-                    ThemedStringEntry(labelText: "Organization", onStringChangedCallback: onOrganizationChangedCallback),
+                    _buildStringEntry(labelText: "Organization", hintText: showLabels ? "" : "Organization", onStringChangedCallback: onOrganizationChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showAddress) ... [
-                    ThemedStringEntry(labelText: "Address", onStringChangedCallback: onAddressChangedCallback),
+                    _buildStringEntry(labelText: "Address", hintText: showLabels ? "" : "Address", onStringChangedCallback: onAddressChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showCity) ... [
-                    ThemedStringEntry(labelText: "City", onStringChangedCallback: onCityChangedCallback),
+                    _buildStringEntry(labelText: "City", hintText: showLabels ? "" : "City", onStringChangedCallback: onCityChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showState) ... [
-                    ThemedStringEntry(labelText: "State", onStringChangedCallback: onStateChangedCallback),
+                    _buildStringEntry(labelText: "State", hintText: showLabels ? "" : "State", onStringChangedCallback: onStateChangedCallback),
                     smallTransparentDivider
                   ],
                   if (showZip) ... [
-                    ThemedStringEntry(labelText: "Zip", onStringChangedCallback: onZipChangedCallback),
+                    _buildStringEntry(labelText: "Zip", hintText: showLabels ? "" : "Zip", onStringChangedCallback: onZipChangedCallback),
                     smallTransparentDivider
                   ],
                   if(doShowLoginRegisterButtons && !isFooterSticky && isFooterVertical) ... [ _buildVerticalFooter()]
@@ -294,12 +368,34 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildHeader() {
-    var loginRegTitle = isLogin ? "Login" : "Register";
-    var title = screenTitle != null ? screenTitle : loginRegTitle;
-    return Padding(
-      padding: headerPadding,
-      child:ThemedH4(title, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH)
+  Widget _buildStringEntry({
+    String labelText = "",
+    IconData prefixIcon,
+    String text = "",
+    bool obscureText = false,
+    String hintText = "",
+    ValueChanged<String> onStringChangedCallback,
+    FormFieldValidator<String> validator
+  }) {
+
+    return ThemedStringEntry(
+      showLabel: showLabels,
+      labelText: labelText,
+      labelType: labelType,
+      labelEmphasis: labelEmphasis,
+      labelTextAlign: labelTextAlign,
+      prefixIcon: prefixIcon,
+      prefixIconType: prefixIconType,
+      prefixIconEmphasis: prefixIconEmphasis,
+      text: text,
+      textType: textType,
+      textEmphasis: textEmphasis,
+      obscureText: obscureText,
+      hintText: hintText,
+      hintTextType: hintTextType,
+      hintTextEmphasis: hintTextEmphasis,
+      onStringChangedCallback: onStringChangedCallback,
+      validator: validator
     );
   }
 
