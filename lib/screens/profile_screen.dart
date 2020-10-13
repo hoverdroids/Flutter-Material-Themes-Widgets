@@ -23,6 +23,7 @@ class ProfileScreen extends StatefulWidget {
   final Function onTapLogin;
   final String screenTitle;
   final bool doShowLoginRegisterButtons;
+  final EdgeInsets padding;
 
   ProfileScreen({
     this.showLabels = true,
@@ -40,27 +41,29 @@ class ProfileScreen extends StatefulWidget {
     this.onTapRegister,
     this.onTapLogin,
     this.screenTitle = "Register",
-    this.doShowLoginRegisterButtons = true
+    this.doShowLoginRegisterButtons = true,
+    this.padding
   });
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState(
-      showLabels,
-      showForgots,
-      onEmailChangedCallback,
-      onPasswordChangedCallback,
-      onFirstNameChangedCallback,
-      onLastNameChangedCallback,
-      onPronounsChangedCallback,
-      onOrganizationChangedCallback,
-      onAddressChangedCallback,
-      onCityChangedCallback,
-      onStateChangedCallback,
-      onZipChangedCallback,
-      onTapRegister,
-      onTapLogin,
-      screenTitle,
-      doShowLoginRegisterButtons
+    showLabels,
+    showForgots,
+    onEmailChangedCallback,
+    onPasswordChangedCallback,
+    onFirstNameChangedCallback,
+    onLastNameChangedCallback,
+    onPronounsChangedCallback,
+    onOrganizationChangedCallback,
+    onAddressChangedCallback,
+    onCityChangedCallback,
+    onStateChangedCallback,
+    onZipChangedCallback,
+    onTapRegister,
+    onTapLogin,
+    screenTitle,
+    doShowLoginRegisterButtons,
+    padding
   );
 }
 
@@ -82,27 +85,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final Function onTapLogin;
   final String screenTitle;
   final bool doShowLoginRegisterButtons;
+  final EdgeInsets padding;
 
   final _formKey = GlobalKey<FormState>();
 
   _ProfileScreenState(
-      this.showLabels,
-      this.showForgots,
-      this.onEmailChangedCallback,
-      this.onPasswordChangedCallback,
-      this.onFirstNameChangedCallback,
-      this.onLastNameChangedCallback,
-      this.onPronounsChangedCallback,
-      this.onOrganizationChangedCallback,
-      this.onAddressChangedCallback,
-      this.onCityChangedCallback,
-      this.onStateChangedCallback,
-      this.onZipChangedCallback,
-      this.onTapRegister,
-      this.onTapLogin,
-      this.screenTitle,
-      this.doShowLoginRegisterButtons
-    );
+    this.showLabels,
+    this.showForgots,
+    this.onEmailChangedCallback,
+    this.onPasswordChangedCallback,
+    this.onFirstNameChangedCallback,
+    this.onLastNameChangedCallback,
+    this.onPronounsChangedCallback,
+    this.onOrganizationChangedCallback,
+    this.onAddressChangedCallback,
+    this.onCityChangedCallback,
+    this.onStateChangedCallback,
+    this.onZipChangedCallback,
+    this.onTapRegister,
+    this.onTapLogin,
+    this.screenTitle,
+    this.doShowLoginRegisterButtons,
+    this.padding
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Stack(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: paddingLarge,
-                      vertical: paddingLarge
-                  ),
+                  padding: padding != null ? padding : EdgeInsets.all(paddingMini),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

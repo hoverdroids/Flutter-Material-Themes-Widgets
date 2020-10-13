@@ -13,6 +13,7 @@ class SimpleClipPathDrawer extends StatelessWidget {
   final BackgroundGradientType backgroundGradientType;
   final double width;
   final double widthPercent;
+  final bool showAppBar;
   final IconData leftIcon;
   final bool showLeftIcon;
   final Function leftIconClickedCallback;
@@ -32,6 +33,7 @@ class SimpleClipPathDrawer extends StatelessWidget {
     this.backgroundGradientType = BackgroundGradientType.MAIN_BG,
     this.width,
     this.widthPercent = 0.70,
+    this.showAppBar = true,
     this.leftIcon = Icons.arrow_back,
     this.showLeftIcon = true,
     this.leftIconClickedCallback,
@@ -50,32 +52,29 @@ class SimpleClipPathDrawer extends StatelessWidget {
     Size mediaQuery = MediaQuery.of(context).size;
     double calculatedWidth = mediaQuery.width * widthPercent;
 
-    Widget _getHeader() {
-
-      var children = <Widget>[];
-      if (showLeftIcon) {
-        var icon = ThemedIconButton(
-          leftIcon,
-          type: leftIconType,
-          emphasis: leftIconEmphasis,
-          onPressedCallback: leftIconClickedCallback,
-        );
-        children.add(icon);
-      }
-
-      if (showRightIcon) {
-        var icon = ThemedIconButton(
-          rightIcon,
-          type: rightIconType,
-          emphasis: rightIconEmphasis,
-          onPressedCallback: rightIconClickedCallback,
-        );
-        children.add(icon);
-      }
-
-      return Row(
-        mainAxisAlignment: showLeftIcon && showRightIcon ? MainAxisAlignment.spaceBetween : (showLeftIcon ? MainAxisAlignment.start : MainAxisAlignment.end),
-        children: children,
+    Widget _getAppBar() {
+      return SafeArea(
+        child: Row(
+          mainAxisAlignment: showLeftIcon && showRightIcon ? MainAxisAlignment.spaceBetween : (showLeftIcon ? MainAxisAlignment.start : MainAxisAlignment.end),
+          children: <Widget>[
+            if (showLeftIcon) ... [
+              ThemedIconButton(
+                leftIcon,
+                type: leftIconType,
+                emphasis: leftIconEmphasis,
+                onPressedCallback: leftIconClickedCallback,
+              )
+            ],
+            if(showRightIcon) ... [
+              ThemedIconButton(
+                rightIcon,
+                type: rightIconType,
+                emphasis: rightIconEmphasis,
+                onPressedCallback: rightIconClickedCallback,
+              )
+            ]
+          ],
+        ),
       );
     }
 
@@ -87,8 +86,8 @@ class SimpleClipPathDrawer extends StatelessWidget {
             child: Stack(
               children: [
                 context.watch<MaterialThemesManager>().getBackgroundGradient(backgroundGradientType),
-                child != null ? child : Container(),
-                _getHeader()
+                if(child != null) ... [ child ],
+                if(showAppBar) ... [ _getAppBar() ]
               ],
             ),
           ),

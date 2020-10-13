@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
+import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/header_list.dart';
@@ -87,15 +88,17 @@ class _HomePageState extends State<HomePage> {
         leftIconType: ThemeGroupType.MOP,
         leftIconClickedCallback: () => Navigator.pop(context),
         showRightIcon: false,
-        child: ProfileScreen(
-          onEmailChangedCallback: (value) => {
-            print("Email changed" + value)
-          },
-          onPasswordChangedCallback: (value) => {
-            print("Password changed" + value)
-          },
-          onTapLogin: () => print("On tap login2"),
-          onTapRegister: () => print("on tap register2"),
+        child: SafeArea(
+          child: ProfileScreen(
+            onEmailChangedCallback: (value) => {
+              print("Email changed" + value)
+            },
+            onPasswordChangedCallback: (value) => {
+              print("Password changed" + value)
+            },
+            onTapLogin: () => print("On tap login2"),
+            onTapRegister: () => print("on tap register2"),
+          )
         ),
         padding: 0.0,
         clipPathType: ClipPathType.NONE,
