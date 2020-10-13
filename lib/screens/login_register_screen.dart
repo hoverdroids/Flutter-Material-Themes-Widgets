@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/defaults/dimens.dart';
@@ -38,6 +37,7 @@ class LoginRegisterScreen extends StatefulWidget {
   final bool isFooterSticky;
   final bool isFooterVertical;
   final EdgeInsets headerPadding;
+  final EdgeInsets footerPadding;
   final bool centerForm;
 
   LoginRegisterScreen({
@@ -67,11 +67,12 @@ class LoginRegisterScreen extends StatefulWidget {
     this.onTapLogin,
     this.screenTitle = "Register",
     this.doShowLoginRegisterButtons = true,
-    this.padding = const EdgeInsets.fromLTRB(paddingMini, 0.0, paddingMini, paddingMini),
+    this.padding = const EdgeInsets.symmetric(vertical: 0.0, horizontal: paddingMini),
     this.isHeaderSticky = false,
     this.isFooterSticky = false,
     this.isFooterVertical = true,
     this.headerPadding = const EdgeInsets.all(paddingMini),
+    this.footerPadding = const EdgeInsets.all(paddingMini),
     this.centerForm = true
   });
 
@@ -108,6 +109,7 @@ class LoginRegisterScreen extends StatefulWidget {
     isFooterSticky,
     isFooterVertical,
     headerPadding,
+    footerPadding,
     centerForm
   );
 }
@@ -145,6 +147,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   final bool isFooterSticky;
   final bool isFooterVertical;
   final EdgeInsets headerPadding;
+  final EdgeInsets footerPadding;
   final bool centerForm;
 
   final _formKey = GlobalKey<FormState>();
@@ -181,6 +184,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     this.isFooterSticky,
     this.isFooterVertical,
     this.headerPadding,
+    this.footerPadding,
     this.centerForm
   );
 
@@ -267,21 +271,45 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   }
 
   Widget _buildHorizontalFooter() {
-    return Row(children: <Widget>[
-      smallTransparentDivider,
-      Flexible(
+    return Padding(
+      padding: footerPadding,
+      child: Row(children: <Widget>[
+        smallTransparentDivider,
+        Flexible(
+            flex: 1,
+            child: Container(
+              alignment: Alignment.center,
+              child: FlatButton(
+                onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
+                child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+              ),
+            )
+        ),
+        Flexible(
           flex: 1,
-          child: Container(
-            alignment: Alignment.center,
-            child: FlatButton(
-              onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
-              child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
-            ),
-          )
-      ),
-      Flexible(
-        flex: 1,
-        child: RaisedButton(
+          child: RaisedButton(
+            color: Colors.white,
+            onPressed: () async {
+              if(_formKey.currentState.validate() && onTapRegister != null) {
+                onTapRegister.call();
+              } else if(_formKey.currentState.validate() && onTapRegister == null) {
+                print("Tapped Register");
+              }
+            },
+            child: ThemedTitle("Register", type: ThemeGroupType.POM),
+            shape: StadiumBorder(),
+          ),
+        )
+      ]),
+    );
+  }
+
+  Widget _buildVerticalFooter() {
+    return Padding(
+      padding: footerPadding,
+      child: Column(children: <Widget>[
+        smallTransparentDivider,
+        RaisedButton(
           color: Colors.white,
           onPressed: () async {
             if(_formKey.currentState.validate() && onTapRegister != null) {
@@ -293,58 +321,31 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           child: ThemedTitle("Register", type: ThemeGroupType.POM),
           shape: StadiumBorder(),
         ),
-      )
-    ]);
-  }
-
-  Widget _buildVerticalFooter() {
-    return Column(children: <Widget>[
-      smallTransparentDivider,
-      RaisedButton(
-        color: Colors.white,
-        onPressed: () async {
-          if(_formKey.currentState.validate() && onTapRegister != null) {
-            onTapRegister.call();
-          } else if(_formKey.currentState.validate() && onTapRegister == null) {
-            print("Tapped Register");
-          }
-        },
-        child: ThemedTitle("Register", type: ThemeGroupType.POM),
-        shape: StadiumBorder(),
-      ),
-      smallTransparentDivider,
-      Container(
-        alignment: Alignment.center,
-        child: FlatButton(
-          onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
-          child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
-        ),
-      )
-    ]);
-  }
-
-  Widget _buildStickyForm() {
-    return Column(
-      children: <Widget>[
-        if (isHeaderSticky) ... [ _buildHeader() ],
-        Flexible(
-          flex: 1,
-          child:_buildContent()),
-        if(doShowLoginRegisterButtons && isFooterSticky) ... [
-          smallTransparentDivider,
-          if (isFooterVertical) ... [_buildVerticalFooter()]
-          else ... [_buildHorizontalFooter()]
-        ],
-      ]
+        smallTransparentDivider,
+        Container(
+          alignment: Alignment.center,
+          child: FlatButton(
+            onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
+            child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+          ),
+        )
+      ]),
     );
-  }
-
-  Widget _buildForm() {
-    return _buildContent();
   }
 
   @override
   Widget build(BuildContext context) {
-    return isHeaderSticky ? _buildStickyForm() : _buildForm();
+    return Column(
+        children: <Widget>[
+          if (isHeaderSticky) ... [ _buildHeader() ],
+          Flexible(
+              flex: 1,
+              child:_buildContent()),
+          if(doShowLoginRegisterButtons && isFooterSticky) ... [
+            if (isFooterVertical) ... [_buildVerticalFooter()]
+            else ... [_buildHorizontalFooter()]
+          ],
+        ]
+    );
   }
 }
