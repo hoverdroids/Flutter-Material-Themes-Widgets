@@ -37,6 +37,7 @@ class ProfileScreen extends StatefulWidget {
   final bool isHeaderSticky;
   final bool isFooterSticky;
   final EdgeInsets headerPadding;
+  final bool centerForm;
 
   ProfileScreen({
     this.showLabels = true,
@@ -68,7 +69,8 @@ class ProfileScreen extends StatefulWidget {
     this.padding = const EdgeInsets.fromLTRB(paddingMini, 0.0, paddingMini, paddingMini),
     this.isHeaderSticky = false,
     this.isFooterSticky = false,
-    this.headerPadding = const EdgeInsets.all(paddingMini)
+    this.headerPadding = const EdgeInsets.all(paddingMini),
+    this.centerForm = true
   });
 
   @override
@@ -102,7 +104,8 @@ class ProfileScreen extends StatefulWidget {
     padding,
     isHeaderSticky,
     isFooterSticky,
-    headerPadding
+    headerPadding,
+    centerForm
   );
 }
 
@@ -138,6 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final bool isHeaderSticky;
   final bool isFooterSticky;
   final EdgeInsets headerPadding;
+  final bool centerForm;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -171,7 +175,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     this.padding,
     this.isHeaderSticky,
     this.isFooterSticky,
-    this.headerPadding
+    this.headerPadding,
+    this.centerForm
   );
 
   Widget _buildContent() {
@@ -180,88 +185,92 @@ class _ProfileScreenState extends State<ProfileScreen> {
         key: _formKey,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: SingleChildScrollView(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  padding: padding,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        if(!isHeaderSticky) ... [ _buildHeader() ],
-                        if (showEmail) ... [
-                          ThemedStringEntry(hintText: "Email", onStringChangedCallback: onEmailChangedCallback),
-                          smallTransparentDivider
-                        ],
-                        if (showPassword) ... [
-                          ThemedStringEntry(hintText: "Password", onStringChangedCallback: onPasswordChangedCallback),
-                          smallTransparentDivider
-                        ],
-                        if (showFirstName) ... [
-                          ThemedStringEntry(hintText: "First Name", onStringChangedCallback: onFirstNameChangedCallback),
-                          smallTransparentDivider
-                        ],
-                        if (showLastName) ... [
-                          ThemedStringEntry(hintText: "Last Name", onStringChangedCallback: onLastNameChangedCallback),
-                          smallTransparentDivider
-                        ],
-                        if (showPronouns) ... [
-                          ThemedStringEntry(hintText: "Pronouns", onStringChangedCallback: onPronounsChangedCallback),
-                          smallTransparentDivider
-                        ],
-                        if (showOrganization) ... [
-                          ThemedStringEntry(hintText: "Organization", onStringChangedCallback: onOrganizationChangedCallback),
-                          smallTransparentDivider
-                        ],
-                        /*if (showAddress) ... [
-                          ThemedStringEntry(hintText: "Address", onStringChangedCallback: onAddressChangedCallback),
-                          smallTransparentDivider
-                        ],
-                        if (showCity) ... [
-                          ThemedStringEntry(hintText: "City", onStringChangedCallback: onCityChangedCallback),
-                          smallTransparentDivider
-                        ],
-                        if (showState) ... [
-                          ThemedStringEntry(hintText: "State", onStringChangedCallback: onStateChangedCallback),
-                          smallTransparentDivider
-                        ],
-                        if (showZip) ... [
-                          ThemedStringEntry(hintText: "Zip", onStringChangedCallback: onZipChangedCallback),
-                          smallTransparentDivider
-                        ],*/
+          child: centerForm ? Center(child: _buildScrollView()) : _buildScrollView(),
+        ),
+      ),
+    );
+  }
 
-                        if(doShowLoginRegisterButtons) ... [
-                          mediumTransparentDivider,
-                          RaisedButton(
-                            color: Colors.white,
-                            onPressed: () async {
-                              if(_formKey.currentState.validate() && onTapRegister != null) {
-                                onTapRegister.call();
-                              } else if(_formKey.currentState.validate() && onTapRegister == null) {
-                                print("Tapped Register");
-                              }
-                            },
-                            child: ThemedTitle("Register", type: ThemeGroupType.POM),
-                            shape: StadiumBorder(),
-                          ),
-                          mediumTransparentDivider,
-                          Container(
-                            alignment: Alignment.center,
-                            child: FlatButton(
-                              onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
-                              child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
-                            ),
-                          )
-                        ]
-                      ],
+  Widget _buildScrollView() {
+    return SingleChildScrollView(
+      child: Stack(
+        children: <Widget>[
+          Container(
+            padding: padding,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  if(!isHeaderSticky) ... [ _buildHeader() ],
+                  if (showEmail) ... [
+                    ThemedStringEntry(hintText: "Email", onStringChangedCallback: onEmailChangedCallback),
+                    smallTransparentDivider
+                  ],
+                  if (showPassword) ... [
+                    ThemedStringEntry(hintText: "Password", onStringChangedCallback: onPasswordChangedCallback),
+                    smallTransparentDivider
+                  ],
+                  if (showFirstName) ... [
+                    ThemedStringEntry(hintText: "First Name", onStringChangedCallback: onFirstNameChangedCallback),
+                    smallTransparentDivider
+                  ],
+                  if (showLastName) ... [
+                    ThemedStringEntry(hintText: "Last Name", onStringChangedCallback: onLastNameChangedCallback),
+                    smallTransparentDivider
+                  ],
+                  if (showPronouns) ... [
+                    ThemedStringEntry(hintText: "Pronouns", onStringChangedCallback: onPronounsChangedCallback),
+                    smallTransparentDivider
+                  ],
+                  if (showOrganization) ... [
+                    ThemedStringEntry(hintText: "Organization", onStringChangedCallback: onOrganizationChangedCallback),
+                    smallTransparentDivider
+                  ],
+                  if (showAddress) ... [
+                    ThemedStringEntry(hintText: "Address", onStringChangedCallback: onAddressChangedCallback),
+                    smallTransparentDivider
+                  ],
+                  if (showCity) ... [
+                    ThemedStringEntry(hintText: "City", onStringChangedCallback: onCityChangedCallback),
+                    smallTransparentDivider
+                  ],
+                  if (showState) ... [
+                    ThemedStringEntry(hintText: "State", onStringChangedCallback: onStateChangedCallback),
+                    smallTransparentDivider
+                  ],
+                  if (showZip) ... [
+                    ThemedStringEntry(hintText: "Zip", onStringChangedCallback: onZipChangedCallback),
+                    smallTransparentDivider
+                  ],
+
+                  if(doShowLoginRegisterButtons) ... [
+                    mediumTransparentDivider,
+                    RaisedButton(
+                      color: Colors.white,
+                      onPressed: () async {
+                        if(_formKey.currentState.validate() && onTapRegister != null) {
+                          onTapRegister.call();
+                        } else if(_formKey.currentState.validate() && onTapRegister == null) {
+                          print("Tapped Register");
+                        }
+                      },
+                      child: ThemedTitle("Register", type: ThemeGroupType.POM),
+                      shape: StadiumBorder(),
                     ),
-                  ),
-                ),
-              ],
+                    mediumTransparentDivider,
+                    Container(
+                      alignment: Alignment.center,
+                      child: FlatButton(
+                        onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
+                        child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+                      ),
+                    )
+                  ]
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

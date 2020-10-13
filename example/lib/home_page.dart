@@ -96,6 +96,16 @@ class _HomePageState extends State<HomePage> {
             onTapLogin: () => print("On tap login2"),
             onTapRegister: () => print("on tap register2"),
             isHeaderSticky: true,
+            /*showEmail: false,
+            showPassword: false,
+            showFirstName: false,
+            showLastName: false,
+            showPronouns: false,*/
+            showOrganization: false,
+            showAddress: false,
+            showCity: false,
+            showState: false,
+            showZip: false,
           )
         ),
         padding: 0.0,
