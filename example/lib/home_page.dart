@@ -5,7 +5,7 @@ import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/header_list.dart';
-import 'package:material_themes_widgets/screens/profile_screen.dart';
+import 'package:material_themes_widgets/screens/login_register_screen.dart';
 import 'grayscale_theme_list_items_page.dart';
 import 'main_theme_list_items_page.dart';
 import 'wireframe_theme_list_items_page.dart';
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
         rightIcon: Icons.edit,
         rightIconType: ThemeGroupType.MOP,
         child: SafeArea(
-          child: ProfileScreen(
+          child: LoginRegisterScreen(
             onEmailChangedCallback: (value) => { print("Email changed" + value) },
             onPasswordChangedCallback: (value) => { print("Password changed" + value) },
             onTapLogin: () => print("On tap login2"),
@@ -100,12 +100,14 @@ class _HomePageState extends State<HomePage> {
             showPassword: false,
             showFirstName: false,
             showLastName: false,
-            showPronouns: false,*/
+            showPronouns: false,
             showOrganization: false,
             showAddress: false,
             showCity: false,
             showState: false,
-            showZip: false,
+            showZip: false,*/
+            isFooterSticky: true,
+            isFooterVertical: false,
           )
         ),
         padding: 0.0,

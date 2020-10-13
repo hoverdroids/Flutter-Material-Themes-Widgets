@@ -5,7 +5,7 @@ import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/forms/form_fields.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 
-class ProfileScreen extends StatefulWidget {
+class LoginRegisterScreen extends StatefulWidget {
 
   final bool showLabels;
   final bool showForgots;
@@ -36,10 +36,11 @@ class ProfileScreen extends StatefulWidget {
   final EdgeInsets padding;
   final bool isHeaderSticky;
   final bool isFooterSticky;
+  final bool isFooterVertical;
   final EdgeInsets headerPadding;
   final bool centerForm;
 
-  ProfileScreen({
+  LoginRegisterScreen({
     this.showLabels = true,
     this.showForgots = true,
     this.onEmailChangedCallback,
@@ -69,12 +70,13 @@ class ProfileScreen extends StatefulWidget {
     this.padding = const EdgeInsets.fromLTRB(paddingMini, 0.0, paddingMini, paddingMini),
     this.isHeaderSticky = false,
     this.isFooterSticky = false,
+    this.isFooterVertical = true,
     this.headerPadding = const EdgeInsets.all(paddingMini),
     this.centerForm = true
   });
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState(
+  _LoginRegisterScreenState createState() => _LoginRegisterScreenState(
     showLabels,
     showForgots,
     onEmailChangedCallback,
@@ -104,12 +106,13 @@ class ProfileScreen extends StatefulWidget {
     padding,
     isHeaderSticky,
     isFooterSticky,
+    isFooterVertical,
     headerPadding,
     centerForm
   );
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   final bool showLabels;
   final bool showForgots;
@@ -140,12 +143,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final EdgeInsets padding;
   final bool isHeaderSticky;
   final bool isFooterSticky;
+  final bool isFooterVertical;
   final EdgeInsets headerPadding;
   final bool centerForm;
 
   final _formKey = GlobalKey<FormState>();
 
-  _ProfileScreenState(
+  _LoginRegisterScreenState(
     this.showLabels,
     this.showForgots,
     this.onEmailChangedCallback,
@@ -175,6 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     this.padding,
     this.isHeaderSticky,
     this.isFooterSticky,
+    this.isFooterVertical,
     this.headerPadding,
     this.centerForm
   );
@@ -202,6 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   if(!isHeaderSticky) ... [ _buildHeader() ],
+                  smallTransparentDivider,
                   if (showEmail) ... [
                     ThemedStringEntry(hintText: "Email", onStringChangedCallback: onEmailChangedCallback),
                     smallTransparentDivider
@@ -242,30 +248,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ThemedStringEntry(hintText: "Zip", onStringChangedCallback: onZipChangedCallback),
                     smallTransparentDivider
                   ],
-
-                  if(doShowLoginRegisterButtons) ... [
-                    mediumTransparentDivider,
-                    RaisedButton(
-                      color: Colors.white,
-                      onPressed: () async {
-                        if(_formKey.currentState.validate() && onTapRegister != null) {
-                          onTapRegister.call();
-                        } else if(_formKey.currentState.validate() && onTapRegister == null) {
-                          print("Tapped Register");
-                        }
-                      },
-                      child: ThemedTitle("Register", type: ThemeGroupType.POM),
-                      shape: StadiumBorder(),
-                    ),
-                    mediumTransparentDivider,
-                    Container(
-                      alignment: Alignment.center,
-                      child: FlatButton(
-                        onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
-                        child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
-                      ),
-                    )
-                  ]
+                  if(doShowLoginRegisterButtons && !isFooterSticky && isFooterVertical) ... [ _buildVerticalFooter()]
+                  else if (doShowLoginRegisterButtons && !isFooterSticky && !isFooterVertical) ... [ _buildHorizontalFooter() ]
                 ],
               ),
             ),
@@ -282,14 +266,76 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Widget _buildHorizontalFooter() {
+    return Row(children: <Widget>[
+      smallTransparentDivider,
+      Flexible(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.center,
+            child: FlatButton(
+              onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
+              child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+            ),
+          )
+      ),
+      Flexible(
+        flex: 1,
+        child: RaisedButton(
+          color: Colors.white,
+          onPressed: () async {
+            if(_formKey.currentState.validate() && onTapRegister != null) {
+              onTapRegister.call();
+            } else if(_formKey.currentState.validate() && onTapRegister == null) {
+              print("Tapped Register");
+            }
+          },
+          child: ThemedTitle("Register", type: ThemeGroupType.POM),
+          shape: StadiumBorder(),
+        ),
+      )
+    ]);
+  }
+
+  Widget _buildVerticalFooter() {
+    return Column(children: <Widget>[
+      smallTransparentDivider,
+      RaisedButton(
+        color: Colors.white,
+        onPressed: () async {
+          if(_formKey.currentState.validate() && onTapRegister != null) {
+            onTapRegister.call();
+          } else if(_formKey.currentState.validate() && onTapRegister == null) {
+            print("Tapped Register");
+          }
+        },
+        child: ThemedTitle("Register", type: ThemeGroupType.POM),
+        shape: StadiumBorder(),
+      ),
+      smallTransparentDivider,
+      Container(
+        alignment: Alignment.center,
+        child: FlatButton(
+          onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
+          child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+        ),
+      )
+    ]);
+  }
+
   Widget _buildStickyForm() {
     return Column(
       children: <Widget>[
-        _buildHeader(),
+        if (isHeaderSticky) ... [ _buildHeader() ],
         Flexible(
           flex: 1,
-          child:_buildContent())
-      ],
+          child:_buildContent()),
+        if(doShowLoginRegisterButtons && isFooterSticky) ... [
+          smallTransparentDivider,
+          if (isFooterVertical) ... [_buildVerticalFooter()]
+          else ... [_buildHorizontalFooter()]
+        ],
+      ]
     );
   }
 
