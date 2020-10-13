@@ -236,87 +236,137 @@ class _ThemedPasswordEntryState extends State<ThemedPasswordEntry> {
 
 class ThemedStringEntry extends StatefulWidget {
 
+  final ThemeGroupType labelType;
+  final String labelText;
   final ThemeGroupType textFieldBackgroundType;
   final ValueChanged<String> onStringChangedCallback;
   final FormFieldValidator<String> validator;
   final String hintText;
   final bool obscureText;
   final Widget prefixIcon;
+  final bool showLabel;
 
   ThemedStringEntry({
+    this.labelType = ThemeGroupType.MOM,
+    this.labelText = "Label",
     this.textFieldBackgroundType = ThemeGroupType.MOM,
     this.onStringChangedCallback,
     this.validator,
     this.hintText,
     this.obscureText = false,
-    this.prefixIcon
+    this.prefixIcon,
+    this.showLabel = true
   });
 
   _ThemedStringEntryState createState() => _ThemedStringEntryState(
-    this.textFieldBackgroundType,
-    this.onStringChangedCallback,
-    this.validator,
-    this.hintText,
-    this.obscureText,
-    this.prefixIcon
+      this.labelType,
+      this.labelText,
+      this.textFieldBackgroundType,
+      this.onStringChangedCallback,
+      this.validator,
+      this.hintText,
+      this.obscureText,
+      this.prefixIcon,
+      this.showLabel
   );
 }
 
 class _ThemedStringEntryState extends State<ThemedStringEntry> {
 
+  final ThemeGroupType labelType;
+  final String labelText;
   final ThemeGroupType textFieldBackgroundType;
   final ValueChanged<String> onStringChangedCallback;
   final FormFieldValidator<String> validator;
   final String hintText;
   final bool obscureText;
   final Widget prefixIcon;
+  final bool showLabel;
 
   _ThemedStringEntryState(
-    this.textFieldBackgroundType,
-    this.onStringChangedCallback,
-    this.validator,
-    this.hintText,
-    this.obscureText,
-    this.prefixIcon
-  );
+      this.labelType,
+      this.labelText,
+      this.textFieldBackgroundType,
+      this.onStringChangedCallback,
+      this.validator,
+      this.hintText,
+      this.obscureText,
+      this.prefixIcon,
+      this.showLabel
+      );
+
+  FormFieldValidator<String> _validator() {
+    return validator != null ? validator : (value) => null;//return null indicates the field is valid
+  }
+
+  void _onChanged(String val) {
+    setState(() => {
+      if(onStringChangedCallback != null) {
+        onStringChangedCallback(val)
+      } else {
+        print("Changed:" + (hintText != null ? hintText : "Hint Text"))
+      }
+    });
+  }
+
+  Widget _buildTextField() {
+    return TextFormField(
+      style: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        border: InputBorder.none,//hide the bottom EditText underscore bar
+        contentPadding: EdgeInsets.only(top: paddingSmall),
+        prefixIcon: prefixIcon,
+        hintText: hintText != null ? hintText : "Hint Text",
+        hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+      ),
+      validator: _validator(),
+      onChanged: (val) => _onChanged(val),
+    );
+  }
+
+  //When icon is null, we can't simply check for null to provide prefixIcon and contentPadding because the layout positioning is wrong.
+  //The only way to make iconText and text works is with two separate builder functions
+  Widget _buildIconTextFields() {
+    return TextFormField(
+      style: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+      obscureText: obscureText,
+      decoration: InputDecoration(//TODO - make this work without an icon. It doesn't at the moment!
+        border: InputBorder.none,//hide the bottom EditText underscore bar
+        contentPadding: EdgeInsets.symmetric(horizontal: paddingSmall),
+        hintText: hintText != null ? hintText : "",
+        hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
+      ),
+      validator: _validator(),
+      onChanged: (val) => _onChanged(val),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration (//TODO - move this styling to ThemeManager?
-        color: context.watch<MaterialThemesManager>().getTheme(textFieldBackgroundType).scaffoldBackgroundColor,//TODO - this should be card color, right?
-        borderRadius: BorderRadius.circular(largeBorderRadius),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 2.0,
-            offset: Offset(2, 2),
-          ),
-        ],
-      ),
-      height: 60.0,
-      child: TextFormField(
-        style: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
-        obscureText: obscureText,
-        decoration: InputDecoration(//TODO - make this work without an icon. It doesn't at the moment!
-          border: InputBorder.none,//hide the bottom EditText underscore bar
-          contentPadding: EdgeInsets.only(top: paddingSmall),
-          prefixIcon: prefixIcon != null ? prefixIcon : Container(width: 0,height: 0),
-          hintText: hintText != null ? hintText : "Balla",
-          hintStyle: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).textTheme.subtitle1,
-        ),
-        validator: validator != null ? validator : (value) => null,
-        onChanged: (val) {
-          setState(() => {
-            if(onStringChangedCallback != null) {
-              onStringChangedCallback(val)
-            } else {
-              print("Changed:" + (hintText != null ? hintText : "Balla"))
-            }
-          });
-        },
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        //if(showLabel) ... [ ThemedSubTitle2('Email', type: labelType, emphasis: Emphasis.HIGH) ],
+        ThemedSubTitle2(labelText, type: labelType, textAlign: TextAlign.start),
+        miniTransparentDivider,
+        Container(
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration (//TODO - move this styling to ThemeManager?
+              color: context.watch<MaterialThemesManager>().getTheme(textFieldBackgroundType).scaffoldBackgroundColor,//TODO - this should be card color, right?
+              borderRadius: BorderRadius.circular(largeBorderRadius),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 2.0,
+                  offset: Offset(2, 2),
+                ),
+              ],
+            ),
+            height: 60.0,
+            child: prefixIcon != null ? _buildIconTextFields() : _buildIconTextFields()
+        )
+      ],
     );
   }
 }
