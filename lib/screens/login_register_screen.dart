@@ -39,6 +39,7 @@ class LoginRegisterScreen extends StatefulWidget {
   final EdgeInsets headerPadding;
   final EdgeInsets footerPadding;
   final bool centerForm;
+  final bool isLogin;
 
   LoginRegisterScreen({
     this.showLabels = true,
@@ -65,7 +66,7 @@ class LoginRegisterScreen extends StatefulWidget {
     this.showZip = true,
     this.onTapRegister,
     this.onTapLogin,
-    this.screenTitle = "Register",
+    this.screenTitle,
     this.doShowLoginRegisterButtons = true,
     this.padding = const EdgeInsets.symmetric(vertical: 0.0, horizontal: paddingMini),
     this.isHeaderSticky = false,
@@ -73,7 +74,8 @@ class LoginRegisterScreen extends StatefulWidget {
     this.isFooterVertical = true,
     this.headerPadding = const EdgeInsets.all(paddingMini),
     this.footerPadding = const EdgeInsets.all(paddingMini),
-    this.centerForm = true
+    this.centerForm = true,
+    this.isLogin = true
   });
 
   @override
@@ -110,7 +112,8 @@ class LoginRegisterScreen extends StatefulWidget {
     isFooterVertical,
     headerPadding,
     footerPadding,
-    centerForm
+    centerForm,
+    isLogin
   );
 }
 
@@ -149,6 +152,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   final EdgeInsets headerPadding;
   final EdgeInsets footerPadding;
   final bool centerForm;
+  final bool isLogin;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -185,7 +189,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     this.isFooterVertical,
     this.headerPadding,
     this.footerPadding,
-    this.centerForm
+    this.centerForm,
+    this.isLogin
   );
 
   Widget _buildContent() {
@@ -264,9 +269,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   }
 
   Widget _buildHeader() {
+    var loginRegTitle = isLogin ? "Login" : "Register";
+    var title = screenTitle != null ? screenTitle : loginRegTitle;
     return Padding(
       padding: headerPadding,
-      child:ThemedH4(screenTitle, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH)
+      child:ThemedH4(title, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH)
     );
   }
 
@@ -312,21 +319,28 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         RaisedButton(
           color: Colors.white,
           onPressed: () async {
-            if(_formKey.currentState.validate() && onTapRegister != null) {
+            var valid = _formKey.currentState.validate();
+            if(valid && isLogin && onTapLogin != null) {
+              onTapLogin.call();
+            } else if(valid && !isLogin && onTapRegister != null) {
               onTapRegister.call();
-            } else if(_formKey.currentState.validate() && onTapRegister == null) {
-              print("Tapped Register");
             }
           },
-          child: ThemedTitle("Register", type: ThemeGroupType.POM),
+          child: ThemedTitle(isLogin ? "Login" : "Register", type: ThemeGroupType.POM),
           shape: StadiumBorder(),
         ),
         smallTransparentDivider,
         Container(
           alignment: Alignment.center,
           child: FlatButton(
-            onPressed: onTapLogin != null ? onTapLogin : () => print("Tapped Login"),
-            child: ThemedSubTitle2("Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+            onPressed: () => {
+              if(isLogin && onTapLogin != null) {
+                onTapLogin.call()
+              } else if(!isLogin && onTapRegister != null) {
+                onTapRegister.call()
+              }
+            },
+            child: ThemedSubTitle2(isLogin ? "Register" : "Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
           ),
         )
       ]),
