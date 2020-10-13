@@ -10,39 +10,65 @@ class ProfileScreen extends StatefulWidget {
   final bool showLabels;
   final bool showForgots;
   final ValueChanged<String> onEmailChangedCallback;
+  final bool showEmail;
   final ValueChanged<String> onPasswordChangedCallback;
+  final bool showPassword;
   final ValueChanged<String> onFirstNameChangedCallback;
+  final bool showFirstName;
   final ValueChanged<String> onLastNameChangedCallback;
+  final bool showLastName;
   final ValueChanged<String> onPronounsChangedCallback;
+  final bool showPronouns;
   final ValueChanged<String> onOrganizationChangedCallback;
+  final bool showOrganization;
   final ValueChanged<String> onAddressChangedCallback;
+  final bool showAddress;
   final ValueChanged<String> onCityChangedCallback;
+  final bool showCity;
   final ValueChanged<String> onStateChangedCallback;
+  final bool showState;
   final ValueChanged<String> onZipChangedCallback;
+  final bool showZip;
   final Function onTapRegister;
   final Function onTapLogin;
   final String screenTitle;
   final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
+  final bool isHeaderSticky;
+  final bool isFooterSticky;
+  final EdgeInsets headerPadding;
 
   ProfileScreen({
     this.showLabels = true,
     this.showForgots = true,
     this.onEmailChangedCallback,
+    this.showEmail = true,
     this.onPasswordChangedCallback,
+    this.showPassword = true,
     this.onFirstNameChangedCallback,
+    this.showFirstName = true,
     this.onLastNameChangedCallback,
+    this.showLastName = true,
     this.onPronounsChangedCallback,
+    this.showPronouns = true,
     this.onOrganizationChangedCallback,
+    this.showOrganization = true,
     this.onAddressChangedCallback,
+    this.showAddress = true,
     this.onCityChangedCallback,
+    this.showCity = true,
     this.onStateChangedCallback,
+    this.showState = true,
     this.onZipChangedCallback,
+    this.showZip = true,
     this.onTapRegister,
     this.onTapLogin,
     this.screenTitle = "Register",
     this.doShowLoginRegisterButtons = true,
-    this.padding
+    this.padding = const EdgeInsets.fromLTRB(paddingMini, 0.0, paddingMini, paddingMini),
+    this.isHeaderSticky = false,
+    this.isFooterSticky = false,
+    this.headerPadding = const EdgeInsets.all(paddingMini)
   });
 
   @override
@@ -50,20 +76,33 @@ class ProfileScreen extends StatefulWidget {
     showLabels,
     showForgots,
     onEmailChangedCallback,
+    showEmail,
     onPasswordChangedCallback,
+    showPassword,
     onFirstNameChangedCallback,
+    showFirstName,
     onLastNameChangedCallback,
+    showLastName,
     onPronounsChangedCallback,
+    showPronouns,
     onOrganizationChangedCallback,
+    showOrganization,
     onAddressChangedCallback,
+    showAddress,
     onCityChangedCallback,
+    showCity,
     onStateChangedCallback,
+    showState,
     onZipChangedCallback,
+    showZip,
     onTapRegister,
     onTapLogin,
     screenTitle,
     doShowLoginRegisterButtons,
-    padding
+    padding,
+    isHeaderSticky,
+    isFooterSticky,
+    headerPadding
   );
 }
 
@@ -72,20 +111,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final bool showLabels;
   final bool showForgots;
   final ValueChanged<String> onEmailChangedCallback;
+  final bool showEmail;
   final ValueChanged<String> onPasswordChangedCallback;
+  final bool showPassword;
   final ValueChanged<String> onFirstNameChangedCallback;
+  final bool showFirstName;
   final ValueChanged<String> onLastNameChangedCallback;
+  final bool showLastName;
   final ValueChanged<String> onPronounsChangedCallback;
+  final bool showPronouns;
   final ValueChanged<String> onOrganizationChangedCallback;
+  final bool showOrganization;
   final ValueChanged<String> onAddressChangedCallback;
+  final bool showAddress;
   final ValueChanged<String> onCityChangedCallback;
+  final bool showCity;
   final ValueChanged<String> onStateChangedCallback;
+  final bool showState;
   final ValueChanged<String> onZipChangedCallback;
+  final bool showZip;
   final Function onTapRegister;
   final Function onTapLogin;
   final String screenTitle;
   final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
+  final bool isHeaderSticky;
+  final bool isFooterSticky;
+  final EdgeInsets headerPadding;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -93,24 +145,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
     this.showLabels,
     this.showForgots,
     this.onEmailChangedCallback,
+    this.showEmail,
     this.onPasswordChangedCallback,
+    this.showPassword,
     this.onFirstNameChangedCallback,
+    this.showFirstName,
     this.onLastNameChangedCallback,
+    this.showLastName,
     this.onPronounsChangedCallback,
+    this.showPronouns,
     this.onOrganizationChangedCallback,
+    this.showOrganization,
     this.onAddressChangedCallback,
+    this.showAddress,
     this.onCityChangedCallback,
+    this.showCity,
     this.onStateChangedCallback,
+    this.showState,
     this.onZipChangedCallback,
+    this.showZip,
     this.onTapRegister,
     this.onTapLogin,
     this.screenTitle,
     this.doShowLoginRegisterButtons,
-    this.padding
+    this.padding,
+    this.isHeaderSticky,
+    this.isFooterSticky,
+    this.headerPadding
   );
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildContent() {
     return Container(
       child: Form(
         key: _formKey,
@@ -120,37 +184,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Stack(
               children: <Widget>[
                 Container(
-                  padding: padding != null ? padding : EdgeInsets.all(paddingMini),
+                  padding: padding,
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        ThemedH4(screenTitle, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
-                        if(!showLabels) ... [
-                          SizedBox(height: 20.0)
+                        if(!isHeaderSticky) ... [ _buildHeader() ],
+                        if (showEmail) ... [
+                          ThemedStringEntry(hintText: "Email", onStringChangedCallback: onEmailChangedCallback),
+                          smallTransparentDivider
                         ],
-                        ThemedEmailEntry(showLabel: showLabels, showForgotEmail: showForgots, onEmailChangedCallback: onEmailChangedCallback),
-                        if(!showLabels) ... [
-                          SizedBox(height: 20.0)
+                        if (showPassword) ... [
+                          ThemedStringEntry(hintText: "Password", onStringChangedCallback: onPasswordChangedCallback),
+                          smallTransparentDivider
                         ],
-                        ThemedPasswordEntry(showLabel: showLabels, showForgotPassword: showForgots, onPasswordChangedCallback: onPasswordChangedCallback),
-                        miniTransparentDivider,
-                        ThemedStringEntry(hintText: "First Name", onStringChangedCallback: onFirstNameChangedCallback),
-                        miniTransparentDivider,
-                        ThemedStringEntry(hintText: "Last Name", onStringChangedCallback: onLastNameChangedCallback),
-                        miniTransparentDivider,
-                        ThemedStringEntry(hintText: "Pronouns", onStringChangedCallback: onPronounsChangedCallback),
-                        miniTransparentDivider,
-                        ThemedStringEntry(hintText: "Organization", onStringChangedCallback: onOrganizationChangedCallback),
-                        miniTransparentDivider,
-                        ThemedStringEntry(hintText: "Address", onStringChangedCallback: onAddressChangedCallback),
-                        miniTransparentDivider,
-                        ThemedStringEntry(hintText: "City", onStringChangedCallback: onCityChangedCallback),
-                        miniTransparentDivider,
-                        ThemedStringEntry(hintText: "State", onStringChangedCallback: onStateChangedCallback),
-                        miniTransparentDivider,
-                        ThemedStringEntry(hintText: "Zip", onStringChangedCallback: onZipChangedCallback),
-                        //TODO - look back at PikaJo and get the social media icons
+                        if (showFirstName) ... [
+                          ThemedStringEntry(hintText: "First Name", onStringChangedCallback: onFirstNameChangedCallback),
+                          smallTransparentDivider
+                        ],
+                        if (showLastName) ... [
+                          ThemedStringEntry(hintText: "Last Name", onStringChangedCallback: onLastNameChangedCallback),
+                          smallTransparentDivider
+                        ],
+                        if (showPronouns) ... [
+                          ThemedStringEntry(hintText: "Pronouns", onStringChangedCallback: onPronounsChangedCallback),
+                          smallTransparentDivider
+                        ],
+                        if (showOrganization) ... [
+                          ThemedStringEntry(hintText: "Organization", onStringChangedCallback: onOrganizationChangedCallback),
+                          smallTransparentDivider
+                        ],
+                        /*if (showAddress) ... [
+                          ThemedStringEntry(hintText: "Address", onStringChangedCallback: onAddressChangedCallback),
+                          smallTransparentDivider
+                        ],
+                        if (showCity) ... [
+                          ThemedStringEntry(hintText: "City", onStringChangedCallback: onCityChangedCallback),
+                          smallTransparentDivider
+                        ],
+                        if (showState) ... [
+                          ThemedStringEntry(hintText: "State", onStringChangedCallback: onStateChangedCallback),
+                          smallTransparentDivider
+                        ],
+                        if (showZip) ... [
+                          ThemedStringEntry(hintText: "Zip", onStringChangedCallback: onZipChangedCallback),
+                          smallTransparentDivider
+                        ],*/
+
                         if(doShowLoginRegisterButtons) ... [
                           mediumTransparentDivider,
                           RaisedButton(
@@ -184,5 +264,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildHeader() {
+    return Padding(
+      padding: headerPadding,
+      child:ThemedH4(screenTitle, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH)
+    );
+  }
+
+  Widget _buildStickyForm() {
+    return Column(
+      children: <Widget>[
+        _buildHeader(),
+        Flexible(
+          flex: 1,
+          child:_buildContent())
+      ],
+    );
+  }
+
+  Widget _buildForm() {
+    return _buildContent();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return isHeaderSticky ? _buildStickyForm() : _buildForm();
   }
 }

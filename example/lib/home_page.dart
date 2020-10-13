@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
           headerGradientType: BackgroundGradientType.PRIMARY,
           //headerFlex: 4,
           //itemsFlex: 2,
-          //isHeaderSticky: true,
+          //isHeaderSticky: false,
           //isAvatarEnabled: true,
           //headerAlignment: AlignmentDirectional.bottomCenter,
           avatarClickedCallback: () => _scaffoldKey.currentState.openEndDrawer(),
@@ -87,17 +87,15 @@ class _HomePageState extends State<HomePage> {
       endDrawer: SimpleClipPathDrawer(
         leftIconType: ThemeGroupType.MOP,
         leftIconClickedCallback: () => Navigator.pop(context),
-        showRightIcon: false,
+        rightIcon: Icons.edit,
+        rightIconType: ThemeGroupType.MOP,
         child: SafeArea(
           child: ProfileScreen(
-            onEmailChangedCallback: (value) => {
-              print("Email changed" + value)
-            },
-            onPasswordChangedCallback: (value) => {
-              print("Password changed" + value)
-            },
+            onEmailChangedCallback: (value) => { print("Email changed" + value) },
+            onPasswordChangedCallback: (value) => { print("Password changed" + value) },
             onTapLogin: () => print("On tap login2"),
             onTapRegister: () => print("on tap register2"),
+            isHeaderSticky: true,
           )
         ),
         padding: 0.0,
