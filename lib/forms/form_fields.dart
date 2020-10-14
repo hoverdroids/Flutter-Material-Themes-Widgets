@@ -5,7 +5,44 @@ import 'package:material_themes_widgets/fundamental/icons.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:provider/provider.dart';
 
-class ThemedStringEntry extends StatefulWidget {
+class ThemedLabelValue extends StatelessWidget {
+  final bool showLabel;
+  final String labelText;
+  final ThemeGroupType labelType;
+  final Emphasis labelEmphasis;
+  final TextAlign labelTextAlign;
+
+  final String text;
+  final ThemeGroupType textType;
+  final Emphasis textEmphasis;
+  final TextAlign textAlign;
+
+  ThemedLabelValue({
+    this.showLabel = true,
+    this.labelText = "",
+    this.labelType = ThemeGroupType.MOM,
+    this.labelEmphasis = Emphasis.HIGH,
+    this.labelTextAlign = TextAlign.start,
+    this.text = "",
+    this.textType = ThemeGroupType.MOM,
+    this.textEmphasis = Emphasis.HIGH,
+    this.textAlign = TextAlign.start
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        if (showLabel) ThemedSubTitle2(labelText, type: labelType, emphasis: labelEmphasis, textAlign: labelTextAlign),
+        miniTransparentDivider,
+        ThemedTitle(text, type: textType, emphasis: textEmphasis, textAlign: textAlign)
+      ],
+    );
+  }
+}
+
+class ThemedEditableLabelValue extends StatefulWidget {
 
   final bool showLabel;
   final String labelText;
@@ -32,7 +69,7 @@ class ThemedStringEntry extends StatefulWidget {
   final ValueChanged<String> onStringChangedCallback;
   final FormFieldValidator<String> validator;
 
-  ThemedStringEntry({
+  ThemedEditableLabelValue({
     this.showLabel = true,
     this.labelText = "",
     this.labelType = ThemeGroupType.MOM,
@@ -53,7 +90,7 @@ class ThemedStringEntry extends StatefulWidget {
     this.validator
   });
 
-  _ThemedStringEntryState createState() => _ThemedStringEntryState(
+  _ThemedEditableLabelValueState createState() => _ThemedEditableLabelValueState(
       this.showLabel,
       this.labelText,
       this.labelType,
@@ -75,7 +112,7 @@ class ThemedStringEntry extends StatefulWidget {
   );
 }
 
-class _ThemedStringEntryState extends State<ThemedStringEntry> {
+class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
 
   final bool showLabel;
   final String labelText;
@@ -102,7 +139,7 @@ class _ThemedStringEntryState extends State<ThemedStringEntry> {
   final ValueChanged<String> onStringChangedCallback;
   final FormFieldValidator<String> validator;
 
-  _ThemedStringEntryState(
+  _ThemedEditableLabelValueState(
     this.showLabel,
     this.labelText,
     this.labelType,
@@ -160,6 +197,7 @@ class _ThemedStringEntryState extends State<ThemedStringEntry> {
     return TextFormField(
       style: context.watch<MaterialThemesManager>().getTheme(textType, emphasis: textEmphasis).textTheme.subtitle1,
       obscureText: obscureText,
+      initialValue: text,
       decoration: InputDecoration(
         border: InputBorder.none,//hide the bottom EditText underscore bar
         contentPadding: EdgeInsets.symmetric(horizontal: paddingSmall),

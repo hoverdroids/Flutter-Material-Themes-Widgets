@@ -6,6 +6,7 @@ import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/header_list.dart';
 import 'package:material_themes_widgets/screens/login_register_screen.dart';
+import 'package:material_themes_widgets/screens/profile_screen.dart';
 import 'grayscale_theme_list_items_page.dart';
 import 'main_theme_list_items_page.dart';
 import 'wireframe_theme_list_items_page.dart';
@@ -90,13 +91,25 @@ class _HomePageState extends State<HomePage> {
         rightIcon: Icons.edit,
         rightIconType: ThemeGroupType.MOP,
         child: SafeArea(
-          child: LoginRegisterScreen(
+          child: ProfileScreen(
             onEmailChangedCallback: (value) => { print("Email changed" + value) },
             onPasswordChangedCallback: (value) => { print("Password changed" + value) },
-            onTapLogin: () => print("On tap login2"),
-            onTapRegister: () => print("on tap register2"),
-            isLogin: false,
-            showLabels: false
+            onTapEdit: () => print("On tap Edit2"),
+            onTapSave: () => print("on tap save2"),
+            isFooterVertical: false,
+            isEditMode: true,
+            showLabels: true,
+            email: "spragucm@gmail.com",
+            password: "abc123",
+            firstName: "Chris",
+            lastName: "Sprague",
+            tagline: "Guy who types",
+            pronouns: "M",
+            organization: "tCubed Studios",
+            address: "123",
+            city: "Boons",
+            state: "NC",
+            zip: "81203"
           )
         ),
         padding: 0.0,
