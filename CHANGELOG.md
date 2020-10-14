@@ -1,3 +1,4 @@
+## [0.0.23] - Passing a key to HeaderList.
 ## [0.0.22] - Passing a key to loginRegistger.
 ## [0.0.21] - Passing a key because toggling between two of the same widgets isn't updating.
 ## [0.0.20] - Refactored login and profile screen. Now loginRegister and profile (with edit mode)

@@ -11,6 +11,7 @@ import 'package:polygon_clipper/polygon_clipper.dart';
 //Intended to be a short list of equally distributed items with an image at the top
 class HeaderList extends StatefulWidget {
 
+  final Key key;
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
   final String imageUrl;
@@ -54,6 +55,7 @@ class HeaderList extends StatefulWidget {
   HeaderList(
       this.listItems,
       {
+        this.key,
         this.imageUrl,
         this.imageBlendColor,
         this.imageBlendMode,
@@ -94,47 +96,49 @@ class HeaderList extends StatefulWidget {
 
   @override
   _HeaderListState createState() => _HeaderListState(
-      headerFlex,
-      headerAlignment,
-      imageUrl,
-      imageBlendMode,
-      imageBlendColor,
-      headerGradientType,
-      headerPadding,
-      avatarPadding,
-      imageClipPath,
-      listItems,
-      itemsFlex,
-      listPadding,
-      cardType,
-      cardElevationLevel,
-      leadingIconType,
-      leadingEmphasis,
-      titleType,
-      titleEmphasis,
-      subtitleType,
-      subtitleEmphasis,
-      trailingIconType,
-      trailingEmphasis,
-      isHeaderSticky,
-      isAvatarEnabled,
-      heightBetween,
-      avatarTitle,
-      avatarTitleType,
-      avatarTitleEmphasis,
-      avatarSubtitle,
-      avatarSubtitleType,
-      avatarSubtitleEmphasis,
-      avatarImageUrl,
-      avatarImageBorderWidth,
-      avatarImageRadius,
-      avatarClickedCallback,
-      usePolygonAvatar
+    key,
+    headerFlex,
+    headerAlignment,
+    imageUrl,
+    imageBlendMode,
+    imageBlendColor,
+    headerGradientType,
+    headerPadding,
+    avatarPadding,
+    imageClipPath,
+    listItems,
+    itemsFlex,
+    listPadding,
+    cardType,
+    cardElevationLevel,
+    leadingIconType,
+    leadingEmphasis,
+    titleType,
+    titleEmphasis,
+    subtitleType,
+    subtitleEmphasis,
+    trailingIconType,
+    trailingEmphasis,
+    isHeaderSticky,
+    isAvatarEnabled,
+    heightBetween,
+    avatarTitle,
+    avatarTitleType,
+    avatarTitleEmphasis,
+    avatarSubtitle,
+    avatarSubtitleType,
+    avatarSubtitleEmphasis,
+    avatarImageUrl,
+    avatarImageBorderWidth,
+    avatarImageRadius,
+    avatarClickedCallback,
+    usePolygonAvatar
   );
 }
 
 class _HeaderListState extends State<HeaderList> {
 
+  final Key key;
   final List<ListItemModel> listItems;
   final String imageUrl;
   final BlendMode imageBlendMode;
@@ -173,42 +177,43 @@ class _HeaderListState extends State<HeaderList> {
   final bool usePolygonAvatar;
 
   _HeaderListState(
-      this.headerFlex,
-      this.headerAlignment,
-      this.imageUrl,
-      this.imageBlendMode,
-      this.imageBlendColor,
-      this.headerGradientType,
-      this.headerPadding,
-      this.avatarPadding,
-      this.imageClipPath,
-      this.listItems,
-      this.itemsFlex,
-      this.listPadding,
-      this.cardType,
-      this.cardElevationLevel,
-      this.leadingIconType,
-      this.leadingEmphasis,
-      this.titleType,
-      this.titleEmphasis,
-      this.subtitleType,
-      this.subtitleEmphasis,
-      this.trailingIconType,
-      this.trailingEmphasis,
-      this.isHeaderSticky,
-      this.isAvatarEnabled,
-      this.heightBetween,
-      this.avatarTitle,
-      this.avatarTitleType,
-      this.avatarTitleEmphasis,
-      this.avatarSubtitle,
-      this.avatarSubtitleType,
-      this.avatarSubtitleEmphasis,
-      this.avatarImageUrl,
-      this.avatarImageBorderWidth,
-      this.avatarImageRadius,
-      this.avatarClickedCallback,
-      this.usePolygonAvatar
+    this.key,
+    this.headerFlex,
+    this.headerAlignment,
+    this.imageUrl,
+    this.imageBlendMode,
+    this.imageBlendColor,
+    this.headerGradientType,
+    this.headerPadding,
+    this.avatarPadding,
+    this.imageClipPath,
+    this.listItems,
+    this.itemsFlex,
+    this.listPadding,
+    this.cardType,
+    this.cardElevationLevel,
+    this.leadingIconType,
+    this.leadingEmphasis,
+    this.titleType,
+    this.titleEmphasis,
+    this.subtitleType,
+    this.subtitleEmphasis,
+    this.trailingIconType,
+    this.trailingEmphasis,
+    this.isHeaderSticky,
+    this.isAvatarEnabled,
+    this.heightBetween,
+    this.avatarTitle,
+    this.avatarTitleType,
+    this.avatarTitleEmphasis,
+    this.avatarSubtitle,
+    this.avatarSubtitleType,
+    this.avatarSubtitleEmphasis,
+    this.avatarImageUrl,
+    this.avatarImageBorderWidth,
+    this.avatarImageRadius,
+    this.avatarClickedCallback,
+    this.usePolygonAvatar
   ){
     headerPadding = headerPadding != null ? headerPadding : EdgeInsets.all(0.0);
 
@@ -230,6 +235,7 @@ class _HeaderListState extends State<HeaderList> {
 
   Widget _createStickyHeaderList() {
     return  Column(
+      key: key,
       children: <Widget>[
         Flexible(
             flex: headerFlex,
@@ -249,6 +255,7 @@ class _HeaderListState extends State<HeaderList> {
     Size mediaQuery = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
+      key: key,
       child: Column(
         children: <Widget>[
           Container(
