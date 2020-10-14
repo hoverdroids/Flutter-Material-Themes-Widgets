@@ -9,6 +9,8 @@ import 'package:material_themes_widgets/utils/validators.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
 
+  final Key key;
+
   final bool showLabels;
   final ThemeGroupType labelType;
   final Emphasis labelEmphasis;
@@ -64,6 +66,7 @@ class LoginRegisterScreen extends StatefulWidget {
   final bool isLogin;
 
   LoginRegisterScreen({
+    this.key,
     this.showLabels = true,
     this.labelType = ThemeGroupType.MOP,
     this.labelEmphasis = Emphasis.NONE,
@@ -136,6 +139,7 @@ class LoginRegisterScreen extends StatefulWidget {
 
   @override
   _LoginRegisterScreenState createState() => _LoginRegisterScreenState(
+    key,
     showLabels,
     labelType,
     labelEmphasis,
@@ -186,6 +190,8 @@ class LoginRegisterScreen extends StatefulWidget {
 }
 
 class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
+
+  final Key key;
 
   final bool showLabels;
   final ThemeGroupType labelType;
@@ -244,6 +250,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   _LoginRegisterScreenState(
+    this.key,
     this.showLabels,
     this.labelType,
     this.labelEmphasis,
@@ -499,16 +506,17 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: <Widget>[
-          if (isHeaderSticky) ... [ _buildHeader() ],
-          Flexible(
-              flex: 1,
-              child:_buildContent()),
-          if(doShowLoginRegisterButtons && isFooterSticky) ... [
-            if (isFooterVertical) ... [_buildVerticalFooter()]
-            else ... [_buildHorizontalFooter()]
-          ],
-        ]
+      key: key,
+      children: <Widget>[
+        if (isHeaderSticky) ... [ _buildHeader() ],
+        Flexible(
+            flex: 1,
+            child:_buildContent()),
+        if(doShowLoginRegisterButtons && isFooterSticky) ... [
+          if (isFooterVertical) ... [_buildVerticalFooter()]
+          else ... [_buildHorizontalFooter()]
+        ],
+      ]
     );
   }
 }
