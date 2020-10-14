@@ -3,6 +3,7 @@ import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/forms/form_fields.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
+import 'package:material_themes_widgets/utils/validators.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
 
@@ -66,8 +67,8 @@ class LoginRegisterScreen extends StatefulWidget {
     this.labelEmphasis = Emphasis.NONE,
     this.labelTextAlign = TextAlign.start,
     this.prefixIconType = ThemeGroupType.MOM,
-    this.prefixIconEmphasis = Emphasis.HIGH,
-    this.textType = ThemeGroupType.MOM,
+    this.prefixIconEmphasis = Emphasis.NONE,
+    this.textType = ThemeGroupType.POM,
     this.textEmphasis = Emphasis.HIGH,
     this.obscureText = false,
     this.hintTextType = ThemeGroupType.MOM,
@@ -314,19 +315,25 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   if(!isHeaderSticky) ... [ _buildHeader() ],
                   smallTransparentDivider,
                   if (showEmail) ... [
-                    _buildStringEntry(labelText: "Email", hintText: showLabels ? "" : "Email", onStringChangedCallback: onEmailChangedCallback),
+                    _buildStringEntry(labelText: "Email", hintText: showLabels ? "" : "Email", prefixIcon: showLabels ? null : Icons.email, onStringChangedCallback: onEmailChangedCallback,
+                    validator: (value) => emailValidator(value)
+                    ),
                     smallTransparentDivider
                   ],
                   if (showPassword) ... [
-                    _buildStringEntry(labelText: "Password", hintText: showLabels ? "" : "Password", onStringChangedCallback: onPasswordChangedCallback),
+                    _buildStringEntry(labelText: "Password", hintText: showLabels ? "" : "Password", prefixIcon: showLabels ? null : Icons.lock, onStringChangedCallback: onPasswordChangedCallback,
+                      validator: (value) => passwordValidator(value),
+                    ),
                     smallTransparentDivider
                   ],
                   if (showFirstName) ... [
-                    _buildStringEntry(labelText: "First Name", hintText: showLabels ? "" : "First Name", onStringChangedCallback: onFirstNameChangedCallback),
+                    _buildStringEntry(labelText: "First Name", hintText: showLabels ? "" : "First Name", onStringChangedCallback: onFirstNameChangedCallback,
+                      validator: (value) => nonEmptyValidator(value, "First Name")),
                     smallTransparentDivider
                   ],
                   if (showLastName) ... [
-                    _buildStringEntry(labelText: "Last Name", hintText: showLabels ? "" : "Last Name", onStringChangedCallback: onLastNameChangedCallback),
+                    _buildStringEntry(labelText: "Last Name", hintText: showLabels ? "" : "Last Name", onStringChangedCallback: onLastNameChangedCallback,
+                      validator: (value) => nonEmptyValidator(value, "Last Name")),
                     smallTransparentDivider
                   ],
                   if (showTagline) ... [
@@ -354,7 +361,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     smallTransparentDivider
                   ],
                   if (showZip) ... [
-                    _buildStringEntry(labelText: "Zip", hintText: showLabels ? "" : "Zip", onStringChangedCallback: onZipChangedCallback),
+                    _buildStringEntry(labelText: "Zip", hintText: showLabels ? "" : "Zip", onStringChangedCallback: onZipChangedCallback,
+                      validator: (value) => nonEmptyValidator(value, "Zip")),
                     smallTransparentDivider
                   ],
                   if(doShowLoginRegisterButtons && !isFooterSticky && isFooterVertical) ... [ _buildVerticalFooter()]
@@ -394,6 +402,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
       hintText: hintText,
       hintTextType: hintTextType,
       hintTextEmphasis: hintTextEmphasis,
+      backgroundType: textFieldBackgroundType,
       onStringChangedCallback: onStringChangedCallback,
       validator: validator
     );
