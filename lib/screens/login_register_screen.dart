@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/defaults/dimens.dart';
@@ -53,9 +55,9 @@ class LoginRegisterScreen extends StatefulWidget {
   final String screenTitle;
   final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
-  final bool isHeaderSticky;
-  final bool isFooterSticky;
-  final bool isFooterVertical;
+  bool isHeaderSticky;
+  bool isFooterSticky;
+  bool isFooterVertical;
   final EdgeInsets headerPadding;
   final EdgeInsets footerPadding;
   final bool centerForm;
@@ -102,9 +104,9 @@ class LoginRegisterScreen extends StatefulWidget {
     this.screenTitle,
     this.doShowLoginRegisterButtons = true,
     this.padding = const EdgeInsets.symmetric(vertical: 0.0, horizontal: paddingMini),
-    this.isHeaderSticky = false,
-    this.isFooterSticky = false,
-    this.isFooterVertical = true,
+    this.isHeaderSticky,
+    this.isFooterSticky,
+    this.isFooterVertical,
     this.headerPadding = const EdgeInsets.all(paddingMini),
     this.footerPadding = const EdgeInsets.all(paddingMini),
     this.centerForm = true,
@@ -121,6 +123,15 @@ class LoginRegisterScreen extends StatefulWidget {
     if (showCity == null) showCity = isLogin ? false : true;
     if (showState == null) showState = isLogin ? false : true;
     if (showZip == null) showZip = isLogin ? false : true;
+    if (isHeaderSticky == null) {
+      isHeaderSticky = isLogin ? false : true;
+    }
+    if (isFooterSticky == null) {
+      isFooterSticky = isLogin ? false : true;
+    }
+    if (isFooterVertical == null) {
+      isFooterVertical = isLogin ? true : false;
+    }
   }
 
   @override

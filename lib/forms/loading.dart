@@ -4,7 +4,7 @@ import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
 
 class Loading extends StatelessWidget {
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(

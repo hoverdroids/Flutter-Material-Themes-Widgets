@@ -95,10 +95,7 @@ class _HomePageState extends State<HomePage> {
             onPasswordChangedCallback: (value) => { print("Password changed" + value) },
             onTapLogin: () => print("On tap login2"),
             onTapRegister: () => print("on tap register2"),
-            isHeaderSticky: true,
-            isFooterSticky: true,
-            isFooterVertical: false,
-            isLogin: true,
+            isLogin: false,
             showLabels: false
           )
         ),
