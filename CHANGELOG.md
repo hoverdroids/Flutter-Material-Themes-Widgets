@@ -1,3 +1,4 @@
+## [0.0.21] - Passing a key because toggling between two of the same widgets isn't updating.
 ## [0.0.20] - Refactored login and profile screen. Now loginRegister and profile (with edit mode)
 ## [0.0.19] - Added profile/register screen with valueChanged listeners and validators.
 ## [0.0.18] - Added ValueChanged listeners to email/password fields. Added validators.

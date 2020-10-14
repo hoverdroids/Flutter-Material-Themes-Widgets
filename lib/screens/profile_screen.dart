@@ -9,6 +9,8 @@ import 'package:material_themes_widgets/utils/validators.dart';
 
 class ProfileScreen extends StatefulWidget {
 
+  final Key key;
+
   final bool showLabels;
   final ThemeGroupType labelType;
   final Emphasis labelEmphasis;
@@ -77,6 +79,7 @@ class ProfileScreen extends StatefulWidget {
   final bool isEditMode;
 
   ProfileScreen({
+    this.key,
     this.showLabels = true,
     this.labelType = ThemeGroupType.MOP,
     this.labelEmphasis = Emphasis.NONE,
@@ -141,6 +144,7 @@ class ProfileScreen extends StatefulWidget {
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState(
+    key,
     showLabels,
     labelType,
     labelEmphasis,
@@ -205,6 +209,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  final Key key;
 
   final bool showLabels;
   final ThemeGroupType labelType;
@@ -276,6 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _formKey = GlobalKey<FormState>();
 
   _ProfileScreenState(
+    this.key,
     this.showLabels,
     this.labelType,
     this.labelEmphasis,
@@ -543,16 +550,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: <Widget>[
-          if (isHeaderSticky) ... [ _buildHeader() ],
-          Flexible(
-              flex: 1,
-              child:_buildContent()),
-          if(doShowLoginRegisterButtons && isFooterSticky) ... [
-            if (isFooterVertical) ... [_buildVerticalFooter()]
-            else ... [_buildHorizontalFooter()]
-          ],
-        ]
+      key: key,
+      children: <Widget>[
+        if (isHeaderSticky) ... [ _buildHeader() ],
+        Flexible(
+            flex: 1,
+            child:_buildContent()),
+        if(doShowLoginRegisterButtons && isFooterSticky) ... [
+          if (isFooterVertical) ... [_buildVerticalFooter()]
+          else ... [_buildHorizontalFooter()]
+        ],
+      ]
     );
   }
 }
