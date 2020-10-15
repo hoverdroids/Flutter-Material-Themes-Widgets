@@ -1,3 +1,4 @@
+## [0.0.24] - Added description scrolling and vertical alignment to onboardingScreen.
 ## [0.0.23] - Passing a key to HeaderList.
 ## [0.0.22] - Passing a key to loginRegistger.
 ## [0.0.21] - Passing a key because toggling between two of the same widgets isn't updating.

@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
             audioUrl: "assets/audios/demo.mp3",
             descriptionTextAlign: TextAlign.justify,
             descriptionMainAxisAlignment: MainAxisAlignment.center,
+            imageFit: BoxFit.cover,
           )
         ],
         onPageChanged: (index){

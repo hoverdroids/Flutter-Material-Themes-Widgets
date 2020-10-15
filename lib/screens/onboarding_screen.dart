@@ -31,6 +31,7 @@ class OnboardingScreen extends Container {
   final int imageFlex;
   final EdgeInsets imagePadding;
   final MainAxisAlignment imageMainAxisAlignment;
+  final BoxFit imageFit;
   final EdgeInsetsGeometry screenPadding;
   final String audioUrl;
 
@@ -63,6 +64,7 @@ class OnboardingScreen extends Container {
         this.imageFlex = 4,
         this.imagePadding,
         this.imageMainAxisAlignment = MainAxisAlignment.center,
+        this.imageFit  = BoxFit.fitHeight,
         this.screenPadding = const EdgeInsets.all(20.0),
         this.audioUrl
       }
@@ -74,7 +76,6 @@ class OnboardingScreen extends Container {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -137,15 +138,20 @@ class OnboardingScreen extends Container {
                     image: AssetImage(imageUrl),
                     width: double.infinity,
                     height: double.infinity,
-                    fit: BoxFit.fitHeight,
+                    fit: imageFit,
                     colorBlendMode: imageBlendMode,
                     color: imageBlendColor,
                   ),
                   if (audioUrl != null) ...[
                     Center(
                         child: ThemedPlayButton(
-                          pauseIcon: Icon(Icons.pause, color: Colors.black, size: 48),
-                          playIcon: Icon(Icons.play_arrow, color: Colors.black, size: 48),
+                          pauseIcon: Icon(
+                              Icons.pause,
+                              color: context.watch<MaterialThemesManager>().colorPalette().primary,
+                              size: 48),
+                          playIcon: Icon(Icons.play_arrow,
+                              color: context.watch<MaterialThemesManager>().colorPalette().primary,
+                              size: 48),
                           onPressed: () {
                             if (!_isAudioLoaded) {
                               _isAudioPlaying = true;
