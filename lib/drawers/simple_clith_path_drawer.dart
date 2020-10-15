@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
+import 'package:material_themes_widgets/appbars/icon_title_icon_fake_appbar.dart';
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/fundamental/icons.dart';
@@ -51,33 +52,7 @@ class SimpleClipPathDrawer extends StatelessWidget {
 
     Size mediaQuery = MediaQuery.of(context).size;
     double calculatedWidth = mediaQuery.width * widthPercent;
-
-    Widget _getAppBar() {
-      return SafeArea(
-        child: Row(
-          mainAxisAlignment: showLeftIcon && showRightIcon ? MainAxisAlignment.spaceBetween : (showLeftIcon ? MainAxisAlignment.start : MainAxisAlignment.end),
-          children: <Widget>[
-            if (showLeftIcon) ... [
-              ThemedIconButton(
-                leftIcon,
-                type: leftIconType,
-                emphasis: leftIconEmphasis,
-                onPressedCallback: leftIconClickedCallback,
-              )
-            ],
-            if(showRightIcon) ... [
-              ThemedIconButton(
-                rightIcon,
-                type: rightIconType,
-                emphasis: rightIconEmphasis,
-                onPressedCallback: rightIconClickedCallback,
-              )
-            ]
-          ],
-        ),
-      );
-    }
-
+    
     return Container(
       width: width != null ? width : calculatedWidth,
       child: Padding(
@@ -87,7 +62,20 @@ class SimpleClipPathDrawer extends StatelessWidget {
               children: [
                 context.watch<MaterialThemesManager>().getBackgroundGradient(backgroundGradientType),
                 if(child != null) ... [ child ],
-                if(showAppBar) ... [ _getAppBar() ]
+                if(showAppBar) ... [ 
+                  IconTitleIconFakeAppBar(
+                    leftIcon: leftIcon,
+                    showLeftIcon: showLeftIcon,
+                    leftIconClickedCallback: leftIconClickedCallback,
+                    leftIconType: leftIconType,
+                    leftIconEmphasis: leftIconEmphasis,
+                    rightIcon: rightIcon,
+                    showRightIcon: showRightIcon,
+                    rightIconClickedCallback: rightIconClickedCallback,
+                    rightIconType: rightIconType,
+                    rightIconEmphasis: rightIconEmphasis
+                  )
+                ]
               ],
             ),
           ),

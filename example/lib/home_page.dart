@@ -97,6 +97,7 @@ class _HomePageState extends State<HomePage> {
           //usePolygonAvatar: true,
         ),
         clipPathType: ClipPathType.CLOUDS,
+        padding: 0.0,
       ),
       endDrawer: SimpleClipPathDrawer(
         leftIconType: ThemeGroupType.MOP,
