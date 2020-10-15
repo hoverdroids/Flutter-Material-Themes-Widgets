@@ -1,11 +1,10 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
-import 'package:material_themes_widgets/fundamental/blob.dart';
 import 'package:material_themes_widgets/fundamental/buttons_media.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:provider/provider.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
 
 class OnboardingScreen extends Container {
 
@@ -17,18 +16,21 @@ class OnboardingScreen extends Container {
   final Emphasis titleEmphasis;
   final EdgeInsets titlePadding;
   final TextAlign titleTextAlign;
+  final MainAxisAlignment titleMainAxisAlignment;
   final String description;
   final int descriptionFlex;
   final ThemeGroupType descriptionType;
   final Emphasis descriptionEmphasis;
   final EdgeInsets descriptionPadding;
   final TextAlign descriptionTextAlign;
+  final MainAxisAlignment descriptionMainAxisAlignment;
   final String imageUrl;
   SimpleClipPath imageClipPath;
   final BlendMode imageBlendMode;
   final Color imageBlendColor;
   final int imageFlex;
   final EdgeInsets imagePadding;
+  final MainAxisAlignment imageMainAxisAlignment;
   final EdgeInsetsGeometry screenPadding;
   final String audioUrl;
 
@@ -44,12 +46,14 @@ class OnboardingScreen extends Container {
         this.titleEmphasis = Emphasis.HIGH,
         this.titlePadding,
         this.titleTextAlign = TextAlign.center,
+        this.titleMainAxisAlignment = MainAxisAlignment.center,
         this.description,
         this.descriptionFlex = 1,
         this.descriptionType = ThemeGroupType.MOP,
         this.descriptionEmphasis = Emphasis.NONE,
         this.descriptionPadding,
         this.descriptionTextAlign = TextAlign.center,
+        this.descriptionMainAxisAlignment = MainAxisAlignment.center,
         this.imageUrl,
         this.backgroundGradientType = BackgroundGradientType.PRIMARY,
         this.clipPathType = ClipPathType.NONE,
@@ -58,6 +62,7 @@ class OnboardingScreen extends Container {
         this.imageBlendColor,
         this.imageFlex = 4,
         this.imagePadding,
+        this.imageMainAxisAlignment = MainAxisAlignment.center,
         this.screenPadding = const EdgeInsets.all(20.0),
         this.audioUrl
       }
@@ -70,20 +75,6 @@ class OnboardingScreen extends Container {
   @override
   Widget build(BuildContext context) {
 
-    var children = <Widget>[];
-
-    if (title != null) {
-      children.add(_createTitle());
-    }
-
-    if (imageUrl != null) {
-      children.add(_createImage(context, title != null, description != null));
-    }
-
-    if (description != null) {
-      children.add(_createDescription());
-    }
-
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -94,7 +85,12 @@ class OnboardingScreen extends Container {
               context.watch<MaterialThemesManager>().getBackgroundGradient(backgroundGradientType),
               SafeArea(
                   child: Column(
-                    children: children,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      if (title != null) _createTitle(),
+                      if (imageUrl != null) _createImage(context, title != null, description != null),
+                      if (description != null) _createDescription()
+                    ],
                   )
               )
             ],
@@ -109,11 +105,15 @@ class OnboardingScreen extends Container {
   Widget _createTitle() {
     return Flexible(
       flex: titleFlex,
-      child: Center(
-          child: Padding(
-            padding: titlePadding != null ? titlePadding : EdgeInsets.all(0.0),
-            child: ThemedH4(title, type: titleType, emphasis: titleEmphasis, textAlign: titleTextAlign),
-          )),
+      child: Padding(
+        padding: titlePadding != null ? titlePadding : EdgeInsets.all(0.0),
+        child: Column(
+          mainAxisAlignment: titleMainAxisAlignment,
+          children: <Widget>[
+            ThemedH4(title, type: titleType, emphasis: titleEmphasis, textAlign: titleTextAlign)
+          ],
+        )
+      ),
     );
   }
 
@@ -173,18 +173,21 @@ class OnboardingScreen extends Container {
     );
   }
 
-  Widget _createPlayButton() {
-    return Container();
-  }
-
   Widget _createDescription() {
     return Flexible(
       flex: descriptionFlex,
-      child: Center(
-          child: Padding(
-            padding: descriptionPadding != null ? descriptionPadding : EdgeInsets.all(20.0),
-            child: ThemedH5(description, type: descriptionType, emphasis: descriptionEmphasis, textAlign: descriptionTextAlign),
-          )),
+        child: Padding(
+          padding: descriptionPadding != null ? descriptionPadding : EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: descriptionMainAxisAlignment,
+              children: <Widget>[
+                ThemedH5(description, type: descriptionType, emphasis: descriptionEmphasis, textAlign: descriptionTextAlign),
+            ]
+          )
+        ),
+      ),
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
@@ -6,6 +7,7 @@ import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/header_list.dart';
 import 'package:material_themes_widgets/screens/login_register_screen.dart';
+import 'package:material_themes_widgets/screens/onboarding_screen.dart';
 import 'package:material_themes_widgets/screens/profile_screen.dart';
 import 'grayscale_theme_list_items_page.dart';
 import 'main_theme_list_items_page.dart';
@@ -38,6 +40,16 @@ class _HomePageState extends State<HomePage> {
           WireframeThemeListItemsPage(_scaffoldKey),
           GrayscaleThemeListItemsPage(_scaffoldKey),
           MainThemeListItemsPage(_scaffoldKey),
+          OnboardingScreen(
+            title: "Yo Mamma",
+            titleMainAxisAlignment: MainAxisAlignment.end,
+            descriptionFlex: 4,
+            imageUrl: "assets/food_1.jpg",
+            description: "alkjasldjf askldjf asd4 1fs54d fsd4 f465sdf1 321sdf 1856s1df s5d1f 68s1df 65s1df56 s1d68f1s d651f s685d1f 35s1df851 sd35f1s85d61fs635d fs865d sf asdf kasas dflasjd fkljasd klfjas d fjkasd asdfasd fasdf asd fasd fasdf asdf asdf asdf asd fasdf asd fasdf asdf asdf asdf asdf asdf asdf asdf asd f  adksf alksdf kjaredsfj lkasjdfoi jasdmf oasjdkif askdjf olkasjdl sd lfsldjlkd ajsdlaskdj lsfkakdjflkdflasdl falsdlkdkjasl alsdjfad fjasldjflasjfajdl asdjaldj ",
+            audioUrl: "assets/audios/demo.mp3",
+            descriptionTextAlign: TextAlign.justify,
+            descriptionMainAxisAlignment: MainAxisAlignment.center,
+          )
         ],
         onPageChanged: (index){
           setState(() {
