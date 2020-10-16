@@ -1,3 +1,4 @@
+## [0.0.26] - Added IconTitleIconFakeAppbar
 ## [0.0.25] - Updated MaterialThemeManager to 0.0.24. Refactored to IconTitleIconAppbar.
 ## [0.0.24] - Added description scrolling and vertical alignment to onboardingScreen.
 ## [0.0.23] - Passing a key to HeaderList.

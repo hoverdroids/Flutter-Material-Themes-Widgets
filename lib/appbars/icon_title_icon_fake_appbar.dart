@@ -63,62 +63,50 @@ class IconTitleIconFakeAppBar extends StatelessWidget {
   }
 
   Widget _buildAppbar() {
-    return /*Card(
-          shape: shape,
-          color: backgroundColor != null ? backgroundColor : Colors.transparent,
-          elevation: elevation,*/
-          Center(
-          child: Row(
-            //mainAxisAlignment: MainAxisAlignment.,
-            //mainAxisAlignment: showLeftIcon && showRightIcon || showTitle && showRightIcon ? MainAxisAlignment.spaceBetween : (showLeftIcon ? MainAxisAlignment.start : MainAxisAlignment.end),
-            children: <Widget>[
-              if (showLeftIcon) ... [
-                ThemedIconButton(
-                  leftIcon,
-                  type: leftIconType,
-                  emphasis: leftIconEmphasis,
-                  onPressedCallback: leftIconClickedCallback,
-                )
-              ],
-              if (showTitle) ... [
-                //GestureDetector(
-                  //onTap: titleClickedCallback,
-                  //child: Flexible(
-                    //flex: 1,
-                    //child: Row(
-                    //  children: [
-                        //child:
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            height: 20,
-                            //width: 200,
-                            color: Colors.red,
-                            /*child:
-                            ThemedTitle(
-                              title,
-                              type: titleType,
-                              emphasis: titleEmphasis,
-                              textAlign: titleTextAlign,
-                              //TODO - onTapTitle
-                              ),*/
-                          ),
-                        )
-                      //],
-                    //),
-                  //),
-                //)
-              ],
-              if(showRightIcon) ... [
-                ThemedIconButton(
-                  rightIcon,
-                  type: rightIconType,
-                  emphasis: rightIconEmphasis,
-                  onPressedCallback: rightIconClickedCallback,
-                )
-              ]
-            ],
-          ),
-        );
+    return Card(
+      shape: shape,
+      color: backgroundColor != null ? backgroundColor : Colors.transparent,
+      elevation: elevation,
+      child: Row(
+        children: <Widget>[
+          if (showLeftIcon) ... [
+            ThemedIconButton(
+              leftIcon,
+              type: leftIconType,
+              emphasis: leftIconEmphasis,
+              onPressedCallback: leftIconClickedCallback,
+            )
+          ],
+          if (!showTitle) ... [ //Ensures correct left/right icon placement when no title
+            Expanded(
+              flex: 1,
+              child: Container(height: 1,),
+            )
+          ],
+          if (showTitle) ... [
+            Expanded(
+              flex: 1,
+                child: GestureDetector(
+                  onTap: titleClickedCallback,
+                  child: ThemedTitle(
+                    title,
+                    type: titleType,
+                    emphasis: titleEmphasis,
+                    textAlign: titleTextAlign,
+                  ),
+                ),
+            )
+          ],
+          if(showRightIcon) ... [
+            ThemedIconButton(
+              rightIcon,
+              type: rightIconType,
+              emphasis: rightIconEmphasis,
+              onPressedCallback: rightIconClickedCallback,
+            )
+          ]
+        ],
+      ),
+    );
   }
 }

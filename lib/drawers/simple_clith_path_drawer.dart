@@ -25,12 +25,20 @@ class SimpleClipPathDrawer extends StatelessWidget {
   final Function titleClickedCallback;
   final ThemeGroupType titleType;
   final Emphasis titleEmphasis;
+  final TextAlign titleTextAlign;
   
   final IconData rightIcon;
   final bool showRightIcon;
   final Function rightIconClickedCallback;
   final ThemeGroupType rightIconType;
   final Emphasis rightIconEmphasis;
+
+  final Color appBarBackgroundColor;
+  final double appBarElevation;
+  final ShapeBorder appbarShape;
+
+  final bool enableAppbarSafeArea;
+
   //TODO - show tab or a number of pixels when closed, to indicate a drawer exists
 
   SimpleClipPathDrawer({
@@ -51,11 +59,16 @@ class SimpleClipPathDrawer extends StatelessWidget {
     this.titleClickedCallback,
     this.titleType = ThemeGroupType.MOM,
     this.titleEmphasis = Emphasis.HIGH,
+    this.titleTextAlign = TextAlign.center,
     this.rightIcon = Icons.account_circle,
     this.showRightIcon = true,
     this.rightIconClickedCallback,
     this.rightIconType = ThemeGroupType.MOM,
-    this.rightIconEmphasis = Emphasis.HIGH
+    this.rightIconEmphasis = Emphasis.HIGH,
+    this.appBarBackgroundColor = Colors.transparent,
+    this.appBarElevation = 0.0,
+    this.appbarShape = const RoundedRectangleBorder(),
+    this.enableAppbarSafeArea = true
   });
 
   @override
@@ -85,11 +98,16 @@ class SimpleClipPathDrawer extends StatelessWidget {
                     titleClickedCallback: titleClickedCallback,
                     titleType: titleType,
                     titleEmphasis: titleEmphasis,
+                    titleTextAlign: titleTextAlign,
                     rightIcon: rightIcon,
                     showRightIcon: showRightIcon,
                     rightIconClickedCallback: rightIconClickedCallback,
                     rightIconType: rightIconType,
-                    rightIconEmphasis: rightIconEmphasis
+                    rightIconEmphasis: rightIconEmphasis,
+                    backgroundColor: appBarBackgroundColor,
+                    elevation: appBarElevation,
+                    shape: appbarShape,
+                    enableSafeArea: enableAppbarSafeArea,
                   )
                 ]
               ],
