@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const paddingTiny = 2.0;
 const paddingMini = 10.0;
 const paddingSmall = 14.0;
 const paddingMedium = 28.0;
@@ -12,6 +13,7 @@ const mediumBorderRadius = 8.0;
 const largeBorderRadius = 10.0;
 const extraLargeBorderRadius = 12.0;
 
+const tinyTransparentDivider = Divider(color: Colors.transparent, height: paddingTiny);
 const miniTransparentDivider = Divider(color: Colors.transparent, height: paddingMini);
 const smallTransparentDivider = Divider(color: Colors.transparent, height: paddingSmall);
 const mediumTransparentDivider = Divider(color: Colors.transparent, height: paddingMedium);
