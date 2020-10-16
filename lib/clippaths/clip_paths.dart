@@ -11,7 +11,8 @@ enum ClipPathType {
   CLOUDS,
   BOILER_PLATE,
   DIAGONAL,
-  ROUNDED_CORNERS
+  ROUNDED_CORNERS,
+  ROUNDED_SHIELD
 }
 
 class SimpleClipPath extends CustomClipper<Path> {
@@ -37,6 +38,8 @@ class SimpleClipPath extends CustomClipper<Path> {
     switch(type) {
       case ClipPathType.ROUNDED_DOWN:
         return getRoundedDown(size);
+      case ClipPathType.ROUNDED_SHIELD:
+        return getRoundedShield(size);
       case ClipPathType.ROUNDED_UP:
         return getRoundedUp(size);
       case ClipPathType.TRIANGLE_DOWN:
@@ -69,13 +72,46 @@ class SimpleClipPath extends CustomClipper<Path> {
     return path;
   }
 
-  Path getRoundedDown(Size size) {
+  Path getRoundedShield(Size size) {
+    var topLeftPixelsFromTop = (size.height * topLeftPercentOfHeight) / 100.0;
+    var topRightPixelsFromTop = (size.height * topRightPercentOfHeight) / 100.0;
+
+    //100% is default and indicates a default rounding is desired since otherwise it creates a rectangle (which seems broken)
+    var botLeftPct = bottomLeftPercentOfHeight == 100 ? 60 : bottomLeftPercentOfHeight;
+    var botRightPct = bottomRightPercentOfHeight == 100 ? 60 : bottomRightPercentOfHeight;
+    var bottomLeftPixelsFromTop = (size.height * botLeftPct) / 100.0;
+    var bottomRightPixelsFromTop = (size.height * botRightPct) / 100.0;
+
     Path path = Path();
-    path.lineTo(0, size.height - 100);
+    path.moveTo(0.0, bottomLeftPixelsFromTop);
+    path.arcToPoint(Offset(size.width, bottomRightPixelsFromTop),
+        radius: Radius.elliptical(size.width/2, size.height - bottomRightPixelsFromTop),
+        clockwise: false
+    );
+    path.lineTo(size.width, topRightPixelsFromTop);
+    path.lineTo(0.0, topLeftPixelsFromTop);
+    path.close();
+    return path;
+  }
+
+  Path getRoundedDown(Size size) {
+    var topLeftPixelsFromTop = (size.height * topLeftPercentOfHeight) / 100.0;
+    var topRightPixelsFromTop = (size.height * topRightPercentOfHeight) / 100.0;
+
+    //100% is default and indicates a default rounding is desired since otherwise it creates a rectangle (which seems broken)
+    var botLeftPct = bottomLeftPercentOfHeight == 100 ? 95 : bottomLeftPercentOfHeight;
+    var botRightPct = bottomRightPercentOfHeight == 100 ? 95 : bottomRightPercentOfHeight;
+    var bottomLeftPixelsFromTop = (size.height * botLeftPct) / 100.0;
+    var bottomRightPixelsFromTop = (size.height * botRightPct) / 100.0;
+    var delY = size.height - (bottomLeftPixelsFromTop + bottomRightPixelsFromTop) / 2.0;
+
+    Path path = Path();
+    path.moveTo(0.0, bottomLeftPixelsFromTop);
     path.quadraticBezierTo(
-        size.width / 2, size.height,
-        size.width, size.height - 100);
-    path.lineTo(size.width, 0);
+        size.width / 2, size.height + delY,
+        size.width, bottomRightPixelsFromTop);
+    path.lineTo(size.width, topRightPixelsFromTop);
+    path.lineTo(0.0, topLeftPixelsFromTop);
     path.close();
     return path;
   }

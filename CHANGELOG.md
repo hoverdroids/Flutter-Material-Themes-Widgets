@@ -1,3 +1,4 @@
+## [0.0.27] - Added rounded_shield to clip paths. Fixed round_down path to anchor to base.
 ## [0.0.26] - Added IconTitleIconFakeAppbar
 ## [0.0.25] - Updated MaterialThemeManager to 0.0.24. Refactored to IconTitleIconAppbar.
 ## [0.0.24] - Added description scrolling and vertical alignment to onboardingScreen.
