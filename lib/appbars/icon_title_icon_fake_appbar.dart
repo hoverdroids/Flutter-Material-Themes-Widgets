@@ -28,6 +28,8 @@ class IconTitleIconFakeAppBar extends StatelessWidget {
   final double elevation;
   final ShapeBorder shape;
 
+  final bool enableSafeArea;
+
   IconTitleIconFakeAppBar({
     this.leftIcon = Icons.menu,
     this.showLeftIcon = true,
@@ -47,53 +49,76 @@ class IconTitleIconFakeAppBar extends StatelessWidget {
     this.rightIconEmphasis = Emphasis.HIGH,
     this.backgroundColor = Colors.transparent,
     this.elevation = 0.0,
-    this.shape = const RoundedRectangleBorder()
+    this.shape = const RoundedRectangleBorder(),
+    this.enableSafeArea = true
   });
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Card(
-        shape: shape,
-        color: backgroundColor != null ? backgroundColor : Colors.transparent,
-        elevation: elevation,
-        child: Row(
-          mainAxisAlignment: showLeftIcon && showRightIcon ? MainAxisAlignment.spaceBetween : (showLeftIcon ? MainAxisAlignment.start : MainAxisAlignment.end),
-          children: <Widget>[
-            if (showLeftIcon) ... [
-              ThemedIconButton(
-                leftIcon,
-                type: leftIconType,
-                emphasis: leftIconEmphasis,
-                onPressedCallback: leftIconClickedCallback,
-              )
+    if(enableSafeArea) {
+      return SafeArea(child: _buildAppbar());
+    } else {
+      return _buildAppbar();
+    }
+  }
+
+  Widget _buildAppbar() {
+    return /*Card(
+          shape: shape,
+          color: backgroundColor != null ? backgroundColor : Colors.transparent,
+          elevation: elevation,*/
+          Center(
+          child: Row(
+            //mainAxisAlignment: MainAxisAlignment.,
+            //mainAxisAlignment: showLeftIcon && showRightIcon || showTitle && showRightIcon ? MainAxisAlignment.spaceBetween : (showLeftIcon ? MainAxisAlignment.start : MainAxisAlignment.end),
+            children: <Widget>[
+              if (showLeftIcon) ... [
+                ThemedIconButton(
+                  leftIcon,
+                  type: leftIconType,
+                  emphasis: leftIconEmphasis,
+                  onPressedCallback: leftIconClickedCallback,
+                )
+              ],
+              if (showTitle) ... [
+                //GestureDetector(
+                  //onTap: titleClickedCallback,
+                  //child: Flexible(
+                    //flex: 1,
+                    //child: Row(
+                    //  children: [
+                        //child:
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            height: 20,
+                            //width: 200,
+                            color: Colors.red,
+                            /*child:
+                            ThemedTitle(
+                              title,
+                              type: titleType,
+                              emphasis: titleEmphasis,
+                              textAlign: titleTextAlign,
+                              //TODO - onTapTitle
+                              ),*/
+                          ),
+                        )
+                      //],
+                    //),
+                  //),
+                //)
+              ],
+              if(showRightIcon) ... [
+                ThemedIconButton(
+                  rightIcon,
+                  type: rightIconType,
+                  emphasis: rightIconEmphasis,
+                  onPressedCallback: rightIconClickedCallback,
+                )
+              ]
             ],
-            if (showTitle) ... [
-              Flexible(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: titleClickedCallback,
-                  child: ThemedTitle(
-                    title,
-                    type: titleType,
-                    emphasis: titleEmphasis,
-                    textAlign: titleTextAlign,
-                    //TODO - onTapTitle
-                  ),
-                ),
-              )
-            ],
-            if(showRightIcon) ... [
-              ThemedIconButton(
-                rightIcon,
-                type: rightIconType,
-                emphasis: rightIconEmphasis,
-                onPressedCallback: rightIconClickedCallback,
-              )
-            ]
-          ],
-        ),
-      ),
-    );
+          ),
+        );
   }
 }

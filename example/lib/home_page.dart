@@ -97,7 +97,12 @@ class _HomePageState extends State<HomePage> {
           //usePolygonAvatar: true,
         ),
         clipPathType: ClipPathType.CLOUDS,
-        padding: 0.0,
+        title: "yo3",
+        titleType: ThemeGroupType.MOP,
+        showTitle: true,
+        showLeftIcon: false,
+        showRightIcon: false,
+        //padding: EdgeInsets.all(20.0),
       ),
       endDrawer: SimpleClipPathDrawer(
         leftIconType: ThemeGroupType.MOP,
@@ -126,7 +131,7 @@ class _HomePageState extends State<HomePage> {
             zip: "81203"
           )
         ),
-        padding: 0.0,
+        //padding: EdgeInsets.all(40.0),
         clipPathType: ClipPathType.NONE,
         backgroundGradientType: BackgroundGradientType.PRIMARY,
       ),

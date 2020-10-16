@@ -2,24 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/appbars/icon_title_icon_fake_appbar.dart';
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
-import 'package:material_themes_widgets/defaults/dimens.dart';
-import 'package:material_themes_widgets/fundamental/icons.dart';
 import 'package:provider/provider.dart';
 
 class SimpleClipPathDrawer extends StatelessWidget {
 
   final Widget child;
-  final double padding;
+  final EdgeInsets padding;
   final ClipPathType clipPathType;
   final BackgroundGradientType backgroundGradientType;
   final double width;
   final double widthPercent;
   final bool showAppBar;
+  
   final IconData leftIcon;
   final bool showLeftIcon;
   final Function leftIconClickedCallback;
   final ThemeGroupType leftIconType;
   final Emphasis leftIconEmphasis;
+
+  final String title;
+  final bool showTitle;
+  final Function titleClickedCallback;
+  final ThemeGroupType titleType;
+  final Emphasis titleEmphasis;
+  
   final IconData rightIcon;
   final bool showRightIcon;
   final Function rightIconClickedCallback;
@@ -29,7 +35,7 @@ class SimpleClipPathDrawer extends StatelessWidget {
 
   SimpleClipPathDrawer({
     this.child,
-    this.padding = paddingSmall,
+    this.padding = const EdgeInsets.all(0.0),
     this.clipPathType = ClipPathType.BOILER_PLATE,
     this.backgroundGradientType = BackgroundGradientType.MAIN_BG,
     this.width,
@@ -40,6 +46,11 @@ class SimpleClipPathDrawer extends StatelessWidget {
     this.leftIconClickedCallback,
     this.leftIconType = ThemeGroupType.MOM,
     this.leftIconEmphasis = Emphasis.HIGH,
+    this.title = "",
+    this.showTitle = true,
+    this.titleClickedCallback,
+    this.titleType = ThemeGroupType.MOM,
+    this.titleEmphasis = Emphasis.HIGH,
     this.rightIcon = Icons.account_circle,
     this.showRightIcon = true,
     this.rightIconClickedCallback,
@@ -69,6 +80,11 @@ class SimpleClipPathDrawer extends StatelessWidget {
                     leftIconClickedCallback: leftIconClickedCallback,
                     leftIconType: leftIconType,
                     leftIconEmphasis: leftIconEmphasis,
+                    title: title,
+                    showTitle: showTitle,
+                    titleClickedCallback: titleClickedCallback,
+                    titleType: titleType,
+                    titleEmphasis: titleEmphasis,
                     rightIcon: rightIcon,
                     showRightIcon: showRightIcon,
                     rightIconClickedCallback: rightIconClickedCallback,
@@ -81,7 +97,7 @@ class SimpleClipPathDrawer extends StatelessWidget {
           ),
           clipper: SimpleClipPath(type: clipPathType),
         ),
-        padding: EdgeInsets.all(padding),
+        padding: padding,
       ),
     );
   }
