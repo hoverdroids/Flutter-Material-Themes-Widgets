@@ -1,3 +1,4 @@
+## [0.0.29] - Chanded play media button to not automatically toggle play state
 ## [0.0.28] - Added tinyTransparentDivider
 ## [0.0.27] - Added rounded_shield to clip paths. Fixed round_down path to anchor to base.
 ## [0.0.26] - Added IconTitleIconFakeAppbar

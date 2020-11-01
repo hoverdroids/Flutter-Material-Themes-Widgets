@@ -1,15 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:material_themes_widgets/fundamental/icons.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
-import 'blob.dart';
 import 'package:provider/provider.dart';
+
+import 'blob.dart';
 
 //Inspired by: https://levelup.gitconnected.com/flutter-tutorial-music-button-animation-744616b14501
 class ThemedPlayButton extends StatefulWidget {
 
-  final bool initialIsPlaying;
+  final bool isPlaying;
   final Icon playIcon;
   final Icon pauseIcon;
   final VoidCallback onPressed;
@@ -17,7 +17,7 @@ class ThemedPlayButton extends StatefulWidget {
 
   ThemedPlayButton({
     @required this.onPressed,
-    this.initialIsPlaying = false,
+    this.isPlaying = false,
     this.playIcon = const Icon(Icons.play_arrow),
     this.pauseIcon = const Icon(Icons.pause),
     this.widthHeight = 100
@@ -34,7 +34,6 @@ class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProvider
   static const _kToggleDuration = Duration(milliseconds: 300);
   static const _kRotationDuration = Duration(seconds: 5);
 
-  bool isPlaying = false;
   AnimationController _rotationController;
   AnimationController _scaleController;
   double _rotation = 0;
@@ -46,7 +45,6 @@ class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProvider
 
   @override
   void initState() {
-    isPlaying = widget.initialIsPlaying;
     _rotationController =
     AnimationController(vsync: this, duration: _kRotationDuration)
       ..addListener(() => setState(_updateRotation))
@@ -59,7 +57,7 @@ class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProvider
     super.initState();
   }
 
-  void _onToggle() {
+  /*void _onToggle() {
     setState(() => isPlaying = !isPlaying);
 
     if (_scaleController.isCompleted) {
@@ -69,14 +67,14 @@ class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProvider
     }
 
     widget.onPressed();
-  }
+  }*/
 
-  Widget _buildIcon(bool isPlaying) {
+  Widget _buildIcon() {
     return SizedBox.expand(
-      key: ValueKey<bool>(isPlaying),
+      key: ValueKey<bool>(widget.isPlaying),
       child: IconButton(
-        icon:isPlaying ? widget.pauseIcon : widget.playIcon,
-        onPressed: _onToggle,
+        icon:widget.isPlaying ? widget.pauseIcon : widget.playIcon,
+        onPressed: widget.onPressed,
       ),
     );
   }
@@ -84,6 +82,11 @@ class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProvider
   double widthHeight = 50;
   @override
   Widget build(BuildContext context) {
+    if (widget.isPlaying) {//_scaleController.isCompleted
+      _scaleController.forward();
+    } else {
+      _scaleController.reverse();
+    }
     return SizedBox(
         height: 100,//TODO - these need to used button sizes from the themesManager because the size in pixels is ignore when passed to constructor
         width: 100,
@@ -98,7 +101,7 @@ class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProvider
             Container(
               //constraints: BoxConstraints.expand(),
               child: AnimatedSwitcher(
-                child: _buildIcon(isPlaying),
+                child: _buildIcon(),
                 duration: _kToggleDuration,
               ),
               decoration: BoxDecoration(
