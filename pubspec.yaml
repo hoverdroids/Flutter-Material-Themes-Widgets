@@ -1,6 +1,6 @@
 name: material_themes_widgets
 description: Widgets that use the Material Themes Manager by default in order to allow for theme udpates
-version: 0.0.29
+version: 0.0.30
 homepage: http://hoverdroids.com
 
 environment:

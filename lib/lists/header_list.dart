@@ -391,8 +391,7 @@ class _HeaderListState extends State<HeaderList> {
   Widget _createList(bool isInScrollview) {
     return  ListView.builder(
       physics: isInScrollview ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
-      itemBuilder: (context, index) => Flexible(
-          flex: 1,
+      itemBuilder: (context, index) => Container(
           child: ThemedListTileCard(
             type: cardType,
             elevationLevel: cardElevationLevel,
