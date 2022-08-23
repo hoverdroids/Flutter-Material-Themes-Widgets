@@ -68,6 +68,7 @@ class ProfileScreen extends StatefulWidget {
   final Function onTapLogout;
   final Function onTapEdit;
   final Function onTapSave;
+  final Function onTapDelete;
   final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
   final bool isHeaderSticky;
@@ -131,6 +132,7 @@ class ProfileScreen extends StatefulWidget {
     this.onTapLogout,
     this.onTapEdit,
     this.onTapSave,
+    this.onTapDelete,
     this.doShowLoginRegisterButtons = true,
     this.padding = const EdgeInsets.symmetric(vertical: 0.0, horizontal: paddingMini),
     this.isHeaderSticky = true,
@@ -196,6 +198,7 @@ class ProfileScreen extends StatefulWidget {
     onTapLogout,
     onTapEdit,
     onTapSave,
+    onTapDelete,
     doShowLoginRegisterButtons,
     padding,
     isHeaderSticky,
@@ -269,6 +272,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final Function onTapLogout;
   final Function onTapEdit;
   final Function onTapSave;
+  final Function onTapDelete;
   final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
   final bool isHeaderSticky;
@@ -334,6 +338,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     this.onTapLogout,
     this.onTapEdit,
     this.onTapSave,
+    this.onTapDelete,
     this.doShowLoginRegisterButtons,
     this.padding,
     this.isHeaderSticky,
@@ -494,6 +499,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: FlatButton(
                 onPressed: onTapLogout != null ? onTapLogout : () => print("Tapped Logout"),
                 child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+              ),
+            )
+        ),
+        Flexible(
+            flex: 1,
+            child: Container(
+              alignment: Alignment.center,
+              child: FlatButton(
+                onPressed: onTapDelete != null ? onTapDelete : () => print("Tapped Delete Account"),
+                child: ThemedSubTitle2("Delete Account", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
               ),
             )
         ),
