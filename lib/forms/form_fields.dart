@@ -176,7 +176,7 @@ class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
 
   Widget _buildIconTextField() {
     return TextFormField(
-      style: context.watch<MaterialThemesManager>().getTheme(textType, emphasis: textEmphasis).textTheme.subtitle1,
+      style: context.watch<MaterialThemesManager>().getTheme(textType, emphasis: textEmphasis).textTheme.titleMedium,
       obscureText: obscureText,
       initialValue: text,
       decoration: InputDecoration(
@@ -184,7 +184,7 @@ class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
         contentPadding: EdgeInsets.only(top: paddingSmall),
         prefixIcon: ThemedIcon(prefixIcon, type: prefixIconType, emphasis: prefixIconEmphasis),
         hintText: hintText != null ? hintText : "",
-        hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType, emphasis: hintTextEmphasis).textTheme.subtitle1,
+        hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType, emphasis: hintTextEmphasis).textTheme.titleMedium,
       ),
       validator: _validator(),
       onChanged: (val) => _onChanged(val),
@@ -195,14 +195,14 @@ class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
   //The only way to make iconText and text works is with two separate builder functions
   Widget _buildTextField() {
     return TextFormField(
-      style: context.watch<MaterialThemesManager>().getTheme(textType, emphasis: textEmphasis).textTheme.subtitle1,
+      style: context.watch<MaterialThemesManager>().getTheme(textType, emphasis: textEmphasis).textTheme.titleMedium,
       obscureText: obscureText,
       initialValue: text,
       decoration: InputDecoration(
         border: InputBorder.none,//hide the bottom EditText underscore bar
         contentPadding: EdgeInsets.symmetric(horizontal: paddingSmall),
         hintText: hintText != null ? hintText : "",
-        hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType).textTheme.subtitle1,
+        hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType).textTheme.titleMedium,
       ),
       validator: _validator(),
       onChanged: (val) => _onChanged(val),

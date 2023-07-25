@@ -234,7 +234,7 @@ class ThemedTitle extends ThemedText {
 
   @override
   TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.headline6;//title was depricated
+    return themeData.textTheme.titleLarge;
   }
 
 }
@@ -262,7 +262,7 @@ class ThemedSubTitle extends ThemedText {
 
   @override
   TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.subtitle1;//title was depricated
+    return themeData.textTheme.titleMedium;
   }
 
 }
