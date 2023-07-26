@@ -16,7 +16,7 @@ class ThemedPlayButton extends StatefulWidget {
   final double widthHeight;
 
   ThemedPlayButton({
-    @required this.onPressed,
+    required this.onPressed,
     this.isPlaying = false,
     this.playIcon = const Icon(Icons.play_arrow),
     this.pauseIcon = const Icon(Icons.pause),
@@ -34,8 +34,8 @@ class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProvider
   static const _kToggleDuration = Duration(milliseconds: 300);
   static const _kRotationDuration = Duration(seconds: 5);
 
-  AnimationController _rotationController;
-  AnimationController _scaleController;
+  late AnimationController _rotationController;
+  late AnimationController _scaleController;
   double _rotation = 0;
   double _scale = 0.85;
 

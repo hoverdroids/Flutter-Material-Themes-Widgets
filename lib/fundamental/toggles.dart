@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 class ThemedSwitch extends StatelessWidget {
 
   final ThemeGroupType type;
-  final Key key;
+  final Key? key;
   final bool value;
   final onChanged;
   //final activeColor;
@@ -26,8 +26,8 @@ class ThemedSwitch extends StatelessWidget {
 
   ThemedSwitch({
     this.key,
-    @required this.value,
-    @required this.onChanged,
+    required this.value,
+    required this.onChanged,
     this.type = ThemeGroupType.MOM,
     //this.activeColor,
     this.activeTrackColor,

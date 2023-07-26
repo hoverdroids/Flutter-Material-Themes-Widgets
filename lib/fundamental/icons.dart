@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 
 class ThemedIcon extends StatelessWidget {
 
-  final IconData icon;
-  final Key key;
+  final IconData? icon;
+  final Key? key;
   final IconSize iconSize;
   final ThemeGroupType type;
-  final String semanticLabel;
-  final TextDirection textDirection;
+  final String? semanticLabel;
+  final TextDirection? textDirection;
   final Emphasis emphasis;
 
   ThemedIcon(
@@ -43,13 +43,13 @@ class ThemedIcon extends StatelessWidget {
 
 class ThemedIconButton extends StatelessWidget {
 
-  final IconData icon;
-  final Key key;
+  final IconData? icon;
+  final Key? key;
   final IconSize iconSize;
   final ThemeGroupType type;
-  final String semanticLabel;
-  final TextDirection textDirection;
-  final Function onPressedCallback;
+  final String? semanticLabel;
+  final TextDirection? textDirection;
+  final VoidCallback? onPressedCallback;
   final Emphasis emphasis;
 
   ThemedIconButton(

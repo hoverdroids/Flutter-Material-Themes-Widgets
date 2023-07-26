@@ -8,16 +8,14 @@ class ColorizedShadow extends StatelessWidget {
   final Color color;
 
   ColorizedShadow({
-    @required this.child,
-    @required this.height,
+    required this.child,
+    required this.height,
     this.isCircular = false,
     this.color = Colors.black
-  }) : assert(child != null);
+  });
 
   @override
   Widget build(BuildContext context) {
-
-
 
     return Container(
       height: this.height,

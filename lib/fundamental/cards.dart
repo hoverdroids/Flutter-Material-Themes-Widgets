@@ -53,23 +53,23 @@ class ThemedListTileCard extends Card {
 
   final ThemeGroupType type;
   final ElevationLevel elevationLevel;
-  final Function itemClickedCallback;
-  final Function itemLongClickedCallback;
+  final VoidCallback? itemClickedCallback;
+  final VoidCallback? itemLongClickedCallback;
 
-  final IconData leadingIcon;
+  final IconData? leadingIcon;
   final ThemeGroupType leadingType;
   final Emphasis leadingEmphasis;
-  final Function leadingIconClickedCallback;
-  final String title;
+  final VoidCallback? leadingIconClickedCallback;
+  final String? title;
   final ThemeGroupType titleType;
   final Emphasis titleEmphasis;
-  final String subtitle;
+  final String? subtitle;
   final ThemeGroupType subtitleType;
   final Emphasis subtitleEmphasis;
-  final IconData trailingIcon;
+  final IconData? trailingIcon;
   final ThemeGroupType trailingType;
   final Emphasis trailingEmphasis;
-  final Function trailingIconClickedCallback;
+  final VoidCallback? trailingIconClickedCallback;
 
   ThemedListTileCard({
     key,

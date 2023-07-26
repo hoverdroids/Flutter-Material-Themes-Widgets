@@ -7,18 +7,18 @@ abstract class ThemedText extends StatelessWidget {
   final String text;
   final ThemeGroupType type;
   final Emphasis emphasis;
-  final Key key;
-  final StrutStyle strutStyle;
-  final TextAlign textAlign;
-  final TextDirection textDirection;
-  final Locale locale;
-  final bool softWrap;
-  final TextOverflow overflow;
-  final double textScaleFactor;
-  final int maxLines;
-  final String semanticsLabel;
-  final TextWidthBasis textWidthBasis;
-  final TextHeightBehavior textHeightBehavior;
+  final Key? key;
+  final StrutStyle? strutStyle;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
+  final Locale? locale;
+  final bool? softWrap;
+  final TextOverflow? overflow;
+  final double? textScaleFactor;
+  final int? maxLines;
+  final String? semanticsLabel;
+  final TextWidthBasis? textWidthBasis;
+  final TextHeightBehavior? textHeightBehavior;
 
   ThemedText(this.text,
       {
@@ -67,7 +67,7 @@ abstract class ThemedText extends StatelessWidget {
   }
 
   //Subclasses just need to override this for magic pants to appear :p
-  TextStyle getTextStyle(ThemeData themeData);
+  TextStyle? getTextStyle(ThemeData themeData);
 
 }
 
@@ -93,8 +93,8 @@ class ThemedH1 extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.headline1;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.displayLarge;
   }
 
 }
@@ -121,8 +121,8 @@ class ThemedH2 extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.headline2;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.displayMedium;
   }
 
 }
@@ -149,8 +149,8 @@ class ThemedH3 extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.headline3;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.displaySmall;
   }
 
 }
@@ -177,8 +177,8 @@ class ThemedH4 extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.headline4;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.headlineMedium;
   }
 
 }
@@ -205,8 +205,8 @@ class ThemedH5 extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.headline5;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.headlineSmall;
   }
 
 }
@@ -233,7 +233,7 @@ class ThemedTitle extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
+  TextStyle? getTextStyle(ThemeData themeData) {
     return themeData.textTheme.titleLarge;
   }
 
@@ -261,7 +261,7 @@ class ThemedSubTitle extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
+  TextStyle? getTextStyle(ThemeData themeData) {
     return themeData.textTheme.titleMedium;
   }
 
@@ -289,8 +289,8 @@ class ThemedSubTitle2 extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.subtitle2;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.titleSmall;
   }
 
 }
@@ -317,8 +317,8 @@ class ThemedBody extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.bodyText1;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.bodyLarge;
   }
 
 }
@@ -345,8 +345,8 @@ class ThemedBody2 extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.bodyText2;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.bodyMedium;
   }
 
 }
@@ -373,8 +373,8 @@ class ThemedCaption extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.caption;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.bodySmall;
   }
 
 }
@@ -401,8 +401,8 @@ class ThemedOverline extends ThemedText {
   );
 
   @override
-  TextStyle getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.overline;
+  TextStyle? getTextStyle(ThemeData themeData) {
+    return themeData.textTheme.labelSmall;
   }
 
 }
