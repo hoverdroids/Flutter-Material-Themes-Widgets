@@ -4,7 +4,7 @@ class TopRightScaleIn extends PageRouteBuilder {
 
   final Widget widget;
 
-  TopRightScaleIn({this.widget}) : super (
+  TopRightScaleIn({required this.widget}) : super (
       transitionDuration: Duration(milliseconds: 500),
       transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secAnimation, Widget child) {
         animation = CurvedAnimation(parent: animation, curve: Curves.easeInExpo);

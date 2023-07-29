@@ -1,29 +1,29 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_polygon/flutter_polygon.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 import 'package:material_themes_widgets/fundamental/cards.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:provider/provider.dart';
-import 'package:polygon_clipper/polygon_clipper.dart';
 
 //Intended to be a short list of equally distributed items with an image at the top
 class HeaderList extends StatefulWidget {
 
-  final Key key;
+  final Key? key;
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
-  final String imageUrl;
-  final BlendMode imageBlendMode;
-  final Color imageBlendColor;
-  final BackgroundGradientType headerGradientType;
-  final EdgeInsetsGeometry headerPadding;
-  final EdgeInsetsGeometry avatarPadding;
-  final SimpleClipPath imageClipPath;
+  final String? imageUrl;
+  final BlendMode? imageBlendMode;
+  final Color? imageBlendColor;
+  final BackgroundGradientType? headerGradientType;
+  final EdgeInsetsGeometry? headerPadding;
+  final EdgeInsetsGeometry? avatarPadding;
+  final SimpleClipPath? imageClipPath;
   final List<ListItemModel> listItems;
   final int itemsFlex;
-  final EdgeInsetsGeometry listPadding;
+  final EdgeInsetsGeometry? listPadding;
   final ThemeGroupType cardType;
   final ElevationLevel cardElevationLevel;
   final ThemeGroupType leadingIconType;
@@ -36,7 +36,7 @@ class HeaderList extends StatefulWidget {
   final Emphasis trailingEmphasis;
   final bool isHeaderSticky;
   final bool isAvatarEnabled;
-  final double heightBetween;
+  final double? heightBetween;
   final String avatarTitle;
   final ThemeGroupType avatarTitleType;
   final Emphasis avatarTitleEmphasis;
@@ -46,7 +46,7 @@ class HeaderList extends StatefulWidget {
   final String avatarImageUrl;
   final double avatarImageBorderWidth;
   final double avatarImageRadius;
-  final Function avatarClickedCallback;
+  final VoidCallback? avatarClickedCallback;
   final bool usePolygonAvatar;
 
   //TODO - can use circular avatar and polygon clipper for the avatar shape
@@ -138,19 +138,19 @@ class HeaderList extends StatefulWidget {
 
 class _HeaderListState extends State<HeaderList> {
 
-  final Key key;
+  final Key? key;
   final List<ListItemModel> listItems;
-  final String imageUrl;
-  final BlendMode imageBlendMode;
-  final Color imageBlendColor;
-  final BackgroundGradientType headerGradientType;
-  EdgeInsetsGeometry headerPadding;
-  EdgeInsetsGeometry avatarPadding;
-  SimpleClipPath imageClipPath;
+  final String? imageUrl;
+  final BlendMode? imageBlendMode;
+  final Color? imageBlendColor;
+  final BackgroundGradientType? headerGradientType;
+  EdgeInsetsGeometry? headerPadding;
+  EdgeInsetsGeometry? avatarPadding;
+  SimpleClipPath? imageClipPath;
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
   final int itemsFlex;
-  EdgeInsetsGeometry listPadding;
+  EdgeInsetsGeometry? listPadding;
   final ThemeGroupType cardType;
   final ElevationLevel cardElevationLevel;
   final ThemeGroupType leadingIconType;
@@ -163,7 +163,7 @@ class _HeaderListState extends State<HeaderList> {
   final Emphasis trailingEmphasis;
   final bool isHeaderSticky;
   final bool isAvatarEnabled;
-  final double heightBetween;
+  final double? heightBetween;
   final String avatarTitle;
   final ThemeGroupType avatarTitleType;
   final Emphasis avatarTitleEmphasis;
@@ -173,7 +173,7 @@ class _HeaderListState extends State<HeaderList> {
   final String avatarImageUrl;
   final double avatarImageBorderWidth;
   final double avatarImageRadius;
-  final Function avatarClickedCallback;
+  final VoidCallback? avatarClickedCallback;
   final bool usePolygonAvatar;
 
   _HeaderListState(
@@ -298,15 +298,22 @@ class _HeaderListState extends State<HeaderList> {
   }
 
   Widget _createHeaderImage() {
-    return ClipPath(
-      child: Image(
-        image: AssetImage(imageUrl),
+
+    Widget? widget;
+    String? imgUrl = imageUrl;
+    if (imgUrl != null && imgUrl.isNotEmpty) {
+      widget = Image(
+        image: AssetImage(imgUrl),
         width: double.infinity,
         height: double.infinity,
         fit: BoxFit.fitHeight,
         colorBlendMode: imageBlendMode,
         color: imageBlendColor,
-      ),
+      );
+    }
+
+    return ClipPath(
+      child: widget,
       clipper: imageClipPath,
     );
   }

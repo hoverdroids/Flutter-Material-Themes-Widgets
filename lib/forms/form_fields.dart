@@ -50,7 +50,7 @@ class ThemedEditableLabelValue extends StatefulWidget {
   final Emphasis labelEmphasis;
   final TextAlign labelTextAlign;
 
-  final IconData prefixIcon;
+  final IconData? prefixIcon;
   final ThemeGroupType prefixIconType;
   final Emphasis prefixIconEmphasis;
 
@@ -66,8 +66,8 @@ class ThemedEditableLabelValue extends StatefulWidget {
   //TODO final TextAlign hintTextAlign;
 
   final ThemeGroupType backgroundType;
-  final ValueChanged<String> onStringChangedCallback;
-  final FormFieldValidator<String> validator;
+  final ValueChanged<String>? onStringChangedCallback;
+  final FormFieldValidator<String>? validator;
 
   ThemedEditableLabelValue({
     this.showLabel = true,
@@ -120,24 +120,24 @@ class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
   final Emphasis labelEmphasis;
   final TextAlign labelTextAlign;
 
-  final IconData prefixIcon;
+  final IconData? prefixIcon;
   final ThemeGroupType prefixIconType;
   final Emphasis prefixIconEmphasis;
 
-  final String text;
+  final String? text;
   final ThemeGroupType textType;
   final Emphasis textEmphasis;
   //TODO final TextAlign textAlign;
   final bool obscureText;
 
-  final String hintText;
+  final String? hintText;
   final ThemeGroupType hintTextType;
   final Emphasis hintTextEmphasis;
   //TODO final TextAlign hintTextAlign;
 
   final ThemeGroupType backgroundType;
-  final ValueChanged<String> onStringChangedCallback;
-  final FormFieldValidator<String> validator;
+  final ValueChanged<String>? onStringChangedCallback;
+  final FormFieldValidator<String>? validator;
 
   _ThemedEditableLabelValueState(
     this.showLabel,
@@ -160,16 +160,16 @@ class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
     this.validator
   );
 
-  FormFieldValidator<String> _validator() {
+  FormFieldValidator<String>? _validator() {
     return validator != null ? validator : (value) => null;//return null indicates the field is valid
   }
 
   void _onChanged(String val) {
     setState(() => {
       if(onStringChangedCallback != null) {
-        onStringChangedCallback(val)
+        onStringChangedCallback!(val)
       } else {
-        print("Changed:" + (hintText != null ? hintText : "Hint Text"))
+        print("Changed:" + (hintText != null ? hintText! : "Hint Text"))
       }
     });
   }
