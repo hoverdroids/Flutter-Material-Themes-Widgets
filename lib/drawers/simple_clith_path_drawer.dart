@@ -6,30 +6,30 @@ import 'package:provider/provider.dart';
 
 class SimpleClipPathDrawer extends StatelessWidget {
 
-  final Widget child;
+  final Widget? child;
   final EdgeInsets padding;
   final ClipPathType clipPathType;
   final BackgroundGradientType backgroundGradientType;
-  final double width;
+  final double? width;
   final double widthPercent;
   final bool showAppBar;
   
   final IconData leftIcon;
   final bool showLeftIcon;
-  final Function leftIconClickedCallback;
+  final VoidCallback? leftIconClickedCallback;
   final ThemeGroupType leftIconType;
   final Emphasis leftIconEmphasis;
 
   final String title;
   final bool showTitle;
-  final Function titleClickedCallback;
+  final VoidCallback? titleClickedCallback;
   final ThemeGroupType titleType;
   final Emphasis titleEmphasis;
   final TextAlign titleTextAlign;
   
   final IconData rightIcon;
   final bool showRightIcon;
-  final Function rightIconClickedCallback;
+  final VoidCallback? rightIconClickedCallback;
   final ThemeGroupType rightIconType;
   final Emphasis rightIconEmphasis;
 
@@ -85,7 +85,7 @@ class SimpleClipPathDrawer extends StatelessWidget {
             child: Stack(
               children: [
                 context.watch<MaterialThemesManager>().getBackgroundGradient(backgroundGradientType),
-                if(child != null) ... [ child ],
+                if(child != null) ... [ child! ],
                 if(showAppBar) ... [ 
                   IconTitleIconFakeAppBar(
                     leftIcon: leftIcon,

@@ -7,20 +7,20 @@ class IconTitleIconFakeAppBar extends StatelessWidget {
 
   final IconData leftIcon;
   final bool showLeftIcon;
-  final Function leftIconClickedCallback;
+  final VoidCallback? leftIconClickedCallback;
   final ThemeGroupType leftIconType;
   final Emphasis leftIconEmphasis;
 
   final String title;
   final bool showTitle;
-  final Function titleClickedCallback;
+  final VoidCallback? titleClickedCallback;
   final ThemeGroupType titleType;
   final Emphasis titleEmphasis;
   final TextAlign titleTextAlign;
 
   final IconData rightIcon;
   final bool showRightIcon;
-  final Function rightIconClickedCallback;
+  final VoidCallback? rightIconClickedCallback;
   final ThemeGroupType rightIconType;
   final Emphasis rightIconEmphasis;
 
