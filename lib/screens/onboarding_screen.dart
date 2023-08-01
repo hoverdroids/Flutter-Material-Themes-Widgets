@@ -10,30 +10,30 @@ class OnboardingScreen extends StatefulWidget {
 
   final BackgroundGradientType backgroundGradientType;
   final ClipPathType clipPathType;
-  final String title;
+  final String? title;
   final int titleFlex;
   final ThemeGroupType titleType;
   final Emphasis titleEmphasis;
-  final EdgeInsets titlePadding;
+  final EdgeInsets? titlePadding;
   final TextAlign titleTextAlign;
   final MainAxisAlignment titleMainAxisAlignment;
-  final String description;
+  final String? description;
   final int descriptionFlex;
   final ThemeGroupType descriptionType;
   final Emphasis descriptionEmphasis;
-  final EdgeInsets descriptionPadding;
+  final EdgeInsets? descriptionPadding;
   final TextAlign descriptionTextAlign;
   final MainAxisAlignment descriptionMainAxisAlignment;
-  final String imageUrl;
-  SimpleClipPath imageClipPath;
-  final BlendMode imageBlendMode;
-  final Color imageBlendColor;
+  final String? imageUrl;
+  late SimpleClipPath? imageClipPath;
+  final BlendMode? imageBlendMode;
+  final Color? imageBlendColor;
   final int imageFlex;
-  final EdgeInsets imagePadding;
+  final EdgeInsets? imagePadding;
   final MainAxisAlignment imageMainAxisAlignment;
   final BoxFit imageFit;
   final EdgeInsetsGeometry screenPadding;
-  final String audioUrl;
+  final String? audioUrl;
 
   OnboardingScreen({
     this.title,
@@ -53,7 +53,7 @@ class OnboardingScreen extends StatefulWidget {
     this.imageUrl,
     this.backgroundGradientType = BackgroundGradientType.PRIMARY,
     this.clipPathType = ClipPathType.NONE,
-    this.imageClipPath,
+    SimpleClipPath? imageClipPath,
     this.imageBlendMode,
     this.imageBlendColor,
     this.imageFlex = 4,
@@ -63,7 +63,7 @@ class OnboardingScreen extends StatefulWidget {
     this.screenPadding = const EdgeInsets.all(20.0),
     this.audioUrl
   }) {
-    imageClipPath = imageClipPath != null ? imageClipPath : SimpleClipPath(
+    this.imageClipPath = imageClipPath != null ? imageClipPath : SimpleClipPath(
       type: ClipPathType.ROUNDED_CORNERS
     );
   }
@@ -111,7 +111,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Flexible(
       flex: widget.titleFlex,
       child: Padding(
-        padding: widget.titlePadding != null ? widget.titlePadding : EdgeInsets.all(0.0),
+        padding: widget.titlePadding ?? EdgeInsets.all(0.0),
         child: Column(
           mainAxisAlignment: widget.titleMainAxisAlignment,
           children: <Widget>[
@@ -126,26 +126,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     var top = isTitlePresent ? 0.0 : 20.0;
     var bottom = isDescriptionPresent ? 0.0 : 20.0;
     var defPadding = EdgeInsets.fromLTRB(20.0, top, 20.0, bottom);
+    var imageUrl = widget.imageUrl;
 
     return Flexible(
       flex: widget.imageFlex,
       child: Center(
         child: Padding(
-          padding: widget.imagePadding != null ? widget.imagePadding : defPadding,
+          padding: widget.imagePadding ?? defPadding,
           child: Container(
             decoration: context.watch<MaterialThemesManager>().getBoxDecorationShadow(),
             child: ClipPath(
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  Image(
-                    image: AssetImage(widget.imageUrl),
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: widget.imageFit,
-                    colorBlendMode: widget.imageBlendMode,
-                    color: widget.imageBlendColor,
-                  ),
+                  if (imageUrl != null)...[
+                    Image(
+                      image: AssetImage(imageUrl),
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: widget.imageFit,
+                      colorBlendMode: widget.imageBlendMode,
+                      color: widget.imageBlendColor,
+                    ),
+                  ],
                   if (widget.audioUrl != null) ...[
                     Center(
                         child: ThemedPlayButton(
@@ -162,7 +165,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 _isAudioPlaying = true;
                                 _isAudioLoaded = true;
                               });
-                              _assetsAudioPlayer.open(Audio(widget.audioUrl));
+                              var audioUrl = widget.audioUrl;
+                              if (audioUrl != null) {
+                                _assetsAudioPlayer.open(Audio(audioUrl));
+                              }
                               _assetsAudioPlayer.play();
                             } else if (_isAudioPlaying) {
                               setState(() {
@@ -194,7 +200,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Flexible(
       flex: widget.descriptionFlex,
         child: Padding(
-          padding: widget.descriptionPadding != null ? widget.descriptionPadding : EdgeInsets.all(20.0),
+          padding: widget.descriptionPadding ?? EdgeInsets.all(20.0),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

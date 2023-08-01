@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/defaults/dimens.dart';
@@ -9,7 +7,7 @@ import 'package:material_themes_widgets/utils/validators.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
 
-  final Key key;
+  final Key? key;
 
   final bool showLabels;
   final ThemeGroupType labelType;
@@ -30,36 +28,36 @@ class LoginRegisterScreen extends StatefulWidget {
 
   final ThemeGroupType textFieldBackgroundType;
   final bool showForgots;
-  final ValueChanged<String> onEmailChangedCallback;
+  final ValueChanged<String>? onEmailChangedCallback;
   bool showEmail;
-  final ValueChanged<String> onPasswordChangedCallback;
+  final ValueChanged<String>? onPasswordChangedCallback;
   bool showPassword;
-  final ValueChanged<String> onFirstNameChangedCallback;
-  bool showFirstName;
-  final ValueChanged<String> onLastNameChangedCallback;
-  bool showLastName;
-  final ValueChanged<String> onTaglineChangedCallback;
-  bool showTagline;
-  final ValueChanged<String> onPronounsChangedCallback;
-  bool showPronouns;
-  final ValueChanged<String> onOrganizationChangedCallback;
-  bool showOrganization;
-  final ValueChanged<String> onAddressChangedCallback;
-  bool showAddress;
-  final ValueChanged<String> onCityChangedCallback;
-  bool showCity;
-  final ValueChanged<String> onStateChangedCallback;
-  bool showState;
-  final ValueChanged<String> onZipChangedCallback;
-  bool showZip;
-  final Function onTapRegister;
-  final Function onTapLogin;
-  final String screenTitle;
+  final ValueChanged<String>? onFirstNameChangedCallback;
+  late bool showFirstName;
+  final ValueChanged<String>? onLastNameChangedCallback;
+  late bool showLastName;
+  final ValueChanged<String>? onTaglineChangedCallback;
+  late bool showTagline;
+  final ValueChanged<String>? onPronounsChangedCallback;
+  late bool showPronouns;
+  final ValueChanged<String>? onOrganizationChangedCallback;
+  late bool showOrganization;
+  final ValueChanged<String>? onAddressChangedCallback;
+  late bool showAddress;
+  final ValueChanged<String>? onCityChangedCallback;
+  late bool showCity = true;
+  final ValueChanged<String>? onStateChangedCallback;
+  late bool showState = true;
+  final ValueChanged<String>? onZipChangedCallback;
+  late bool showZip = true;
+  final VoidCallback? onTapRegister;
+  final VoidCallback? onTapLogin;
+  final String? screenTitle;
   final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
-  bool isHeaderSticky;
-  bool isFooterSticky;
-  bool isFooterVertical;
+  late bool isHeaderSticky;
+  late bool isFooterSticky;
+  late bool isFooterVertical;
   final EdgeInsets headerPadding;
   final EdgeInsets footerPadding;
   final bool centerForm;
@@ -81,60 +79,52 @@ class LoginRegisterScreen extends StatefulWidget {
     this.textFieldBackgroundType = ThemeGroupType.MOP,
     this.showForgots = false,
     this.onEmailChangedCallback,
-    this.showEmail,
+    this.showEmail = true,
     this.onPasswordChangedCallback,
-    this.showPassword,
+    this.showPassword = true,
     this.onFirstNameChangedCallback,
-    this.showFirstName,
+    bool? showFirstName,
     this.onLastNameChangedCallback,
-    this.showLastName,
+    bool? showLastName,
     this.onTaglineChangedCallback,
-    this.showTagline,
+    bool? showTagline,
     this.onPronounsChangedCallback,
-    this.showPronouns,
+    bool? showPronouns,
     this.onOrganizationChangedCallback,
-    this.showOrganization,
+    bool? showOrganization,
     this.onAddressChangedCallback,
-    this.showAddress,
+    bool? showAddress,
     this.onCityChangedCallback,
-    this.showCity,
+    bool? showCity,
     this.onStateChangedCallback,
-    this.showState,
+    bool? showState,
     this.onZipChangedCallback,
-    this.showZip,
+    bool? showZip,
     this.onTapRegister,
     this.onTapLogin,
     this.screenTitle,
     this.doShowLoginRegisterButtons = true,
     this.padding = const EdgeInsets.symmetric(vertical: 0.0, horizontal: paddingMini),
-    this.isHeaderSticky,
-    this.isFooterSticky,
-    this.isFooterVertical,
+    bool? isHeaderSticky,
+    bool? isFooterSticky,
+    bool? isFooterVertical,
     this.headerPadding = const EdgeInsets.all(paddingMini),
     this.footerPadding = const EdgeInsets.all(paddingMini),
     this.centerForm = true,
     this.isLogin = true
   }): super() {
-    if (showEmail == null) showEmail = true;
-    if (showPassword == null) showPassword = true;
-    if (showFirstName == null) showFirstName = isLogin ? false : true;
-    if (showLastName == null) showLastName = isLogin ? false : true;
-    if (showTagline == null) showTagline = isLogin ? false : true;
-    if (showPronouns == null) showPronouns = isLogin ? false : true;
-    if (showOrganization == null) showOrganization = isLogin ? false : true;
-    if (showAddress == null) showAddress = isLogin ? false : true;
-    if (showCity == null) showCity = isLogin ? false : true;
-    if (showState == null) showState = isLogin ? false : true;
-    if (showZip == null) showZip = isLogin ? false : true;
-    if (isHeaderSticky == null) {
-      isHeaderSticky = isLogin ? false : true;
-    }
-    if (isFooterSticky == null) {
-      isFooterSticky = isLogin ? false : true;
-    }
-    if (isFooterVertical == null) {
-      isFooterVertical = isLogin ? true : false;
-    }
+    this.showFirstName = showFirstName ?? isLogin ? false : true;
+    this.showLastName = showLastName ?? isLogin ? false : true;
+    this.showTagline = showTagline ?? isLogin ? false : true;
+    this.showPronouns = showPronouns ?? isLogin ? false : true;
+    this.showOrganization = showOrganization ?? isLogin ? false : true;
+    this.showAddress = showAddress ?? isLogin ? false : true;
+    this.showCity = showCity ?? isLogin ? false : true;
+    this.showState = showState ?? isLogin ? false : true;
+    this.showZip = showZip ?? isLogin ? false : true;
+    this.isHeaderSticky = isHeaderSticky ?? isLogin ? false : true;
+    this.isFooterSticky = isFooterSticky ?? isLogin ? false : true;
+    this.isFooterVertical = isFooterVertical ?? isLogin ? true : false;
   }
 
   @override
@@ -191,7 +181,7 @@ class LoginRegisterScreen extends StatefulWidget {
 
 class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
-  final Key key;
+  final Key? key;
 
   final bool showLabels;
   final ThemeGroupType labelType;
@@ -212,31 +202,31 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   final ThemeGroupType textFieldBackgroundType;
 
   final bool showForgots;
-  final ValueChanged<String> onEmailChangedCallback;
+  final ValueChanged<String>? onEmailChangedCallback;
   final bool showEmail;
-  final ValueChanged<String> onPasswordChangedCallback;
+  final ValueChanged<String>? onPasswordChangedCallback;
   final bool showPassword;
-  final ValueChanged<String> onFirstNameChangedCallback;
+  final ValueChanged<String>? onFirstNameChangedCallback;
   final bool showFirstName;
-  final ValueChanged<String> onLastNameChangedCallback;
+  final ValueChanged<String>? onLastNameChangedCallback;
   final bool showLastName;
-  final ValueChanged<String> onTaglineChangedCallback;
+  final ValueChanged<String>? onTaglineChangedCallback;
   final bool showTagline;
-  final ValueChanged<String> onPronounsChangedCallback;
+  final ValueChanged<String>? onPronounsChangedCallback;
   final bool showPronouns;
-  final ValueChanged<String> onOrganizationChangedCallback;
+  final ValueChanged<String>? onOrganizationChangedCallback;
   final bool showOrganization;
-  final ValueChanged<String> onAddressChangedCallback;
+  final ValueChanged<String>? onAddressChangedCallback;
   final bool showAddress;
-  final ValueChanged<String> onCityChangedCallback;
+  final ValueChanged<String>? onCityChangedCallback;
   final bool showCity;
-  final ValueChanged<String> onStateChangedCallback;
+  final ValueChanged<String>? onStateChangedCallback;
   final bool showState;
-  final ValueChanged<String> onZipChangedCallback;
+  final ValueChanged<String>? onZipChangedCallback;
   final bool showZip;
-  final Function onTapRegister;
-  final Function onTapLogin;
-  final String screenTitle;
+  final VoidCallback? onTapRegister;
+  final VoidCallback? onTapLogin;
+  final String? screenTitle;
   final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
   final bool isHeaderSticky;
@@ -396,12 +386,12 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   Widget _buildStringEntry({
     String labelText = "",
-    IconData prefixIcon,
+    IconData? prefixIcon,
     String text = "",
     bool obscureText = false,
     String hintText = "",
-    ValueChanged<String> onStringChangedCallback,
-    FormFieldValidator<String> validator
+    ValueChanged<String>? onStringChangedCallback,
+    FormFieldValidator<String>? validator
   }) {
 
     return ThemedEditableLabelValue(
@@ -437,10 +427,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               alignment: Alignment.center,
               child: FlatButton(
                 onPressed:  () => {
-                  if(!isLogin && onTapLogin != null) {
-                    onTapLogin.call()
-                  } else if(isLogin && onTapRegister != null) {
-                    onTapRegister.call()
+                  if(!isLogin) {
+                    onTapLogin?.call()
+                  } else if(isLogin) {
+                    onTapRegister?.call()
                   }
                 },
                 child: ThemedSubTitle2(isLogin ? "Register" : "Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
@@ -452,11 +442,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           child: RaisedButton(
             color: Colors.white,
             onPressed: () async {
-              var valid = _formKey.currentState.validate();
-              if(valid && isLogin && onTapLogin != null) {
-                onTapLogin.call();
-              } else if(valid && !isLogin && onTapRegister != null) {
-                onTapRegister.call();
+              var valid = _formKey.currentState?.validate() ?? false;
+              if(valid && isLogin) {
+                onTapLogin?.call();
+              } else if(valid && !isLogin) {
+                onTapRegister?.call();
               }
             },
             child: ThemedTitle(isLogin ? "Login" : "Register", type: ThemeGroupType.POM),
@@ -475,11 +465,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         RaisedButton(
           color: Colors.white,
           onPressed: () async {
-            var valid = _formKey.currentState.validate();
+            var valid = _formKey.currentState?.validate() ?? false;
             if(valid && isLogin && onTapLogin != null) {
-              onTapLogin.call();
+              onTapLogin!.call();
             } else if(valid && !isLogin && onTapRegister != null) {
-              onTapRegister.call();
+              onTapRegister!.call();
             }
           },
           child: ThemedTitle(isLogin ? "Login" : "Register", type: ThemeGroupType.POM),
@@ -491,9 +481,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           child: FlatButton(
             onPressed: () => {
               if(!isLogin && onTapLogin != null) {
-                onTapLogin.call()
+                onTapLogin!.call()
               } else if(isLogin && onTapRegister != null) {
-                onTapRegister.call()
+                onTapRegister!.call()
               }
             },
             child: ThemedSubTitle2(isLogin ? "Register" : "Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
