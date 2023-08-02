@@ -17,13 +17,13 @@ class MainThemeListItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.POM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
+          backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.POM).appBarTheme.backgroundColor,//TODO - clunky but it's hard to subclass appbar
           title: ThemedTitle('Primary on Main', type: ThemeGroupType.MOP),
           //elevation: 0,//removes the shadow
           leading: ThemedIconButton(
               Icons.menu,
               type: ThemeGroupType.MOP,
-              onPressedCallback: () => scaffoldKey.currentState.openDrawer(),
+              onPressedCallback: () => scaffoldKey.currentState?.openDrawer(),
           ),
           actions: <Widget>[
             ThemedSwitch(
