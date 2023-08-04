@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 abstract class ThemedText extends StatelessWidget {
 
   final String text;
-  final ThemeGroupType type;
-  final Emphasis emphasis;
+  late final ThemeGroupType type;
+  late final Emphasis emphasis;
   final Key? key;
   final StrutStyle? strutStyle;
   final TextAlign? textAlign;
@@ -22,8 +22,8 @@ abstract class ThemedText extends StatelessWidget {
 
   ThemedText(this.text,
       {
-        this.type = ThemeGroupType.MOM,
-        this.emphasis = Emphasis.NONE,
+        type,
+        emphasis,
         this.key,
         this.strutStyle,
         this.textAlign,
@@ -37,7 +37,10 @@ abstract class ThemedText extends StatelessWidget {
         this.textWidthBasis,
         this.textHeightBehavior
       }
-  );
+  ){
+    this.emphasis = emphasis ?? Emphasis.NONE;
+    this.type = type ?? ThemeGroupType.MOM;
+  }
 
   @override
   Widget build(BuildContext context) {
