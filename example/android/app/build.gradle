@@ -21,12 +21,27 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def flutterMinSdkVersion = localProperties.getProperty('flutter.minSdkVersion')
+if (flutterMinSdkVersion == null) {
+    flutterMinSdkVersion =  flutter.minSdkVersion// is 16
+}
+
+def flutterTargetSdkVersion = localProperties.getProperty('flutter.targetSdkVersion')
+if (flutterTargetSdkVersion == null) {
+    flutterTargetSdkVersion = flutter.targetSdkVersion// is 31
+}
+
+def flutterCompileSdkVersion = localProperties.getProperty('flutter.compileSdkVersion')
+if (flutterCompileSdkVersion == null) {
+    flutterCompileSdkVersion = flutter.compileSdkVersion// is 31
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion flutterCompileSdkVersion.toInteger()
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -47,8 +62,13 @@ android {
         applicationId "com.example.example"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+
+        //minSdkVersion flutter.minSdkVersion <- is 16, need higher
+        minSdkVersion flutterMinSdkVersion.toInteger()
+
+        //targetSdkVersion flutter.targetSdkVersion <- is 31, need higher
+        targetSdkVersion flutterTargetSdkVersion.toInteger()
+
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -69,3 +89,13 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
+println("Flutter minSdkVersion:$flutter.minSdkVersion")
+println("Local.properties minSdkVersion:$flutterMinSdkVersion")
+println("Android effective minSdkVersion:$android.defaultConfig.minSdkVersion")
+println("Flutter targetSdkVersion:$flutter.targetSdkVersion")
+println("Local.properties targetSdkVersion:$flutterTargetSdkVersion")
+println("Android effective targetSdkVersion:$android.defaultConfig.targetSdkVersion")
+println("Flutter compileSdkVersion:$flutter.compileSdkVersion")
+println("Local.properties compileSdkVersion:$flutterCompileSdkVersion")
+println("Android effective compileSdkVersion:$android.compileSdkVersion")
