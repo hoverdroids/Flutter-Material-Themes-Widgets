@@ -95,7 +95,7 @@ class _LiquidDrawerState extends State<LiquidDrawer> {
   });
 
   GlobalKey globalKey = GlobalKey();//TODO - does this need a more descriptive name?
-  Offset _offset = Offset(0,0);
+  Offset _offset = const Offset(0,0);
   List<double> limits = [0,0,0,0,0,0];
   bool isScrolling = false;
 
@@ -180,8 +180,9 @@ class DrawerPainter extends CustomPainter {
     paint,
     required this.showCurvedByDefault
   }) {
-    if (paint != null)
+    if (paint != null) {
       customPaint = paint!;
+    }
   }
 
   double getControlPointX(double width) {

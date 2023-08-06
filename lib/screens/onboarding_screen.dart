@@ -63,7 +63,7 @@ class OnboardingScreen extends StatefulWidget {
     this.screenPadding = const EdgeInsets.all(20.0),
     this.audioUrl
   }) {
-    this.imageClipPath = imageClipPath != null ? imageClipPath : SimpleClipPath(
+    this.imageClipPath = imageClipPath ?? SimpleClipPath(
       type: ClipPathType.ROUNDED_CORNERS
     );
   }
@@ -84,7 +84,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       width: double.infinity,
       height: double.infinity,
       child: Padding(
+        padding: const EdgeInsets.all(0.0),
         child: ClipPath(
+          clipper: SimpleClipPath(type: widget.clipPathType),
           child: Stack(
             children: <Widget>[
               context.watch<MaterialThemesManager>().getBackgroundGradient(widget.backgroundGradientType),
@@ -100,9 +102,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               )
             ],
           ),
-          clipper: SimpleClipPath(type: widget.clipPathType),
         ),
-        padding: EdgeInsets.all(0.0),
       ),
     );
   }
@@ -111,7 +111,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Flexible(
       flex: widget.titleFlex,
       child: Padding(
-        padding: widget.titlePadding ?? EdgeInsets.all(0.0),
+        padding: widget.titlePadding ?? const EdgeInsets.all(0.0),
         child: Column(
           mainAxisAlignment: widget.titleMainAxisAlignment,
           children: <Widget>[
@@ -136,6 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: Container(
             decoration: context.watch<MaterialThemesManager>().getBoxDecorationShadow(),
             child: ClipPath(
+              clipper: widget.imageClipPath,
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -188,7 +189,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ]
                 ],
               ),
-              clipper: widget.imageClipPath,
             ),
           ),
         ),
@@ -200,7 +200,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Flexible(
       flex: widget.descriptionFlex,
         child: Padding(
-          padding: widget.descriptionPadding ?? EdgeInsets.all(20.0),
+          padding: widget.descriptionPadding ?? const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(

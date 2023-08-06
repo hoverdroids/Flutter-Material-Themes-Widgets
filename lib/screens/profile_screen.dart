@@ -522,8 +522,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTapEdit?.call();
               }
             },
+            shape: const StadiumBorder(),
             child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
-            shape: StadiumBorder(),
           ),
         )
       ]),
@@ -545,14 +545,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTapEdit?.call();
             }
           },
+          shape: const StadiumBorder(),
           child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
-          shape: StadiumBorder(),
         ),
         smallTransparentDivider,
         Container(
           alignment: Alignment.center,
           child: FlatButton(
-            onPressed: onTapLogout != null ? onTapLogout : () => print("Tapped Logout"),
+            onPressed: onTapLogout ?? () => print("Tapped Logout"),
             child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
           ),
         )

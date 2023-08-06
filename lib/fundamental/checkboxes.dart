@@ -45,7 +45,7 @@ class _ThemedCheckboxState extends State<ThemedCheckbox> {
         activeColor: Colors.white,
         onChanged: (value) {
           setState(() {
-            _isChecked = value == null ? false : value;
+            _isChecked = value ?? false;
           });
         },
       ),

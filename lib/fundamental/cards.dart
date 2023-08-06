@@ -43,8 +43,8 @@ class ThemedCard extends Card {
       borderOnForeground: borderOnForeground,
       margin: margin,
       clipBehavior: clipBehavior,
-      child: child,
       semanticContainer: semanticContainer,
+      child: child,
     );
   }
 }
@@ -118,6 +118,7 @@ class ThemedListTileCard extends Card {
       borderOnForeground: borderOnForeground,
       margin: margin,
       clipBehavior: clipBehavior,
+      semanticContainer: semanticContainer,
       child:  ListTile(
         onTap: itemClickedCallback,
         onLongPress: itemLongClickedCallback,
@@ -144,7 +145,6 @@ class ThemedListTileCard extends Card {
           emphasis: trailingEmphasis,
         ),
       ),
-      semanticContainer: semanticContainer,
     );
   }
 }

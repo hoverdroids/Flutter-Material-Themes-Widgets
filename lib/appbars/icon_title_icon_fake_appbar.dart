@@ -24,7 +24,7 @@ class IconTitleIconFakeAppBar extends StatelessWidget {
   final ThemeGroupType rightIconType;
   final Emphasis rightIconEmphasis;
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final double elevation;
   final ShapeBorder shape;
 
@@ -65,7 +65,7 @@ class IconTitleIconFakeAppBar extends StatelessWidget {
   Widget _buildAppbar() {
     return Card(
       shape: shape,
-      color: backgroundColor != null ? backgroundColor : Colors.transparent,
+      color: backgroundColor ?? Colors.transparent,
       elevation: elevation,
       child: Row(
         children: <Widget>[

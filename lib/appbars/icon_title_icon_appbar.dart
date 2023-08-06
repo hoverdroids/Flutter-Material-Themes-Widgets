@@ -41,8 +41,8 @@ class IconTitleIconAppBar extends AppBar {
     backgroundColor,
     elevation
   }) : super(
-    backgroundColor: backgroundColor != null ? backgroundColor : Colors.transparent,
-    elevation: elevation != null ? elevation : 0.0,
+    backgroundColor: backgroundColor ?? Colors.transparent,
+    elevation: elevation ?? 0.0,
     leading: !showLeftIcon ? Container() : ThemedIconButton(
       leftIcon,
       type: leftIconType,

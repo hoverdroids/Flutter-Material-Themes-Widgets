@@ -291,7 +291,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   Widget _buildHeader() {
     var loginRegTitle = isLogin ? "Login" : "Register";
-    var title = screenTitle != null ? screenTitle : loginRegTitle;
+    var title = screenTitle ?? loginRegTitle;
     return Padding(
       padding: headerPadding,
       child:ThemedH4(title, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH)
@@ -449,8 +449,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 onTapRegister?.call();
               }
             },
+            shape: const StadiumBorder(),
             child: ThemedTitle(isLogin ? "Login" : "Register", type: ThemeGroupType.POM),
-            shape: StadiumBorder(),
           ),
         )
       ]),
@@ -472,8 +472,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               onTapRegister!.call();
             }
           },
+          shape: const StadiumBorder(),
           child: ThemedTitle(isLogin ? "Login" : "Register", type: ThemeGroupType.POM),
-          shape: StadiumBorder(),
         ),
         smallTransparentDivider,
         Container(

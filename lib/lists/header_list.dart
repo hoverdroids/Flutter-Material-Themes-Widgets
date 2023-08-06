@@ -215,13 +215,13 @@ class _HeaderListState extends State<HeaderList> {
     this.avatarClickedCallback,
     this.usePolygonAvatar
   ){
-    headerPadding = headerPadding != null ? headerPadding : EdgeInsets.all(0.0);
+    headerPadding = headerPadding ?? const EdgeInsets.all(0.0);
 
-    avatarPadding = avatarPadding != null ? avatarPadding : EdgeInsets.all(0.0);
+    avatarPadding = avatarPadding ?? const EdgeInsets.all(0.0);
 
-    listPadding = listPadding != null ? listPadding : EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0);
+    listPadding = listPadding ?? const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0);
 
-    imageClipPath = imageClipPath != null ? imageClipPath : SimpleClipPath(
+    imageClipPath = imageClipPath ?? SimpleClipPath(
         type: ClipPathType.DIAGONAL,
         bottomLeftPercentOfHeight: 80.0,
         bottomRightPercentOfHeight: 30.0
@@ -313,16 +313,16 @@ class _HeaderListState extends State<HeaderList> {
     }
 
     return ClipPath(
-      child: widget,
       clipper: imageClipPath,
+      child: widget,
     );
   }
 
   Widget _createHeaderGradient() {
     var opacities = imageUrl == null ? [1.0] : [0.8];
     return ClipPath(
-      child: context.watch<MaterialThemesManager>().getBackgroundGradient(headerGradientType, opacities: opacities),
       clipper: imageClipPath,
+      child: context.watch<MaterialThemesManager>().getBackgroundGradient(headerGradientType, opacities: opacities),
     );
   }
 
@@ -335,7 +335,7 @@ class _HeaderListState extends State<HeaderList> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             usePolygonAvatar ? _createPolygonAvatar() : _createCircularAvatar(),
-            SizedBox(height: 4.0),
+            const SizedBox(height: 4.0),
             ThemedTitle(avatarTitle, type: avatarTitleType, emphasis: avatarTitleEmphasis),
             ThemedSubTitle(avatarSubtitle, type: avatarSubtitleType, emphasis: avatarSubtitleEmphasis)
           ],
@@ -347,16 +347,16 @@ class _HeaderListState extends State<HeaderList> {
   Widget _createCircularAvatar() {
     return CircularProfileAvatar(
       '',
+      backgroundColor: context.watch<MaterialThemesManager>().colorPalette().primary,
+      borderColor: context.watch<MaterialThemesManager>().colorPalette().primary,
+      borderWidth: avatarImageBorderWidth,
+      radius: avatarImageRadius,
       child: Image(
         image: AssetImage(avatarImageUrl),
         width: double.infinity,
         height: double.infinity,
         fit: BoxFit.fitHeight,
       ),
-      backgroundColor: context.watch<MaterialThemesManager>().colorPalette().primary,
-      borderColor: context.watch<MaterialThemesManager>().colorPalette().primary,
-      borderWidth: avatarImageBorderWidth,
-      radius: avatarImageRadius,
     );
   }
 
@@ -397,7 +397,7 @@ class _HeaderListState extends State<HeaderList> {
 
   Widget _createList(bool isInScrollview) {
     return  ListView.builder(
-      physics: isInScrollview ? NeverScrollableScrollPhysics() : AlwaysScrollableScrollPhysics(),
+      physics: isInScrollview ? const NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, index) => Container(
           child: ThemedListTileCard(
             type: cardType,

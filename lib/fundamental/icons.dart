@@ -32,11 +32,11 @@ class ThemedIcon extends StatelessWidget {
 
     return Icon(
       icon,
-      key: key != null ? key : defaultIcon.key,
+      key: key ?? defaultIcon.key,
       size: context.watch<MaterialThemesManager>().getTheme(type, iconSize: iconSize).iconTheme.size,
       color: context.watch<MaterialThemesManager>().getTheme(type, emphasis: emphasis).iconTheme.color,
-      semanticLabel: semanticLabel != null ? semanticLabel : defaultIcon.semanticLabel,
-      textDirection: textDirection != null ? textDirection : defaultIcon.textDirection,
+      semanticLabel: semanticLabel ?? defaultIcon.semanticLabel,
+      textDirection: textDirection ?? defaultIcon.textDirection,
     );
   }
 }
@@ -79,7 +79,7 @@ class ThemedIconButton extends StatelessWidget {
     );
 
     return IconButton(
-      onPressed: onPressedCallback != null ? onPressedCallback : () => print("Tapped ${icon.toString()}"),
+      onPressed: onPressedCallback ?? () => print("Tapped ${icon.toString()}"),
       icon: buttonIcon,
       // TODO iconSize: appbarIconSize,
       // TODO color: iconDarkBgColor,

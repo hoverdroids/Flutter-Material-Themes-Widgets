@@ -100,13 +100,14 @@ class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProvider
             ],
             Container(
               //constraints: BoxConstraints.expand(),
-              child: AnimatedSwitcher(
-                child: _buildIcon(),
-                duration: _kToggleDuration,
-              ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
+              ),
+              //constraints: BoxConstraints.expand(),
+              child: AnimatedSwitcher(
+                duration: _kToggleDuration,
+                child: _buildIcon(),
               ),
             ),
           ],

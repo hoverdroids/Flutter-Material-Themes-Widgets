@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
@@ -7,22 +8,22 @@ class ThemedSwitch extends StatelessWidget {
   final ThemeGroupType type;
   final Key? key;
   final bool value;
-  final onChanged;
+  final ValueChanged<bool>? onChanged;
   //final activeColor;
-  final activeTrackColor;
-  final inactiveThumbColor;
-  final inactiveTrackColor;
-  final activeThumbImage;
-  final onActiveThumbImageError;
-  final inactiveThumbImage;
-  final onInactiveThumbImageError;
-  final materialTapTargetSize;
-  final dragStartBehavior;
-  final mouseCursor;
-  final focusColor;
-  final hoverColor;
-  final focusNode;
-  final autofocus;
+  final Color? activeTrackColor;
+  final Color? inactiveThumbColor;
+  final Color? inactiveTrackColor;
+  final ImageProvider<Object>? activeThumbImage;
+  final ImageErrorListener? onActiveThumbImageError;
+  final ImageProvider? inactiveThumbImage;
+  final ImageErrorListener? onInactiveThumbImageError;
+  final MaterialTapTargetSize? materialTapTargetSize;
+  final DragStartBehavior? dragStartBehavior;
+  final MouseCursor? mouseCursor;
+  final Color? focusColor;
+  final Color? hoverColor;
+  final FocusNode? focusNode;
+  final bool? autofocus;
 
   ThemedSwitch({
     this.key,
@@ -53,24 +54,24 @@ class ThemedSwitch extends StatelessWidget {
           var defaultSwitch = Switch(value: value, onChanged: onChanged);
 
           return Switch(
-            key: key != null ? key : defaultSwitch.key,
+            key: key ?? defaultSwitch.key,
             value: value,
             onChanged: onChanged,
             activeColor: themeManager.getTheme(type).toggleableActiveColor,
-            activeTrackColor: activeTrackColor != null ? activeTrackColor : defaultSwitch.activeTrackColor,
-            inactiveThumbColor: inactiveThumbColor != null ? inactiveThumbColor : defaultSwitch.inactiveThumbColor,
-            inactiveTrackColor: inactiveTrackColor != null ? inactiveTrackColor : defaultSwitch.inactiveTrackColor,
-            activeThumbImage: activeThumbImage != null ? activeThumbImage : defaultSwitch.activeThumbImage,
-            onActiveThumbImageError: onActiveThumbImageError != null ? onActiveThumbImageError : defaultSwitch.onActiveThumbImageError,
-            inactiveThumbImage: inactiveThumbImage != null ? inactiveThumbImage : defaultSwitch.inactiveThumbImage,
-            onInactiveThumbImageError: onInactiveThumbImageError != null ? onInactiveThumbImageError : defaultSwitch.onInactiveThumbImageError,
-            materialTapTargetSize: materialTapTargetSize != null ? materialTapTargetSize : defaultSwitch.materialTapTargetSize,
-            dragStartBehavior: dragStartBehavior != null ? dragStartBehavior : defaultSwitch.dragStartBehavior,
-            mouseCursor: mouseCursor != null ? mouseCursor : defaultSwitch.mouseCursor,
-            focusColor: focusColor != null ? focusColor : defaultSwitch.focusColor,
-            hoverColor: hoverColor != null ? hoverColor : defaultSwitch.hoverColor,
-            focusNode: focusNode != null ? focusNode : defaultSwitch.focusNode,
-            autofocus: autofocus != null ? autofocus : defaultSwitch.autofocus,
+            activeTrackColor: activeTrackColor ?? defaultSwitch.activeTrackColor,
+            inactiveThumbColor: inactiveThumbColor ?? defaultSwitch.inactiveThumbColor,
+            inactiveTrackColor: inactiveTrackColor ?? defaultSwitch.inactiveTrackColor,
+            activeThumbImage: activeThumbImage ?? defaultSwitch.activeThumbImage,
+            onActiveThumbImageError: onActiveThumbImageError ?? defaultSwitch.onActiveThumbImageError,
+            inactiveThumbImage: inactiveThumbImage ?? defaultSwitch.inactiveThumbImage,
+            onInactiveThumbImageError: onInactiveThumbImageError ?? defaultSwitch.onInactiveThumbImageError,
+            materialTapTargetSize: materialTapTargetSize ?? defaultSwitch.materialTapTargetSize,
+            dragStartBehavior: dragStartBehavior ?? defaultSwitch.dragStartBehavior,
+            mouseCursor: mouseCursor ?? defaultSwitch.mouseCursor,
+            focusColor: focusColor ?? defaultSwitch.focusColor,
+            hoverColor: hoverColor ?? defaultSwitch.hoverColor,
+            focusNode: focusNode ?? defaultSwitch.focusNode,
+            autofocus: autofocus ?? defaultSwitch.autofocus,
           );
         }
     );
