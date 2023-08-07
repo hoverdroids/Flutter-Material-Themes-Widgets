@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 
 class ThemedIcon extends StatelessWidget {
 
-  final IconData icon;
-  final Key key;
+  final IconData? icon;
+  final Key? key;
   final IconSize iconSize;
   final ThemeGroupType type;
-  final String semanticLabel;
-  final TextDirection textDirection;
+  final String? semanticLabel;
+  final TextDirection? textDirection;
   final Emphasis emphasis;
 
   ThemedIcon(
@@ -32,24 +32,24 @@ class ThemedIcon extends StatelessWidget {
 
     return Icon(
       icon,
-      key: key != null ? key : defaultIcon.key,
+      key: key ?? defaultIcon.key,
       size: context.watch<MaterialThemesManager>().getTheme(type, iconSize: iconSize).iconTheme.size,
       color: context.watch<MaterialThemesManager>().getTheme(type, emphasis: emphasis).iconTheme.color,
-      semanticLabel: semanticLabel != null ? semanticLabel : defaultIcon.semanticLabel,
-      textDirection: textDirection != null ? textDirection : defaultIcon.textDirection,
+      semanticLabel: semanticLabel ?? defaultIcon.semanticLabel,
+      textDirection: textDirection ?? defaultIcon.textDirection,
     );
   }
 }
 
 class ThemedIconButton extends StatelessWidget {
 
-  final IconData icon;
-  final Key key;
+  final IconData? icon;
+  final Key? key;
   final IconSize iconSize;
   final ThemeGroupType type;
-  final String semanticLabel;
-  final TextDirection textDirection;
-  final Function onPressedCallback;
+  final String? semanticLabel;
+  final TextDirection? textDirection;
+  final VoidCallback? onPressedCallback;
   final Emphasis emphasis;
 
   ThemedIconButton(
@@ -79,7 +79,7 @@ class ThemedIconButton extends StatelessWidget {
     );
 
     return IconButton(
-      onPressed: onPressedCallback != null ? onPressedCallback : () => print("Tapped ${icon.toString()}"),
+      onPressed: onPressedCallback ?? () => print("Tapped ${icon.toString()}"),
       icon: buttonIcon,
       // TODO iconSize: appbarIconSize,
       // TODO color: iconDarkBgColor,

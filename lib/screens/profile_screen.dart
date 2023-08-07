@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/defaults/dimens.dart';
@@ -9,7 +7,7 @@ import 'package:material_themes_widgets/utils/validators.dart';
 
 class ProfileScreen extends StatefulWidget {
 
-  final Key key;
+  final Key? key;
 
   final bool showLabels;
   final ThemeGroupType labelType;
@@ -33,42 +31,42 @@ class ProfileScreen extends StatefulWidget {
 
   final ThemeGroupType textFieldBackgroundType;
   final String email;
-  final ValueChanged<String> onEmailChangedCallback;
+  final ValueChanged<String>? onEmailChangedCallback;
   final bool showEmail;
   final String password;
-  final ValueChanged<String> onPasswordChangedCallback;
+  final ValueChanged<String>? onPasswordChangedCallback;
   final bool showPassword;
   final String firstName;
-  final ValueChanged<String> onFirstNameChangedCallback;
+  final ValueChanged<String>? onFirstNameChangedCallback;
   final bool showFirstName;
   final String lastName;
-  final ValueChanged<String> onLastNameChangedCallback;
+  final ValueChanged<String>? onLastNameChangedCallback;
   final bool showLastName;
   final String tagline;
-  final ValueChanged<String> onTaglineChangedCallback;
+  final ValueChanged<String>? onTaglineChangedCallback;
   final bool showTagline;
   final String pronouns;
-  final ValueChanged<String> onPronounsChangedCallback;
+  final ValueChanged<String>? onPronounsChangedCallback;
   final bool showPronouns;
   final String organization;
-  final ValueChanged<String> onOrganizationChangedCallback;
+  final ValueChanged<String>? onOrganizationChangedCallback;
   final bool showOrganization;
   final String address;
-  final ValueChanged<String> onAddressChangedCallback;
+  final ValueChanged<String>? onAddressChangedCallback;
   final bool showAddress;
   final String city;
-  final ValueChanged<String> onCityChangedCallback;
+  final ValueChanged<String>? onCityChangedCallback;
   final bool showCity;
   final String state;
-  final ValueChanged<String> onStateChangedCallback;
+  final ValueChanged<String>? onStateChangedCallback;
   final bool showState;
   final String zip;
-  final ValueChanged<String> onZipChangedCallback;
+  final ValueChanged<String>? onZipChangedCallback;
   final bool showZip;
-  final Function onTapLogout;
-  final Function onTapEdit;
-  final Function onTapSave;
-  final Function onTapDelete;
+  final VoidCallback? onTapLogout;
+  final VoidCallback? onTapEdit;
+  final VoidCallback? onTapSave;
+  final VoidCallback? onTapDelete;
   final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
   final bool isHeaderSticky;
@@ -213,7 +211,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-  final Key key;
+  final Key? key;
 
   final bool showLabels;
   final ThemeGroupType labelType;
@@ -237,42 +235,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final ThemeGroupType textFieldBackgroundType;
   final String email;
-  final ValueChanged<String> onEmailChangedCallback;
+  final ValueChanged<String>? onEmailChangedCallback;
   final bool showEmail;
   final String password;
-  final ValueChanged<String> onPasswordChangedCallback;
+  final ValueChanged<String>? onPasswordChangedCallback;
   final bool showPassword;
   final String firstName;
-  final ValueChanged<String> onFirstNameChangedCallback;
+  final ValueChanged<String>? onFirstNameChangedCallback;
   final bool showFirstName;
   final String lastName;
-  final ValueChanged<String> onLastNameChangedCallback;
+  final ValueChanged<String>? onLastNameChangedCallback;
   final bool showLastName;
   final String tagline;
-  final ValueChanged<String> onTaglineChangedCallback;
+  final ValueChanged<String>? onTaglineChangedCallback;
   final bool showTagline;
   final String pronouns;
-  final ValueChanged<String> onPronounsChangedCallback;
+  final ValueChanged<String>? onPronounsChangedCallback;
   final bool showPronouns;
   final String organization;
-  final ValueChanged<String> onOrganizationChangedCallback;
+  final ValueChanged<String>? onOrganizationChangedCallback;
   final bool showOrganization;
   final String address;
-  final ValueChanged<String> onAddressChangedCallback;
+  final ValueChanged<String>? onAddressChangedCallback;
   final bool showAddress;
   final String city;
-  final ValueChanged<String> onCityChangedCallback;
+  final ValueChanged<String>? onCityChangedCallback;
   final bool showCity;
   final String state;
-  final ValueChanged<String> onStateChangedCallback;
+  final ValueChanged<String>? onStateChangedCallback;
   final bool showState;
   final String zip;
-  final ValueChanged<String> onZipChangedCallback;
+  final ValueChanged<String>? onZipChangedCallback;
   final bool showZip;
-  final Function onTapLogout;
-  final Function onTapEdit;
-  final Function onTapSave;
-  final Function onTapDelete;
+  final VoidCallback? onTapLogout;
+  final VoidCallback? onTapEdit;
+  final VoidCallback? onTapSave;
+  final VoidCallback? onTapDelete;
   final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
   final bool isHeaderSticky;
@@ -445,12 +443,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildStringField({
     String labelText = "",
-    IconData prefixIcon,
+    IconData? prefixIcon,
     String text = "",
     bool obscureText = false,
     String hintText = "",
-    ValueChanged<String> onStringChangedCallback,
-    FormFieldValidator<String> validator
+    ValueChanged<String>? onStringChangedCallback,
+    FormFieldValidator<String>? validator
   }) {
 
     return isEditMode
@@ -497,7 +495,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Container(
               alignment: Alignment.center,
               child: FlatButton(
-                onPressed: onTapLogout != null ? onTapLogout : () => print("Tapped Logout"),
+                onPressed: onTapLogout ?? () => print("Tapped Logout"),
                 child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
               ),
             )
@@ -507,7 +505,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Container(
               alignment: Alignment.center,
               child: FlatButton(
-                onPressed: onTapDelete != null ? onTapDelete : () => print("Tapped Delete Account"),
+                onPressed: onTapDelete ?? () => print("Tapped Delete Account"),
                 child: ThemedSubTitle2("Delete Account", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
               ),
             )
@@ -517,15 +515,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: RaisedButton(
             color: Colors.white,
             onPressed: () async {
-              var valid = _formKey.currentState.validate();
-              if(valid && isEditMode && onTapSave != null) {
-                onTapSave.call();
-              } else if(valid && !isEditMode && onTapEdit != null) {
-                onTapEdit.call();
+              var valid = _formKey.currentState?.validate() ?? false;
+              if(valid && isEditMode) {
+                onTapSave?.call();
+              } else if(valid && !isEditMode) {
+                onTapEdit?.call();
               }
             },
+            shape: const StadiumBorder(),
             child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
-            shape: StadiumBorder(),
           ),
         )
       ]),
@@ -540,21 +538,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
         RaisedButton(
           color: Colors.white,
           onPressed: () async {
-            var valid = _formKey.currentState.validate();
-            if(valid && isEditMode && onTapSave != null) {
-              onTapSave.call();
-            } else if(valid && !isEditMode && onTapEdit != null) {
-              onTapEdit.call();
+            var valid = _formKey.currentState?.validate() ?? false;
+            if(valid && isEditMode) {
+              onTapSave?.call();
+            } else if(valid && !isEditMode) {
+              onTapEdit?.call();
             }
           },
+          shape: const StadiumBorder(),
           child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
-          shape: StadiumBorder(),
         ),
         smallTransparentDivider,
         Container(
           alignment: Alignment.center,
           child: FlatButton(
-            onPressed: onTapLogout != null ? onTapLogout : () => print("Tapped Logout"),
+            onPressed: onTapLogout ?? () => print("Tapped Logout"),
             child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
           ),
         )

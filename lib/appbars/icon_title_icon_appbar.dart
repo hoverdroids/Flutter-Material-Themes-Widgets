@@ -7,18 +7,18 @@ class IconTitleIconAppBar extends AppBar {
 
   final IconData leftIcon;
   final bool showLeftIcon;
-  final Function leftIconClickedCallback;
+  final VoidCallback? leftIconClickedCallback;
   final ThemeGroupType leftIconType;
   final Emphasis leftIconEmphasis;
 
   final bool showTitle;
-  final Function titleClickedCallback;
+  final VoidCallback? titleClickedCallback;
   final ThemeGroupType titleType;
   final Emphasis titleEmphasis;
 
   final IconData rightIcon;
   final bool showRightIcon;
-  final Function rightIconClickedCallback;
+  final VoidCallback? rightIconClickedCallback;
   final ThemeGroupType rightIconType;
   final Emphasis rightIconEmphasis;
 
@@ -41,8 +41,8 @@ class IconTitleIconAppBar extends AppBar {
     backgroundColor,
     elevation
   }) : super(
-    backgroundColor: backgroundColor != null ? backgroundColor : Colors.transparent,
-    elevation: elevation != null ? elevation : 0.0,
+    backgroundColor: backgroundColor ?? Colors.transparent,
+    elevation: elevation ?? 0.0,
     leading: !showLeftIcon ? Container() : ThemedIconButton(
       leftIcon,
       type: leftIconType,

@@ -7,24 +7,24 @@ class IconTitleIconFakeAppBar extends StatelessWidget {
 
   final IconData leftIcon;
   final bool showLeftIcon;
-  final Function leftIconClickedCallback;
+  final VoidCallback? leftIconClickedCallback;
   final ThemeGroupType leftIconType;
   final Emphasis leftIconEmphasis;
 
   final String title;
   final bool showTitle;
-  final Function titleClickedCallback;
+  final VoidCallback? titleClickedCallback;
   final ThemeGroupType titleType;
   final Emphasis titleEmphasis;
   final TextAlign titleTextAlign;
 
   final IconData rightIcon;
   final bool showRightIcon;
-  final Function rightIconClickedCallback;
+  final VoidCallback? rightIconClickedCallback;
   final ThemeGroupType rightIconType;
   final Emphasis rightIconEmphasis;
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final double elevation;
   final ShapeBorder shape;
 
@@ -65,7 +65,7 @@ class IconTitleIconFakeAppBar extends StatelessWidget {
   Widget _buildAppbar() {
     return Card(
       shape: shape,
-      color: backgroundColor != null ? backgroundColor : Colors.transparent,
+      color: backgroundColor ?? Colors.transparent,
       elevation: elevation,
       child: Row(
         children: <Widget>[

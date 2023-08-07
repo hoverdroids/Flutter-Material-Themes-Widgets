@@ -8,21 +8,19 @@ class ColorizedShadow extends StatelessWidget {
   final Color color;
 
   ColorizedShadow({
-    @required this.child,
-    @required this.height,
+    required this.child,
+    required this.height,
     this.isCircular = false,
     this.color = Colors.black
-  }) : assert(child != null);
+  });
 
   @override
   Widget build(BuildContext context) {
 
-
-
     return Container(
-      height: this.height,
+      height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(this.height / 2)),
+        borderRadius: BorderRadius.all(Radius.circular(height / 2)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.blue.withOpacity(0.2),
@@ -31,7 +29,7 @@ class ColorizedShadow extends StatelessWidget {
           ),
         ],
       ),
-      child: this.child,
+      child: child,
     );
   }
 }

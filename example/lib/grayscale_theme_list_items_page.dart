@@ -17,13 +17,13 @@ class GrayscaleThemeListItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).appBarTheme.color,//TODO - clunky but it's hard to subclass appbar
+          backgroundColor: context.watch<MaterialThemesManager>().getTheme(ThemeGroupType.MOM).appBarTheme.backgroundColor,//TODO - clunky but it's hard to subclass appbar
           title: ThemedTitle('Grayscale', type: ThemeGroupType.MOM),
           //elevation: 0,//removes the shadow
           leading: ThemedIconButton(
             Icons.menu,
             type: ThemeGroupType.MOM,
-            onPressedCallback: () => scaffoldKey.currentState.openDrawer(),
+            onPressedCallback: () => scaffoldKey.currentState?.openDrawer(),
           ),
           actions: <Widget>[
             ThemedSwitch(

@@ -1,17 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/painting.dart';
 
 class ThemedLiquidDrawer extends StatelessWidget {
-  final Widget content;
-  final double percentOfWidth;
-  final int archHeight;
-  final bool showCurvedByDefault;
-  final Paint paint;
-  final Color startColor;
-  final Color endColor;
+  final Widget? content;
+  final double? percentOfWidth;
+  final int? archHeight;
+  final bool? showCurvedByDefault;
+  final Paint? paint;
+  final Color? startColor;
+  final Color? endColor;
 
   ThemedLiquidDrawer({
     this.content,
@@ -31,13 +29,13 @@ class ThemedLiquidDrawer extends StatelessWidget {
         var defaultLiquidDrawer = LiquidDrawer();
       
         return LiquidDrawer(
-            content: content != null ? content : defaultLiquidDrawer.content,
-            percentOfWidth: percentOfWidth != null ? percentOfWidth : defaultLiquidDrawer.percentOfWidth,
-            archHeight: archHeight != null ? archHeight : defaultLiquidDrawer.archHeight,
-            showCurvedByDefault: showCurvedByDefault != null ? showCurvedByDefault : defaultLiquidDrawer.showCurvedByDefault,
-            paint: paint != null ? paint : defaultLiquidDrawer.paint,
-            startColor: startColor != null ? startColor : defaultLiquidDrawer.startColor,
-            endColor: endColor != null ? endColor : defaultLiquidDrawer.endColor
+            content: content != null ? content! : defaultLiquidDrawer.content,
+            percentOfWidth: percentOfWidth != null ? percentOfWidth! : defaultLiquidDrawer.percentOfWidth,
+            archHeight: archHeight != null ? archHeight! : defaultLiquidDrawer.archHeight,
+            showCurvedByDefault: showCurvedByDefault != null ? showCurvedByDefault! : defaultLiquidDrawer.showCurvedByDefault,
+            paint: paint != null ? paint! : defaultLiquidDrawer.paint,
+            startColor: startColor != null ? startColor! : defaultLiquidDrawer.startColor,
+            endColor: endColor != null ? endColor! : defaultLiquidDrawer.endColor
         );
       });
   }
@@ -46,11 +44,11 @@ class ThemedLiquidDrawer extends StatelessWidget {
 //Derived from: https://www.youtube.com/watch?v=1KurAaGLwHc&t=1602s
 class LiquidDrawer extends StatefulWidget {
 
-  final Widget content;
+  final Widget? content;
   final double percentOfWidth;
   final int archHeight;
   final bool showCurvedByDefault;
-  final Paint paint;
+  final Paint? paint;
   final Color startColor;
   final Color endColor;
 
@@ -66,7 +64,7 @@ class LiquidDrawer extends StatefulWidget {
 
   @override
   _LiquidDrawerState createState() => _LiquidDrawerState(
-    child: content != null ? content : Container(),//TODO - we can't pass null but can't instantiate the Container as a default because, "the default value of an optional param must be constant"
+    child: content != null ? content! : Container(),//TODO - we can't pass null but can't instantiate the Container as a default because, "the default value of an optional param must be constant"
     percentOfWidth: percentOfWidth,
     archHeight: archHeight,
     showCurvedByDefault: showCurvedByDefault,
@@ -82,22 +80,22 @@ class _LiquidDrawerState extends State<LiquidDrawer> {
   final double percentOfWidth;
   final int archHeight;
   final bool showCurvedByDefault;
-  final Paint paint;
+  final Paint? paint;
   final Color startColor;
   final Color endColor;
 
   _LiquidDrawerState({
-    this.child,
-    this.percentOfWidth,
-    this.archHeight,
-    this.showCurvedByDefault,
-    this.paint,
-    this.startColor,
-    this.endColor,
+    required this.child,
+    required this.percentOfWidth,
+    required this.archHeight,
+    required this.showCurvedByDefault,
+    required this.paint,
+    required this.startColor,
+    required this.endColor,
   });
 
   GlobalKey globalKey = GlobalKey();//TODO - does this need a more descriptive name?
-  Offset _offset = Offset(0,0);
+  Offset _offset = const Offset(0,0);
   List<double> limits = [0,0,0,0,0,0];
   bool isScrolling = false;
 
@@ -137,8 +135,8 @@ class _LiquidDrawerState extends State<LiquidDrawer> {
                 onPanEnd: (details) {
                   setState(() {
                     isScrolling = false;
-                    var finalDx = showCurvedByDefault ? sidebarSize + archHeight.toDouble() : 0;
-                    var finalDy = showCurvedByDefault ? mediaQuery.height/2 : 0;
+                    var finalDx = showCurvedByDefault ? sidebarSize + archHeight.toDouble() : 0.0;
+                    var finalDy = showCurvedByDefault ? mediaQuery.height/2 : 0.0;
                     _offset = Offset(finalDx, finalDy);
                   });
                 },
@@ -159,7 +157,7 @@ class _LiquidDrawerState extends State<LiquidDrawer> {
 
   Paint getPaint(double width, double height) {
     if (paint != null) {
-      return paint;
+      return paint!;
     } else {
       //TODO - maybe make it easier to pass specific gradient fields vs making your own gradient
       //https://stackoverflow.com/questions/60019684/use-gradient-with-paint-object-in-flutter-canvas
@@ -173,11 +171,18 @@ class DrawerPainter extends CustomPainter {
 
   final int archHeight;
   final Offset offset;
-  Paint customPaint;
+  Paint customPaint = Paint()..color = Colors.white..style = PaintingStyle.fill;
   bool showCurvedByDefault;
 
-  DrawerPainter({this.offset, this.archHeight, paint, this.showCurvedByDefault}) {
-      customPaint = paint != null ? paint : Paint()..color = Colors.white..style = PaintingStyle.fill;
+  DrawerPainter({
+    required this.offset,
+    required this.archHeight,
+    paint,
+    required this.showCurvedByDefault
+  }) {
+    if (paint != null) {
+      customPaint = paint!;
+    }
   }
 
   double getControlPointX(double width) {

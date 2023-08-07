@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
-import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/header_list.dart';
-import 'package:material_themes_widgets/screens/login_register_screen.dart';
 import 'package:material_themes_widgets/screens/onboarding_screen.dart';
 import 'package:material_themes_widgets/screens/profile_screen.dart';
 import 'grayscale_theme_list_items_page.dart';
@@ -15,7 +12,7 @@ import 'wireframe_theme_list_items_page.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
   _HomePageState createState() => _HomePageState();
 }
 
@@ -41,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           GrayscaleThemeListItemsPage(_scaffoldKey),
           MainThemeListItemsPage(_scaffoldKey),
           OnboardingScreen(
-            title: "Yo Mamma",
+            title: "A Title",
             titleMainAxisAlignment: MainAxisAlignment.end,
             descriptionFlex: 4,
             imageUrl: "assets/food_1.jpg",
@@ -68,7 +65,7 @@ class _HomePageState extends State<HomePage> {
         leftIconType: ThemeGroupType.MOI,
         leftIconClickedCallback: () => Navigator.pop(context),
         rightIconType: ThemeGroupType.MOI,
-        rightIconClickedCallback: () => _scaffoldKey.currentState.openEndDrawer(),
+        rightIconClickedCallback: () => _scaffoldKey.currentState?.openEndDrawer(),
         child: HeaderList(
             [
               ListItemModel(title: "Drama Mama", subtitle: "Lookie here", trailingIcon: Icons.more_vert),
@@ -93,7 +90,7 @@ class _HomePageState extends State<HomePage> {
           //isHeaderSticky: false,
           //isAvatarEnabled: true,
           //headerAlignment: AlignmentDirectional.bottomCenter,
-          avatarClickedCallback: () => _scaffoldKey.currentState.openEndDrawer(),
+          avatarClickedCallback: () => _scaffoldKey.currentState?.openEndDrawer(),
           //usePolygonAvatar: true,
         ),
         clipPathType: ClipPathType.ROUNDED_DOWN,

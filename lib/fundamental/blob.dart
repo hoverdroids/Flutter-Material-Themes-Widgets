@@ -4,8 +4,7 @@ class ThemedBlob extends StatelessWidget {
   final double scale;
   final Color color;
 
-  const ThemedBlob({@required this.color, this.rotation = 0, this.scale = 1})
-      : assert(color != null);
+  ThemedBlob({required this.color, this.rotation = 0, this.scale = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class ThemedBlob extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(150),
               topRight: Radius.circular(240),
               bottomLeft: Radius.circular(220),

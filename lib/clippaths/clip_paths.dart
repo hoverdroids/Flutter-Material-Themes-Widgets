@@ -120,7 +120,7 @@ class SimpleClipPath extends CustomClipper<Path> {
     Path path = Path();
     path.lineTo(0, size.height);
     path.arcToPoint(Offset(size.width, size.height),
-        radius: Radius.elliptical(30, 10));
+        radius: const Radius.elliptical(30, 10));
     path.lineTo(size.width, 0);
     return path;
   }
@@ -166,7 +166,7 @@ class SimpleClipPath extends CustomClipper<Path> {
     var increment = size.width / 20;
     while (curXPos < size.width) {
       curXPos += increment;
-      path.arcToPoint(Offset(curXPos, curYPos), radius: Radius.circular(5));
+      path.arcToPoint(Offset(curXPos, curYPos), radius: const Radius.circular(5));
     }
     path.lineTo(size.width, 0);
     return path;
@@ -212,7 +212,7 @@ class SimpleClipPath extends CustomClipper<Path> {
     var topRightPixelsFromTop = (size.height * topRightPercentOfHeight) / 100.0;
     var bottomRightPixelsFromTop = (size.height * bottomRightPercentOfHeight) / 100.0;
 
-    var path = new Path();
+    var path = Path();
     path.moveTo(0.0, topLeftPixelsFromTop + radius);
     path.lineTo(0.0, bottomLeftPixelsFromTop - radius);
     path.quadraticBezierTo(0.0, bottomLeftPixelsFromTop, radius, bottomLeftPixelsFromTop);
