@@ -425,7 +425,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
             flex: 1,
             child: Container(
               alignment: Alignment.center,
-              child: FlatButton(
+              child: TextButton(
                 onPressed:  () => {
                   if(!isLogin) {
                     onTapLogin?.call()
@@ -439,8 +439,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         ),
         Flexible(
           flex: 1,
-          child: RaisedButton(
-            color: Colors.white,
+          child: ElevatedButton(
             onPressed: () async {
               var valid = _formKey.currentState?.validate() ?? false;
               if(valid && isLogin) {
@@ -449,7 +448,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 onTapRegister?.call();
               }
             },
-            shape: const StadiumBorder(),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+              backgroundColor: Colors.white,
+              shape: const StadiumBorder(),
+            ),
             child: ThemedTitle(isLogin ? "Login" : "Register", type: ThemeGroupType.POM),
           ),
         )
@@ -462,8 +465,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
       padding: footerPadding,
       child: Column(children: <Widget>[
         smallTransparentDivider,
-        RaisedButton(
-          color: Colors.white,
+        ElevatedButton(
           onPressed: () async {
             var valid = _formKey.currentState?.validate() ?? false;
             if(valid && isLogin && onTapLogin != null) {
@@ -472,13 +474,17 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               onTapRegister!.call();
             }
           },
-          shape: const StadiumBorder(),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+            backgroundColor: Colors.white,
+            shape: const StadiumBorder(),
+          ),
           child: ThemedTitle(isLogin ? "Login" : "Register", type: ThemeGroupType.POM),
         ),
         smallTransparentDivider,
         Container(
           alignment: Alignment.center,
-          child: FlatButton(
+          child: TextButton(
             onPressed: () => {
               if(!isLogin && onTapLogin != null) {
                 onTapLogin!.call()

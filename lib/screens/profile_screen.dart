@@ -494,7 +494,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             flex: 1,
             child: Container(
               alignment: Alignment.center,
-              child: FlatButton(
+              child: TextButton(
                 onPressed: onTapLogout ?? () => print("Tapped Logout"),
                 child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
               ),
@@ -504,7 +504,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             flex: 1,
             child: Container(
               alignment: Alignment.center,
-              child: FlatButton(
+              child: TextButton(
                 onPressed: onTapDelete ?? () => print("Tapped Delete Account"),
                 child: ThemedSubTitle2("Delete Account", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
               ),
@@ -512,8 +512,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         Flexible(
           flex: 1,
-          child: RaisedButton(
-            color: Colors.white,
+          child: ElevatedButton(
             onPressed: () async {
               var valid = _formKey.currentState?.validate() ?? false;
               if(valid && isEditMode) {
@@ -522,7 +521,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTapEdit?.call();
               }
             },
-            shape: const StadiumBorder(),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+              backgroundColor: Colors.white,
+              shape: const StadiumBorder(),
+            ),
             child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
           ),
         )
@@ -535,8 +538,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       padding: footerPadding,
       child: Column(children: <Widget>[
         smallTransparentDivider,
-        RaisedButton(
-          color: Colors.white,
+        ElevatedButton(
           onPressed: () async {
             var valid = _formKey.currentState?.validate() ?? false;
             if(valid && isEditMode) {
@@ -545,13 +547,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTapEdit?.call();
             }
           },
-          shape: const StadiumBorder(),
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+            backgroundColor: Colors.white,
+            shape: const StadiumBorder(),
+          ),
           child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
         ),
         smallTransparentDivider,
         Container(
           alignment: Alignment.center,
-          child: FlatButton(
+          child: TextButton(
             onPressed: onTapLogout ?? () => print("Tapped Logout"),
             child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
           ),
