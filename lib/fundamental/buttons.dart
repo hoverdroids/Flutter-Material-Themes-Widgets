@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:developer' as developer;*/
 
 /*
       Material Button Types and Guidelines:
@@ -35,7 +35,7 @@ import 'package:provider/provider.dart';
 class StandardizedButton extends StatelessWidget {
 
   String text;
-  Function onTapped = () => print('Tappy Tap');
+  Function onTapped = () => developer.log('Tappy Tap');
   ElementSize elementSize;
   WidthStyle widthStyle;
   ElementStyle elementStyle;

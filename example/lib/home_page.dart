@@ -10,6 +10,7 @@ import 'grayscale_theme_list_items_page.dart';
 import 'main_theme_list_items_page.dart';
 import 'wireframe_theme_list_items_page.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
+import 'dart:developer' as developer;
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
         controller: _pageController,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => print("hey hey"),
+        onPressed: () => developer.log("hey hey"),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -70,14 +71,14 @@ class _HomePageState extends State<HomePage> {
             [
               ListItemModel(title: "Drama Mama", subtitle: "Lookie here", trailingIcon: Icons.more_vert),
               ListItemModel(title: "Drama Papa", leadingIcon: Icons.filter_drama),
-              ListItemModel(title: "Your drama", leadingIcon: Icons.add, itemClickedCallback: () => print("Clicked your drama")),
+              ListItemModel(title: "Your drama", leadingIcon: Icons.add, itemClickedCallback: () => developer.log("Clicked your drama")),
               ListItemModel(leadingIcon: Icons.account_circle),
-              ListItemModel(leadingIcon: Icons.access_alarm, itemClickedCallback: () => print("Clicked item 4")),
+              ListItemModel(leadingIcon: Icons.access_alarm, itemClickedCallback: () => developer.log("Clicked item 4")),
               ListItemModel(title: "Drama Mama"),
               ListItemModel(title: "Drama Papa", leadingIcon: Icons.filter_drama),
-              ListItemModel(title: "Your drama", leadingIcon: Icons.add, itemClickedCallback: () => print("Clicked your drama")),
+              ListItemModel(title: "Your drama", leadingIcon: Icons.add, itemClickedCallback: () => developer.log("Clicked your drama")),
               ListItemModel(leadingIcon: Icons.account_circle),
-              ListItemModel(leadingIcon: Icons.access_alarm, itemClickedCallback: () => print("Clicked item 4")),
+              ListItemModel(leadingIcon: Icons.access_alarm, itemClickedCallback: () => developer.log("Clicked item 4")),
             ],
           //cardElevationLevel: ElevationLevel.FLAT,
           imageUrl: "assets/food_1.jpg",
@@ -112,10 +113,10 @@ class _HomePageState extends State<HomePage> {
         rightIconType: ThemeGroupType.MOP,
         child: SafeArea(
           child: ProfileScreen(
-            onEmailChangedCallback: (value) => { print("Email changed" + value) },
-            onPasswordChangedCallback: (value) => { print("Password changed" + value) },
-            onTapEdit: () => print("On tap Edit2"),
-            onTapSave: () => print("on tap save2"),
+            onEmailChangedCallback: (value) => { developer.log("Email changed" + value) },
+            onPasswordChangedCallback: (value) => { developer.log("Password changed" + value) },
+            onTapEdit: () => developer.log("On tap Edit2"),
+            onTapSave: () => developer.log("on tap save2"),
             isFooterVertical: false,
             isEditMode: true,
             showLabels: true,

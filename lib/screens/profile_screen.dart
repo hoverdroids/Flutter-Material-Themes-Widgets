@@ -4,6 +4,7 @@ import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/forms/form_fields.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_widgets/utils/validators.dart';
+import 'dart:developer' as developer;
 
 class ProfileScreen extends StatefulWidget {
 
@@ -381,24 +382,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   smallTransparentDivider,
                   if (showEmail) ... [
                     _buildStringField(text: email, labelText: "Email", hintText: showLabels ? "" : "Email", prefixIcon: showLabels ? null : Icons.email, onStringChangedCallback: onEmailChangedCallback,
-                      validator: (value) => emailValidator(value)
+                      validator: (value) => emailValidator(value, true)
                     ),
                     smallTransparentDivider
                   ],
                   if (showPassword) ... [
                     _buildStringField(text: password, labelText: "Password", hintText: showLabels ? "" : "Password", prefixIcon: showLabels ? null : Icons.lock, onStringChangedCallback: onPasswordChangedCallback,
-                      validator: (value) => passwordValidator(value),
+                      validator: (value) => passwordValidator(value, true),
                     ),
                     smallTransparentDivider
                   ],
                   if (showFirstName) ... [
                     _buildStringField(text: firstName, labelText: "First Name", hintText: showLabels ? "" : "First Name", onStringChangedCallback: onFirstNameChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "First Name")),
+                      validator: (value) => nonEmptyValidator(value, "First Name", true)),
                     smallTransparentDivider
                   ],
                   if (showLastName) ... [
                     _buildStringField(text: lastName, labelText: "Last Name", hintText: showLabels ? "" : "Last Name", onStringChangedCallback: onLastNameChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "Last Name")),
+                      validator: (value) => nonEmptyValidator(value, "Last Name", true)),
                     smallTransparentDivider
                   ],
                   if (showTagline) ... [
@@ -427,7 +428,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                   if (showZip) ... [
                     _buildStringField(text: zip, labelText: "Zip", hintText: showLabels ? "" : "Zip", onStringChangedCallback: onZipChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "Zip")),
+                      validator: (value) => nonEmptyValidator(value, "Zip", true)),
                     smallTransparentDivider
                   ],
                   if(doShowLoginRegisterButtons && !isFooterSticky && isFooterVertical) ... [ _buildVerticalFooter()]
@@ -495,7 +496,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Container(
               alignment: Alignment.center,
               child: TextButton(
-                onPressed: onTapLogout ?? () => print("Tapped Logout"),
+                onPressed: onTapLogout ?? () => developer.log("Tapped Logout"),
                 child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
               ),
             )
@@ -505,7 +506,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Container(
               alignment: Alignment.center,
               child: TextButton(
-                onPressed: onTapDelete ?? () => print("Tapped Delete Account"),
+                onPressed: onTapDelete ?? () => developer.log("Tapped Delete Account"),
                 child: ThemedSubTitle2("Delete Account", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
               ),
             )
@@ -558,7 +559,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Container(
           alignment: Alignment.center,
           child: TextButton(
-            onPressed: onTapLogout ?? () => print("Tapped Logout"),
+            onPressed: onTapLogout ?? () => developer.log("Tapped Logout"),
             child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
           ),
         )

@@ -5,6 +5,8 @@ import 'package:material_themes_widgets/forms/form_fields.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_widgets/utils/validators.dart';
 
+import '../utils/ui_utils.dart';
+
 class LoginRegisterScreen extends StatefulWidget {
 
   final Key? key;
@@ -324,24 +326,27 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   smallTransparentDivider,
                   if (showEmail) ... [
                     _buildStringEntry(labelText: "Email", hintText: showLabels ? "" : "Email", prefixIcon: showLabels ? null : Icons.email, onStringChangedCallback: onEmailChangedCallback,
-                    validator: (value) => emailValidator(value)
+                    validator: (value) => emailValidator(value, true)
                     ),
                     smallTransparentDivider
                   ],
                   if (showPassword) ... [
                     _buildStringEntry(labelText: "Password", hintText: showLabels ? "" : "Password", prefixIcon: showLabels ? null : Icons.lock, onStringChangedCallback: onPasswordChangedCallback,
-                      validator: (value) => passwordValidator(value), obscureText: true
+                      validator: (value) => passwordValidator(value, true),
+                      obscureText: true
                     ),
                     smallTransparentDivider
                   ],
                   if (showFirstName) ... [
                     _buildStringEntry(labelText: "First Name", hintText: showLabels ? "" : "First Name", onStringChangedCallback: onFirstNameChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "First Name")),
+                      validator: (value) => nonEmptyValidator(value, "First Name", true)
+                    ),
                     smallTransparentDivider
                   ],
                   if (showLastName) ... [
                     _buildStringEntry(labelText: "Last Name", hintText: showLabels ? "" : "Last Name", onStringChangedCallback: onLastNameChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "Last Name")),
+                      validator: (value) => nonEmptyValidator(value, "Last Name", true)
+                    ),
                     smallTransparentDivider
                   ],
                   if (showTagline) ... [
@@ -370,7 +375,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   ],
                   if (showZip) ... [
                     _buildStringEntry(labelText: "Zip", hintText: showLabels ? "" : "Zip", onStringChangedCallback: onZipChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "Zip")),
+                      validator: (value) => nonEmptyValidator(value, "Zip", true)
+                    ),
                     smallTransparentDivider
                   ],
                   if(doShowLoginRegisterButtons && !isFooterSticky && isFooterVertical) ... [ _buildVerticalFooter()]

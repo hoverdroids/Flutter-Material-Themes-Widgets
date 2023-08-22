@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as developer;
 
 class ThemedIcon extends StatelessWidget {
 
@@ -79,7 +80,7 @@ class ThemedIconButton extends StatelessWidget {
     );
 
     return IconButton(
-      onPressed: onPressedCallback ?? () => print("Tapped ${icon.toString()}"),
+      onPressed: onPressedCallback ?? () => developer.log("Tapped ${icon.toString()}"),
       icon: buttonIcon,
       // TODO iconSize: appbarIconSize,
       // TODO color: iconDarkBgColor,

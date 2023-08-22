@@ -4,6 +4,7 @@ import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/fundamental/icons.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as developer;
 
 class ThemedLabelValue extends StatelessWidget {
   final bool showLabel;
@@ -169,7 +170,7 @@ class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
       if(onStringChangedCallback != null) {
         onStringChangedCallback!(val)
       } else {
-        print("Changed:" + (hintText != null ? hintText! : "Hint Text"))
+        developer.log("Changed:${hintText != null ? hintText! : "Hint Text"}")
       }
     });
   }

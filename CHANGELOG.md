@@ -1,3 +1,5 @@
+## [1.1.0]  - Added toasts for validated fields. Replaced print with developer.log
+## [1.0.1]  - Migrate to TextButton and ElevatedButton
 ## [1.0.0]  - Null safety
 ## [0.0.29] - Changed play media button to not automatically toggle play state
 ## [0.0.28] - Added tinyTransparentDivider
