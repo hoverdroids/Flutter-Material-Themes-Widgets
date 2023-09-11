@@ -513,21 +513,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         Flexible(
           flex: 1,
-          child: ElevatedButton(
-            onPressed: () async {
-              var valid = _formKey.currentState?.validate() ?? false;
-              if(valid && isEditMode) {
-                onTapSave?.call();
-              } else if(valid && !isEditMode) {
-                onTapEdit?.call();
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-              backgroundColor: Colors.white,
-              shape: const StadiumBorder(),
-            ),
-            child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
+          child: Container(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              onPressed: () async {
+                var valid = _formKey.currentState?.validate() ?? false;
+                if(valid && isEditMode) {
+                  onTapSave?.call();
+                } else if(valid && !isEditMode) {
+                  onTapEdit?.call();
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                backgroundColor: Colors.white,
+                shape: const StadiumBorder(),
+              ),
+              child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
+            )
           ),
         )
       ]),

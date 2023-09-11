@@ -1,3 +1,5 @@
+## [1.1.2]  - Center save/edit button in the right third
+## [1.1.1]  - Decreased size of save/edit button
 ## [1.1.0]  - Added toasts for validated fields. Replaced print with developer.log
 ## [1.0.1]  - Migrate to TextButton and ElevatedButton
 ## [1.0.0]  - Null safety
