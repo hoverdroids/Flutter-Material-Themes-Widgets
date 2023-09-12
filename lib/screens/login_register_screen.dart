@@ -35,11 +35,7 @@ class LoginRegisterScreen extends StatefulWidget {
   final VoidCallback? onTapRegister;
   final VoidCallback? onTapLogin;
   final String? screenTitle;
-  final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
-  late bool isHeaderSticky;
-  late bool isFooterSticky;
-  late bool isFooterVertical;
   final EdgeInsets headerPadding;
   final EdgeInsets footerPadding;
   final bool centerForm;
@@ -67,20 +63,12 @@ class LoginRegisterScreen extends StatefulWidget {
     this.onTapRegister,
     this.onTapLogin,
     this.screenTitle,
-    this.doShowLoginRegisterButtons = true,
     this.padding = const EdgeInsets.symmetric(vertical: 0.0, horizontal: paddingMini),
-    bool? isHeaderSticky,
-    bool? isFooterSticky,
-    bool? isFooterVertical,
     this.headerPadding = const EdgeInsets.all(paddingMini),
     this.footerPadding = const EdgeInsets.all(paddingMini),
     this.centerForm = true,
     this.isLogin = true
-  }): super() {
-    this.isHeaderSticky = isHeaderSticky ?? isLogin ? false : true;
-    this.isFooterSticky = isFooterSticky ?? isLogin ? false : true;
-    this.isFooterVertical = isFooterVertical ?? isLogin ? true : false;
-  }
+  }): super();
 
   @override
   _LoginRegisterScreenState createState() => _LoginRegisterScreenState(
@@ -104,11 +92,7 @@ class LoginRegisterScreen extends StatefulWidget {
     onTapRegister,
     onTapLogin,
     screenTitle,
-    doShowLoginRegisterButtons,
     padding,
-    isHeaderSticky,
-    isFooterSticky,
-    isFooterVertical,
     headerPadding,
     footerPadding,
     centerForm,
@@ -146,11 +130,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   final VoidCallback? onTapRegister;
   final VoidCallback? onTapLogin;
   final String? screenTitle;
-  final bool doShowLoginRegisterButtons;
   final EdgeInsets padding;
-  final bool isHeaderSticky;
-  final bool isFooterSticky;
-  final bool isFooterVertical;
   final EdgeInsets headerPadding;
   final EdgeInsets footerPadding;
   final bool centerForm;
@@ -179,11 +159,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     this.onTapRegister,
     this.onTapLogin,
     this.screenTitle,
-    this.doShowLoginRegisterButtons,
     this.padding,
-    this.isHeaderSticky,
-    this.isFooterSticky,
-    this.isFooterVertical,
     this.headerPadding,
     this.footerPadding,
     this.centerForm,
@@ -219,7 +195,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  if(!isHeaderSticky) ... [ _buildHeader() ],
+                  _buildHeader(),
                   smallTransparentDivider,
                   if (showEmail) ... [
                     _buildStringEntry(labelText: "Email", hintText: showLabels ? "" : "Email", prefixIcon: showLabels ? null : Icons.email, onStringChangedCallback: onEmailChangedCallback,
@@ -234,8 +210,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     ),
                     smallTransparentDivider
                   ],
-                  if(doShowLoginRegisterButtons && !isFooterSticky && isFooterVertical) ... [ _buildVerticalFooter()]
-                  else if (doShowLoginRegisterButtons && !isFooterSticky && !isFooterVertical) ... [ _buildHorizontalFooter() ]
+                   _buildVerticalFooter()
                 ],
               ),
             ),
@@ -274,50 +249,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
       backgroundType: textFieldBackgroundType,
       onStringChangedCallback: onStringChangedCallback,
       validator: validator
-    );
-  }
-
-  Widget _buildHorizontalFooter() {
-    return Padding(
-      padding: footerPadding,
-      child: Row(children: <Widget>[
-        smallTransparentDivider,
-        Flexible(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.center,
-              child: TextButton(
-                onPressed:  () => {
-                  if(!isLogin) {
-                    onTapLogin?.call()
-                  } else if(isLogin) {
-                    onTapRegister?.call()
-                  }
-                },
-                child: ThemedSubTitle2(isLogin ? "Register" : "Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
-              ),
-            )
-        ),
-        Flexible(
-          flex: 1,
-          child: ElevatedButton(
-            onPressed: () async {
-              var valid = _formKey.currentState?.validate() ?? false;
-              if(valid && isLogin) {
-                onTapLogin?.call();
-              } else if(valid && !isLogin) {
-                onTapRegister?.call();
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-              backgroundColor: Colors.white,
-              shape: const StadiumBorder(),
-            ),
-            child: ThemedTitle(isLogin ? "Login" : "Register", type: ThemeGroupType.POM),
-          ),
-        )
-      ]),
     );
   }
 
@@ -365,14 +296,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     return Column(
       key: key,
       children: <Widget>[
-        if (isHeaderSticky) ... [ _buildHeader() ],
         Flexible(
             flex: 1,
-            child:_buildContent()),
-        if(doShowLoginRegisterButtons && isFooterSticky) ... [
-          if (isFooterVertical) ... [_buildVerticalFooter()]
-          else ... [_buildHorizontalFooter()]
-        ],
+            child:_buildContent()
+        ),
       ]
     );
   }
