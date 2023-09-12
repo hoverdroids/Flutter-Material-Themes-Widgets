@@ -1,3 +1,4 @@
+## [1.3.0]  - Remove registration fields except for email and password.
 ## [1.2.0]  - Update libs: Material Themes Manager=>1.2.0, Assets Audio Player=>3.1.0. Update sdk >-3.0.0 <4.0.0. Use FlutterActivity instead of MainActivity
 ## [1.1.2]  - Center save/edit button in the right third
 ## [1.1.1]  - Decreased size of save/edit button

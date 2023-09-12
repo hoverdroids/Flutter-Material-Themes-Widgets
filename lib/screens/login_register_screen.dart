@@ -5,8 +5,6 @@ import 'package:material_themes_widgets/forms/form_fields.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_widgets/utils/validators.dart';
 
-import '../utils/ui_utils.dart';
-
 class LoginRegisterScreen extends StatefulWidget {
 
   final Key? key;
@@ -34,24 +32,6 @@ class LoginRegisterScreen extends StatefulWidget {
   bool showEmail;
   final ValueChanged<String>? onPasswordChangedCallback;
   bool showPassword;
-  final ValueChanged<String>? onFirstNameChangedCallback;
-  late bool showFirstName;
-  final ValueChanged<String>? onLastNameChangedCallback;
-  late bool showLastName;
-  final ValueChanged<String>? onTaglineChangedCallback;
-  late bool showTagline;
-  final ValueChanged<String>? onPronounsChangedCallback;
-  late bool showPronouns;
-  final ValueChanged<String>? onOrganizationChangedCallback;
-  late bool showOrganization;
-  final ValueChanged<String>? onAddressChangedCallback;
-  late bool showAddress;
-  final ValueChanged<String>? onCityChangedCallback;
-  late bool showCity = true;
-  final ValueChanged<String>? onStateChangedCallback;
-  late bool showState = true;
-  final ValueChanged<String>? onZipChangedCallback;
-  late bool showZip = true;
   final VoidCallback? onTapRegister;
   final VoidCallback? onTapLogin;
   final String? screenTitle;
@@ -84,24 +64,6 @@ class LoginRegisterScreen extends StatefulWidget {
     this.showEmail = true,
     this.onPasswordChangedCallback,
     this.showPassword = true,
-    this.onFirstNameChangedCallback,
-    bool? showFirstName,
-    this.onLastNameChangedCallback,
-    bool? showLastName,
-    this.onTaglineChangedCallback,
-    bool? showTagline,
-    this.onPronounsChangedCallback,
-    bool? showPronouns,
-    this.onOrganizationChangedCallback,
-    bool? showOrganization,
-    this.onAddressChangedCallback,
-    bool? showAddress,
-    this.onCityChangedCallback,
-    bool? showCity,
-    this.onStateChangedCallback,
-    bool? showState,
-    this.onZipChangedCallback,
-    bool? showZip,
     this.onTapRegister,
     this.onTapLogin,
     this.screenTitle,
@@ -115,15 +77,6 @@ class LoginRegisterScreen extends StatefulWidget {
     this.centerForm = true,
     this.isLogin = true
   }): super() {
-    this.showFirstName = showFirstName ?? isLogin ? false : true;
-    this.showLastName = showLastName ?? isLogin ? false : true;
-    this.showTagline = showTagline ?? isLogin ? false : true;
-    this.showPronouns = showPronouns ?? isLogin ? false : true;
-    this.showOrganization = showOrganization ?? isLogin ? false : true;
-    this.showAddress = showAddress ?? isLogin ? false : true;
-    this.showCity = showCity ?? isLogin ? false : true;
-    this.showState = showState ?? isLogin ? false : true;
-    this.showZip = showZip ?? isLogin ? false : true;
     this.isHeaderSticky = isHeaderSticky ?? isLogin ? false : true;
     this.isFooterSticky = isFooterSticky ?? isLogin ? false : true;
     this.isFooterVertical = isFooterVertical ?? isLogin ? true : false;
@@ -148,24 +101,6 @@ class LoginRegisterScreen extends StatefulWidget {
     showEmail,
     onPasswordChangedCallback,
     showPassword,
-    onFirstNameChangedCallback,
-    showFirstName,
-    onLastNameChangedCallback,
-    showLastName,
-    onTaglineChangedCallback,
-    showTagline,
-    onPronounsChangedCallback,
-    showPronouns,
-    onOrganizationChangedCallback,
-    showOrganization,
-    onAddressChangedCallback,
-    showAddress,
-    onCityChangedCallback,
-    showCity,
-    onStateChangedCallback,
-    showState,
-    onZipChangedCallback,
-    showZip,
     onTapRegister,
     onTapLogin,
     screenTitle,
@@ -208,24 +143,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   final bool showEmail;
   final ValueChanged<String>? onPasswordChangedCallback;
   final bool showPassword;
-  final ValueChanged<String>? onFirstNameChangedCallback;
-  final bool showFirstName;
-  final ValueChanged<String>? onLastNameChangedCallback;
-  final bool showLastName;
-  final ValueChanged<String>? onTaglineChangedCallback;
-  final bool showTagline;
-  final ValueChanged<String>? onPronounsChangedCallback;
-  final bool showPronouns;
-  final ValueChanged<String>? onOrganizationChangedCallback;
-  final bool showOrganization;
-  final ValueChanged<String>? onAddressChangedCallback;
-  final bool showAddress;
-  final ValueChanged<String>? onCityChangedCallback;
-  final bool showCity;
-  final ValueChanged<String>? onStateChangedCallback;
-  final bool showState;
-  final ValueChanged<String>? onZipChangedCallback;
-  final bool showZip;
   final VoidCallback? onTapRegister;
   final VoidCallback? onTapLogin;
   final String? screenTitle;
@@ -259,24 +176,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     this.showEmail,
     this.onPasswordChangedCallback,
     this.showPassword,
-    this.onFirstNameChangedCallback,
-    this.showFirstName,
-    this.onLastNameChangedCallback,
-    this.showLastName,
-    this.onTaglineChangedCallback,
-    this.showTagline,
-    this.onPronounsChangedCallback,
-    this.showPronouns,
-    this.onOrganizationChangedCallback,
-    this.showOrganization,
-    this.onAddressChangedCallback,
-    this.showAddress,
-    this.onCityChangedCallback,
-    this.showCity,
-    this.onStateChangedCallback,
-    this.showState,
-    this.onZipChangedCallback,
-    this.showZip,
     this.onTapRegister,
     this.onTapLogin,
     this.screenTitle,
@@ -301,13 +200,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   }
 
   Widget _buildContent() {
-    return Container(
-      child: Form(
-        key: _formKey,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: centerForm ? Center(child: _buildScrollView()) : _buildScrollView(),
-        ),
+    return Form(
+      key: _formKey,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: centerForm ? Center(child: _buildScrollView()) : _buildScrollView(),
       ),
     );
   }
@@ -334,48 +231,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     _buildStringEntry(labelText: "Password", hintText: showLabels ? "" : "Password", prefixIcon: showLabels ? null : Icons.lock, onStringChangedCallback: onPasswordChangedCallback,
                       validator: (value) => passwordValidator(value, true),
                       obscureText: true
-                    ),
-                    smallTransparentDivider
-                  ],
-                  if (showFirstName) ... [
-                    _buildStringEntry(labelText: "First Name", hintText: showLabels ? "" : "First Name", onStringChangedCallback: onFirstNameChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "First Name", true)
-                    ),
-                    smallTransparentDivider
-                  ],
-                  if (showLastName) ... [
-                    _buildStringEntry(labelText: "Last Name", hintText: showLabels ? "" : "Last Name", onStringChangedCallback: onLastNameChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "Last Name", true)
-                    ),
-                    smallTransparentDivider
-                  ],
-                  if (showTagline) ... [
-                    _buildStringEntry(labelText: "Tagline", hintText: showLabels ? "e.g. Adventurer" : "Tagline", onStringChangedCallback: onTaglineChangedCallback),
-                    smallTransparentDivider
-                  ],
-                  if (showPronouns) ... [
-                    _buildStringEntry(labelText: "Pronouns", hintText: showLabels ? "" : "Pronouns", onStringChangedCallback: onPronounsChangedCallback),
-                    smallTransparentDivider
-                  ],
-                  if (showOrganization) ... [
-                    _buildStringEntry(labelText: "Organization", hintText: showLabels ? "" : "Organization", onStringChangedCallback: onOrganizationChangedCallback),
-                    smallTransparentDivider
-                  ],
-                  if (showAddress) ... [
-                    _buildStringEntry(labelText: "Address", hintText: showLabels ? "" : "Address", onStringChangedCallback: onAddressChangedCallback),
-                    smallTransparentDivider
-                  ],
-                  if (showCity) ... [
-                    _buildStringEntry(labelText: "City", hintText: showLabels ? "" : "City", onStringChangedCallback: onCityChangedCallback),
-                    smallTransparentDivider
-                  ],
-                  if (showState) ... [
-                    _buildStringEntry(labelText: "State", hintText: showLabels ? "" : "State", onStringChangedCallback: onStateChangedCallback),
-                    smallTransparentDivider
-                  ],
-                  if (showZip) ... [
-                    _buildStringEntry(labelText: "Zip", hintText: showLabels ? "" : "Zip", onStringChangedCallback: onZipChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "Zip", true)
                     ),
                     smallTransparentDivider
                   ],
