@@ -34,6 +34,7 @@ class LoginRegisterScreen extends StatefulWidget {
   bool showPassword;
   final VoidCallback? onTapRegister;
   final VoidCallback? onTapLogin;
+  final VoidCallback? onTapForgotPassword;
   final String? screenTitle;
   final EdgeInsets padding;
   final EdgeInsets headerPadding;
@@ -62,6 +63,7 @@ class LoginRegisterScreen extends StatefulWidget {
     this.showPassword = true,
     this.onTapRegister,
     this.onTapLogin,
+    this.onTapForgotPassword,
     this.screenTitle,
     this.padding = const EdgeInsets.symmetric(vertical: 0.0, horizontal: paddingMini),
     this.headerPadding = const EdgeInsets.all(paddingMini),
@@ -91,6 +93,7 @@ class LoginRegisterScreen extends StatefulWidget {
     showPassword,
     onTapRegister,
     onTapLogin,
+    onTapForgotPassword,
     screenTitle,
     padding,
     headerPadding,
@@ -129,6 +132,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   final bool showPassword;
   final VoidCallback? onTapRegister;
   final VoidCallback? onTapLogin;
+  final VoidCallback? onTapForgotPassword;
   final String? screenTitle;
   final EdgeInsets padding;
   final EdgeInsets headerPadding;
@@ -158,6 +162,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     this.showPassword,
     this.onTapRegister,
     this.onTapLogin,
+    this.onTapForgotPassword,
     this.screenTitle,
     this.padding,
     this.headerPadding,
@@ -284,9 +289,20 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 onTapRegister!.call()
               }
             },
-            child: ThemedSubTitle2(isLogin ? "Register" : "Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+            child: ThemedSubTitle(isLogin ? "Register" : "Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
           ),
-        )
+        ),
+        if(isLogin)...[
+          Container(
+            alignment: Alignment.center,
+            child: TextButton(
+              onPressed: () => {
+                onTapLogin?.call()
+              },
+              child: ThemedSubTitle("Forgot password", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+            ),
+          )
+        ]
       ]),
     );
   }

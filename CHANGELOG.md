@@ -1,3 +1,4 @@
+## [1.4.0]  - Login screen shows "forgot password" text
 ## [1.3.1]  - Registration screen looks like login screen. Deleted "sticky" header/footer options
 ## [1.3.0]  - Remove registration fields except for email and password.
 ## [1.2.0]  - Update libs: Material Themes Manager=>1.2.0, Assets Audio Player=>3.1.0. Update sdk >-3.0.0 <4.0.0. Use FlutterActivity instead of MainActivity
