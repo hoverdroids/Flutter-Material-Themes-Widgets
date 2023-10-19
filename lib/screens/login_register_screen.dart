@@ -297,7 +297,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
             alignment: Alignment.center,
             child: TextButton(
               onPressed: () => {
-                onTapLogin?.call()
+                onTapForgotPassword?.call()
               },
               child: ThemedSubTitle("Forgot password", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
             ),
