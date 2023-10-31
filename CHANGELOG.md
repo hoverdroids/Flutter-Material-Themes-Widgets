@@ -1,3 +1,4 @@
+## [1.5.2]  - Updated assets_audio_player to 3.1.1
 ## [1.5.1]  - Using onTapForgotPassword callback for, um, on forgot password ;p
 ## [1.5.0]  - Login screen shows "forgot password" text
 ## [1.3.1]  - Registration screen looks like login screen. Deleted "sticky" header/footer options
