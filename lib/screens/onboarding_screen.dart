@@ -79,6 +79,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   bool _isAudioLoaded = false;
 
   @override
+  void initState() {
+    _assetsAudioPlayer.playlistFinished.listen((finished) {
+      if (finished) {
+        setState(() {
+          _isAudioPlaying = false;
+        });
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,

@@ -1,6 +1,6 @@
 name: material_themes_widgets
 description: Widgets that use the Material Themes Manager by default in order to allow for theme udpates
-version: 1.5.2
+version: 1.5.3
 homepage: http://playtcubed.com
 
 environment:
