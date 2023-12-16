@@ -1,3 +1,4 @@
+## [1.6.0]  - Regenerated package and example with MacOS Sonoma 14.1 on Apple M2 Pro with Flutter 3.16.0-19.0.pre, Dart 3.3.0 (build 3.3.0-71.0.dev, and DevTools 2.28.1 
 ## [1.5.3]  - Fixed bug: audio player button always showing playing
 ## [1.5.2]  - Updated assets_audio_player to 3.1.1
 ## [1.5.1]  - Using onTapForgotPassword callback for, um, on forgot password ;p
