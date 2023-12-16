@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
@@ -7,6 +9,10 @@ import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatefulWidget {
+
+  static const SimpleClipPath DEFAULT_IMAGE_CLIP_PATH = SimpleClipPath(
+      type: ClipPathType.ROUNDED_CORNERS
+  );
 
   final BackgroundGradientType backgroundGradientType;
   final ClipPathType clipPathType;
@@ -25,7 +31,7 @@ class OnboardingScreen extends StatefulWidget {
   final TextAlign descriptionTextAlign;
   final MainAxisAlignment descriptionMainAxisAlignment;
   final String? imageUrl;
-  late SimpleClipPath? imageClipPath;
+  final SimpleClipPath? imageClipPath;
   final BlendMode? imageBlendMode;
   final Color? imageBlendColor;
   final int imageFlex;
@@ -35,7 +41,8 @@ class OnboardingScreen extends StatefulWidget {
   final EdgeInsetsGeometry screenPadding;
   final String? audioUrl;
 
-  OnboardingScreen({
+  const OnboardingScreen({
+    super.key,
     this.title,
     this.titleFlex = 1,
     this.titleType = ThemeGroupType.MOP,
@@ -53,7 +60,7 @@ class OnboardingScreen extends StatefulWidget {
     this.imageUrl,
     this.backgroundGradientType = BackgroundGradientType.PRIMARY,
     this.clipPathType = ClipPathType.NONE,
-    SimpleClipPath? imageClipPath,
+    this.imageClipPath = DEFAULT_IMAGE_CLIP_PATH,
     this.imageBlendMode,
     this.imageBlendColor,
     this.imageFlex = 4,
@@ -62,17 +69,13 @@ class OnboardingScreen extends StatefulWidget {
     this.imageFit = BoxFit.fitHeight,
     this.screenPadding = const EdgeInsets.all(20.0),
     this.audioUrl
-  }) {
-    this.imageClipPath = imageClipPath ?? SimpleClipPath(
-      type: ClipPathType.ROUNDED_CORNERS
-    );
-  }
+  });
 
-
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  @override
+  OnboardingScreenState createState() => OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class OnboardingScreenState extends State<OnboardingScreen> {
 
   final _assetsAudioPlayer = AssetsAudioPlayer();
   bool _isAudioPlaying = false;
@@ -92,7 +95,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Padding(

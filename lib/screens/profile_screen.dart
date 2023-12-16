@@ -7,9 +7,7 @@ import 'package:material_themes_widgets/utils/validators.dart';
 import 'dart:developer' as developer;
 
 class ProfileScreen extends StatefulWidget {
-
-  final Key? key;
-
+  
   final bool showLabels;
   final ThemeGroupType labelType;
   final Emphasis labelEmphasis;
@@ -78,8 +76,8 @@ class ProfileScreen extends StatefulWidget {
   final bool centerForm;
   final bool isEditMode;
 
-  ProfileScreen({
-    this.key,
+  const ProfileScreen({
+    super.key,
     this.showLabels = true,
     this.labelType = ThemeGroupType.MOP,
     this.labelEmphasis = Emphasis.NONE,
@@ -144,210 +142,147 @@ class ProfileScreen extends StatefulWidget {
   });
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState(
-    key,
-    showLabels,
-    labelType,
-    labelEmphasis,
-    labelTextAlign,
-    prefixIconType,
-    prefixIconEmphasis,
-    textType,
-    textEmphasis,
-    textAlign,
-    valueTextType,
-    valueTextEmphasis,
-    valueTextAlign,
-    hintTextType,
-    hintTextEmphasis,
-    textFieldBackgroundType,
-    email,
-    onEmailChangedCallback,
-    showEmail,
-    password,
-    onPasswordChangedCallback,
-    showPassword,
-    firstName,
-    onFirstNameChangedCallback,
-    showFirstName,
-    lastName,
-    onLastNameChangedCallback,
-    showLastName,
-    tagline,
-    onTaglineChangedCallback,
-    showTagline,
-    pronouns,
-    onPronounsChangedCallback,
-    showPronouns,
-    organization,
-    onOrganizationChangedCallback,
-    showOrganization,
-    address,
-    onAddressChangedCallback,
-    showAddress,
-    city,
-    onCityChangedCallback,
-    showCity,
-    state,
-    onStateChangedCallback,
-    showState,
-    zip,
-    onZipChangedCallback,
-    showZip,
-    onTapLogout,
-    onTapEdit,
-    onTapSave,
-    onTapDelete,
-    doShowLoginRegisterButtons,
-    padding,
-    isHeaderSticky,
-    isFooterSticky,
-    isFooterVertical,
-    headerPadding,
-    footerPadding,
-    centerForm,
-    isEditMode
-  );
+  ProfileScreenState createState() => ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class ProfileScreenState extends State<ProfileScreen> {
 
-  final Key? key;
+  late Key? key;
 
-  final bool showLabels;
-  final ThemeGroupType labelType;
-  final Emphasis labelEmphasis;
-  final TextAlign labelTextAlign;
+  late bool showLabels;
+  late ThemeGroupType labelType;
+  late Emphasis labelEmphasis;
+  late TextAlign labelTextAlign;
 
-  final ThemeGroupType prefixIconType;
-  final Emphasis prefixIconEmphasis;
+  late ThemeGroupType prefixIconType;
+  late Emphasis prefixIconEmphasis;
 
-  final ThemeGroupType textType;
-  final Emphasis textEmphasis;
-  final TextAlign textAlign;
+  late ThemeGroupType textType;
+  late Emphasis textEmphasis;
+  late TextAlign textAlign;
 
-  final ThemeGroupType valueTextType;
-  final Emphasis valueTextEmphasis;
-  final TextAlign valueTextAlign;
+  late ThemeGroupType valueTextType;
+  late Emphasis valueTextEmphasis;
+  late TextAlign valueTextAlign;
 
-  final ThemeGroupType hintTextType;
-  final Emphasis hintTextEmphasis;
-  //TODO final TextAlign hintTextAlign;
+  late ThemeGroupType hintTextType;
+  late Emphasis hintTextEmphasis;
+  //TODO late TextAlign hintTextAlign;
 
-  final ThemeGroupType textFieldBackgroundType;
-  final String email;
-  final ValueChanged<String>? onEmailChangedCallback;
-  final bool showEmail;
-  final String password;
-  final ValueChanged<String>? onPasswordChangedCallback;
-  final bool showPassword;
-  final String firstName;
-  final ValueChanged<String>? onFirstNameChangedCallback;
-  final bool showFirstName;
-  final String lastName;
-  final ValueChanged<String>? onLastNameChangedCallback;
-  final bool showLastName;
-  final String tagline;
-  final ValueChanged<String>? onTaglineChangedCallback;
-  final bool showTagline;
-  final String pronouns;
-  final ValueChanged<String>? onPronounsChangedCallback;
-  final bool showPronouns;
-  final String organization;
-  final ValueChanged<String>? onOrganizationChangedCallback;
-  final bool showOrganization;
-  final String address;
-  final ValueChanged<String>? onAddressChangedCallback;
-  final bool showAddress;
-  final String city;
-  final ValueChanged<String>? onCityChangedCallback;
-  final bool showCity;
-  final String state;
-  final ValueChanged<String>? onStateChangedCallback;
-  final bool showState;
-  final String zip;
-  final ValueChanged<String>? onZipChangedCallback;
-  final bool showZip;
-  final VoidCallback? onTapLogout;
-  final VoidCallback? onTapEdit;
-  final VoidCallback? onTapSave;
-  final VoidCallback? onTapDelete;
-  final bool doShowLoginRegisterButtons;
-  final EdgeInsets padding;
-  final bool isHeaderSticky;
-  final bool isFooterSticky;
-  final bool isFooterVertical;
-  final EdgeInsets headerPadding;
-  final EdgeInsets footerPadding;
-  final bool centerForm;
-  final bool isEditMode;
+  late ThemeGroupType textFieldBackgroundType;
+  late String email;
+  late ValueChanged<String>? onEmailChangedCallback;
+  late bool showEmail;
+  late String password;
+  late ValueChanged<String>? onPasswordChangedCallback;
+  late bool showPassword;
+  late String firstName;
+  late ValueChanged<String>? onFirstNameChangedCallback;
+  late bool showFirstName;
+  late String lastName;
+  late ValueChanged<String>? onLastNameChangedCallback;
+  late bool showLastName;
+  late String tagline;
+  late ValueChanged<String>? onTaglineChangedCallback;
+  late bool showTagline;
+  late String pronouns;
+  late ValueChanged<String>? onPronounsChangedCallback;
+  late bool showPronouns;
+  late String organization;
+  late ValueChanged<String>? onOrganizationChangedCallback;
+  late bool showOrganization;
+  late String address;
+  late ValueChanged<String>? onAddressChangedCallback;
+  late bool showAddress;
+  late String city;
+  late ValueChanged<String>? onCityChangedCallback;
+  late bool showCity;
+  late String state;
+  late ValueChanged<String>? onStateChangedCallback;
+  late bool showState;
+  late String zip;
+  late ValueChanged<String>? onZipChangedCallback;
+  late bool showZip;
+  late VoidCallback? onTapLogout;
+  late VoidCallback? onTapEdit;
+  late VoidCallback? onTapSave;
+  late VoidCallback? onTapDelete;
+  late bool doShowLoginRegisterButtons;
+  late EdgeInsets padding;
+  late bool isHeaderSticky;
+  late bool isFooterSticky;
+  late bool isFooterVertical;
+  late EdgeInsets headerPadding;
+  late EdgeInsets footerPadding;
+  late bool centerForm;
+  late bool isEditMode;
 
   final _formKey = GlobalKey<FormState>();
 
-  _ProfileScreenState(
-    this.key,
-    this.showLabels,
-    this.labelType,
-    this.labelEmphasis,
-    this.labelTextAlign,
-    this.prefixIconType,
-    this.prefixIconEmphasis,
-    this.textType,
-    this.textEmphasis,
-    this.textAlign,
-    this.valueTextType,
-    this.valueTextEmphasis,
-    this.valueTextAlign,
-    this.hintTextType,
-    this.hintTextEmphasis,
-    this.textFieldBackgroundType,
-    this.email,
-    this.onEmailChangedCallback,
-    this.showEmail,
-    this.password,
-    this.onPasswordChangedCallback,
-    this.showPassword,
-    this.firstName,
-    this.onFirstNameChangedCallback,
-    this.showFirstName,
-    this.lastName,
-    this.onLastNameChangedCallback,
-    this.showLastName,
-    this.tagline,
-    this.onTaglineChangedCallback,
-    this.showTagline,
-    this.pronouns,
-    this.onPronounsChangedCallback,
-    this.showPronouns,
-    this.organization,
-    this.onOrganizationChangedCallback,
-    this.showOrganization,
-    this.address,
-    this.onAddressChangedCallback,
-    this.showAddress,
-    this.city,
-    this.onCityChangedCallback,
-    this.showCity,
-    this.state,
-    this.onStateChangedCallback,
-    this.showState,
-    this.zip,
-    this.onZipChangedCallback,
-    this.showZip,
-    this.onTapLogout,
-    this.onTapEdit,
-    this.onTapSave,
-    this.onTapDelete,
-    this.doShowLoginRegisterButtons,
-    this.padding,
-    this.isHeaderSticky,
-    this.isFooterSticky,
-    this.isFooterVertical,
-    this.headerPadding,
-    this.footerPadding,
-    this.centerForm,
-    this.isEditMode
-  );
+  ProfileScreenState() {
+    key = widget.key;
+    showLabels = widget.showLabels;
+    labelType = widget.labelType;
+    labelEmphasis = widget.labelEmphasis;
+    labelTextAlign = widget.labelTextAlign;
+    prefixIconType = widget.prefixIconType;
+    prefixIconEmphasis = widget.prefixIconEmphasis;
+    textType = widget.textType;
+    textEmphasis = widget.textEmphasis;
+    textAlign = widget.textAlign;
+    valueTextType = widget.valueTextType;
+    valueTextEmphasis = widget.valueTextEmphasis;
+    valueTextAlign = widget.valueTextAlign;
+    hintTextType = widget.hintTextType;
+    hintTextEmphasis = widget.hintTextEmphasis;
+    textFieldBackgroundType = widget.textFieldBackgroundType;
+    email = widget.email;
+    onEmailChangedCallback = widget.onEmailChangedCallback;
+    showEmail = widget.showEmail;
+    password = widget.password;
+    onPasswordChangedCallback = widget.onPasswordChangedCallback;
+    showPassword = widget.showPassword;
+    firstName = widget.firstName;
+    onFirstNameChangedCallback = widget.onFirstNameChangedCallback;
+    showFirstName = widget.showFirstName;
+    lastName = widget.lastName;
+    onLastNameChangedCallback = widget.onLastNameChangedCallback;
+    showLastName = widget.showLastName;
+    tagline = widget.tagline;
+    onTaglineChangedCallback = widget.onTaglineChangedCallback;
+    showTagline = widget.showTagline;
+    pronouns = widget.pronouns;
+    onPronounsChangedCallback = widget.onPronounsChangedCallback;
+    showPronouns = widget.showPronouns;
+    organization = widget.organization;
+    onOrganizationChangedCallback = widget.onOrganizationChangedCallback;
+    showOrganization = widget.showOrganization;
+    address = widget.address;
+    onAddressChangedCallback = widget.onAddressChangedCallback;
+    showAddress = widget.showAddress;
+    city = widget.city;
+    onCityChangedCallback = widget.onCityChangedCallback;
+    showCity = widget.showCity;
+    state = widget.state;
+    onStateChangedCallback = widget.onStateChangedCallback;
+    showState = widget.showState;
+    zip = widget.zip;
+    onZipChangedCallback = widget.onZipChangedCallback;
+    showZip = widget.showZip;
+    onTapLogout = widget.onTapLogout;
+    onTapEdit = widget.onTapEdit;
+    onTapSave = widget.onTapSave;
+    onTapDelete = widget.onTapDelete;
+    doShowLoginRegisterButtons = widget.doShowLoginRegisterButtons;
+    padding = widget.padding;
+    isHeaderSticky = widget.isHeaderSticky;
+    isFooterSticky = widget.isFooterSticky;
+    isFooterVertical = widget.isFooterVertical;
+    headerPadding = widget.headerPadding;
+    footerPadding = widget.footerPadding;
+    centerForm = widget.centerForm;
+    isEditMode = widget.isEditMode;
+  }
 
   Widget _buildHeader() {
     return Padding(
@@ -357,13 +292,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildContent() {
-    return Container(
-      child: Form(
-        key: _formKey,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: centerForm ? Center(child: _buildScrollView()) : _buildScrollView(),
-        ),
+    return Form(
+      key: _formKey,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: centerForm ? Center(child: _buildScrollView()) : _buildScrollView(),
       ),
     );
   }

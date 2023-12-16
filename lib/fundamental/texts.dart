@@ -7,7 +7,6 @@ abstract class ThemedText extends StatelessWidget {
   final String text;
   late final ThemeGroupType type;
   late final Emphasis emphasis;
-  final Key? key;
   final StrutStyle? strutStyle;
   final TextAlign? textAlign;
   final TextDirection? textDirection;
@@ -22,9 +21,9 @@ abstract class ThemedText extends StatelessWidget {
 
   ThemedText(this.text,
       {
+        super.key,
         type,
         emphasis,
-        this.key,
         this.strutStyle,
         this.textAlign,
         this.textDirection,

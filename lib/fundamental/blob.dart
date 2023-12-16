@@ -4,7 +4,12 @@ class ThemedBlob extends StatelessWidget {
   final double scale;
   final Color color;
 
-  ThemedBlob({required this.color, this.rotation = 0, this.scale = 1});
+  const ThemedBlob({
+    super.key,
+    required this.color,
+    this.rotation = 0,
+    this.scale = 1
+  });
 
   @override
   Widget build(BuildContext context) {

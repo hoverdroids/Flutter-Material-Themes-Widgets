@@ -15,7 +15,8 @@ class ThemedPlayButton extends StatefulWidget {
   final VoidCallback onPressed;
   final double widthHeight;
 
-  ThemedPlayButton({
+  const ThemedPlayButton({
+    super.key,
     required this.onPressed,
     this.isPlaying = false,
     this.playIcon = const Icon(Icons.play_arrow),
@@ -24,10 +25,10 @@ class ThemedPlayButton extends StatefulWidget {
   });
 
   @override
-  _ThemedPlayButtonState createState() => _ThemedPlayButtonState();
+  ThemedPlayButtonState createState() => ThemedPlayButtonState();
 }
 
-class _ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProviderStateMixin {
+class ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProviderStateMixin {
 
   //_ThemedPlayButtonState({this.widthHeight = 80});
 

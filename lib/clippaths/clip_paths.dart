@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 //Derived from: https://www.developerlibs.com/2019/08/flutter-draw-custom-shaps-clip-path.html
@@ -17,14 +19,14 @@ enum ClipPathType {
 
 class SimpleClipPath extends CustomClipper<Path> {
 
-  ClipPathType type;
-  double radius;
-  double topLeftPercentOfHeight;
-  double bottomLeftPercentOfHeight;
-  double topRightPercentOfHeight;
-  double bottomRightPercentOfHeight;
+  final ClipPathType type;
+  final double radius;
+  final double topLeftPercentOfHeight;
+  final double bottomLeftPercentOfHeight;
+  final double topRightPercentOfHeight;
+  final double bottomRightPercentOfHeight;
 
-  SimpleClipPath({
+  const SimpleClipPath({
     this.type = ClipPathType.ROUNDED_DOWN,
     this.radius = 20.0,
     this.topLeftPercentOfHeight = 0.0,

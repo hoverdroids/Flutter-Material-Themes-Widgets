@@ -10,7 +10,7 @@ class ThemedCard extends Card {
   final ThemeGroupType type;
   final ElevationLevel elevationLevel;
   
-  ThemedCard({
+  const ThemedCard({
     key,
     this.type = ThemeGroupType.MOM,
     shadowColor,
@@ -71,7 +71,7 @@ class ThemedListTileCard extends Card {
   final Emphasis trailingEmphasis;
   final VoidCallback? trailingIconClickedCallback;
 
-  ThemedListTileCard({
+  const ThemedListTileCard({
     key,
     this.type = ThemeGroupType.MOM,
     this.elevationLevel = ElevationLevel.LOW,

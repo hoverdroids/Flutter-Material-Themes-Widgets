@@ -41,7 +41,8 @@ class SimpleClipPathDrawer extends StatelessWidget {
 
   //TODO - show tab or a number of pixels when closed, to indicate a drawer exists
 
-  SimpleClipPathDrawer({
+  const SimpleClipPathDrawer({
+    super.key,
     this.child,
     this.padding = const EdgeInsets.all(0.0),
     this.clipPathType = ClipPathType.BOILER_PLATE,
@@ -77,16 +78,18 @@ class SimpleClipPathDrawer extends StatelessWidget {
     Size mediaQuery = MediaQuery.of(context).size;
     double calculatedWidth = mediaQuery.width * widthPercent;
     
-    return Container(
-      width: width != null ? width : calculatedWidth,
+    return SizedBox(
+      width: width ?? calculatedWidth,
       child: Padding(
+        padding: padding,
         child: ClipPath(
+          clipper: SimpleClipPath(type: clipPathType),
           child: Drawer(
             child: Stack(
               children: [
                 context.watch<MaterialThemesManager>().getBackgroundGradient(backgroundGradientType),
                 if(child != null) ... [ child! ],
-                if(showAppBar) ... [ 
+                if(showAppBar) ... [
                   IconTitleIconFakeAppBar(
                     leftIcon: leftIcon,
                     showLeftIcon: showLeftIcon,
@@ -113,9 +116,7 @@ class SimpleClipPathDrawer extends StatelessWidget {
               ],
             ),
           ),
-          clipper: SimpleClipPath(type: clipPathType),
         ),
-        padding: padding,
       ),
     );
   }

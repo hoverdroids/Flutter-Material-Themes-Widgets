@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 //Intended to be a short list of equally distributed items with an image at the top
 class HeaderList extends StatefulWidget {
 
-  final Key? key;
   final int headerFlex;
   final AlignmentGeometry headerAlignment;
   final String? imageUrl;
@@ -52,10 +51,10 @@ class HeaderList extends StatefulWidget {
   //TODO - can use circular avatar and polygon clipper for the avatar shape
   //also look at https://pub.dev/packages/polygon_clipper
 
-  HeaderList(
+  const HeaderList(
       this.listItems,
       {
-        this.key,
+        super.key,
         this.imageUrl,
         this.imageBlendColor,
         this.imageBlendMode,
@@ -95,133 +94,91 @@ class HeaderList extends StatefulWidget {
   );
 
   @override
-  _HeaderListState createState() => _HeaderListState(
-    key,
-    headerFlex,
-    headerAlignment,
-    imageUrl,
-    imageBlendMode,
-    imageBlendColor,
-    headerGradientType,
-    headerPadding,
-    avatarPadding,
-    imageClipPath,
-    listItems,
-    itemsFlex,
-    listPadding,
-    cardType,
-    cardElevationLevel,
-    leadingIconType,
-    leadingEmphasis,
-    titleType,
-    titleEmphasis,
-    subtitleType,
-    subtitleEmphasis,
-    trailingIconType,
-    trailingEmphasis,
-    isHeaderSticky,
-    isAvatarEnabled,
-    heightBetween,
-    avatarTitle,
-    avatarTitleType,
-    avatarTitleEmphasis,
-    avatarSubtitle,
-    avatarSubtitleType,
-    avatarSubtitleEmphasis,
-    avatarImageUrl,
-    avatarImageBorderWidth,
-    avatarImageRadius,
-    avatarClickedCallback,
-    usePolygonAvatar
-  );
+  HeaderListState createState() => HeaderListState();
 }
 
-class _HeaderListState extends State<HeaderList> {
+class HeaderListState extends State<HeaderList> {
 
-  final Key? key;
-  final List<ListItemModel> listItems;
-  final String? imageUrl;
-  final BlendMode? imageBlendMode;
-  final Color? imageBlendColor;
-  final BackgroundGradientType? headerGradientType;
-  EdgeInsetsGeometry? headerPadding;
-  EdgeInsetsGeometry? avatarPadding;
-  SimpleClipPath? imageClipPath;
-  final int headerFlex;
-  final AlignmentGeometry headerAlignment;
-  final int itemsFlex;
-  EdgeInsetsGeometry? listPadding;
-  final ThemeGroupType cardType;
-  final ElevationLevel cardElevationLevel;
-  final ThemeGroupType leadingIconType;
-  final Emphasis leadingEmphasis;
-  final ThemeGroupType titleType;
-  final Emphasis titleEmphasis;
-  final ThemeGroupType subtitleType;
-  final Emphasis subtitleEmphasis;
-  final ThemeGroupType trailingIconType;
-  final Emphasis trailingEmphasis;
-  final bool isHeaderSticky;
-  final bool isAvatarEnabled;
-  final double? heightBetween;
-  final String avatarTitle;
-  final ThemeGroupType avatarTitleType;
-  final Emphasis avatarTitleEmphasis;
-  final String avatarSubtitle;
-  final ThemeGroupType avatarSubtitleType;
-  final Emphasis avatarSubtitleEmphasis;
-  final String avatarImageUrl;
-  final double avatarImageBorderWidth;
-  final double avatarImageRadius;
-  final VoidCallback? avatarClickedCallback;
-  final bool usePolygonAvatar;
+  late final Key? key;
+  late List<ListItemModel> listItems;
+  late String? imageUrl;
+  late BlendMode? imageBlendMode;
+  late Color? imageBlendColor;
+  late BackgroundGradientType? headerGradientType;
+  late EdgeInsetsGeometry? headerPadding;
+  late EdgeInsetsGeometry? avatarPadding;
+  late SimpleClipPath? imageClipPath;
+  late int headerFlex;
+  late AlignmentGeometry headerAlignment;
+  late int itemsFlex;
+  late EdgeInsetsGeometry? listPadding;
+  late ThemeGroupType cardType;
+  late ElevationLevel cardElevationLevel;
+  late ThemeGroupType leadingIconType;
+  late Emphasis leadingEmphasis;
+  late ThemeGroupType titleType;
+  late Emphasis titleEmphasis;
+  late ThemeGroupType subtitleType;
+  late Emphasis subtitleEmphasis;
+  late ThemeGroupType trailingIconType;
+  late Emphasis trailingEmphasis;
+  late bool isHeaderSticky;
+  late bool isAvatarEnabled;
+  late double? heightBetween;
+  late String avatarTitle;
+  late ThemeGroupType avatarTitleType;
+  late Emphasis avatarTitleEmphasis;
+  late String avatarSubtitle;
+  late ThemeGroupType avatarSubtitleType;
+  late Emphasis avatarSubtitleEmphasis;
+  late String avatarImageUrl;
+  late double avatarImageBorderWidth;
+  late double avatarImageRadius;
+  late VoidCallback? avatarClickedCallback;
+  late bool usePolygonAvatar;
 
-  _HeaderListState(
-    this.key,
-    this.headerFlex,
-    this.headerAlignment,
-    this.imageUrl,
-    this.imageBlendMode,
-    this.imageBlendColor,
-    this.headerGradientType,
-    this.headerPadding,
-    this.avatarPadding,
-    this.imageClipPath,
-    this.listItems,
-    this.itemsFlex,
-    this.listPadding,
-    this.cardType,
-    this.cardElevationLevel,
-    this.leadingIconType,
-    this.leadingEmphasis,
-    this.titleType,
-    this.titleEmphasis,
-    this.subtitleType,
-    this.subtitleEmphasis,
-    this.trailingIconType,
-    this.trailingEmphasis,
-    this.isHeaderSticky,
-    this.isAvatarEnabled,
-    this.heightBetween,
-    this.avatarTitle,
-    this.avatarTitleType,
-    this.avatarTitleEmphasis,
-    this.avatarSubtitle,
-    this.avatarSubtitleType,
-    this.avatarSubtitleEmphasis,
-    this.avatarImageUrl,
-    this.avatarImageBorderWidth,
-    this.avatarImageRadius,
-    this.avatarClickedCallback,
-    this.usePolygonAvatar
-  ){
-    headerPadding = headerPadding ?? const EdgeInsets.all(0.0);
+  HeaderListState(){
+    key = widget.key;
+    headerFlex = widget.headerFlex;
+    headerAlignment = widget.headerAlignment;
+    imageUrl = widget.imageUrl;
+    imageBlendMode = widget.imageBlendMode;
+    imageBlendColor = widget.imageBlendColor;
+    headerGradientType = widget.headerGradientType;
+    listItems = widget.listItems;
+    itemsFlex = widget.itemsFlex;
+    cardType = widget.cardType;
+    cardElevationLevel = widget.cardElevationLevel;
+    leadingIconType = widget.leadingIconType;
+    leadingEmphasis = widget.leadingEmphasis;
+    titleType = widget.titleType;
+    titleEmphasis = widget.titleEmphasis;
+    subtitleType = widget.subtitleType;
+    subtitleEmphasis = widget.subtitleEmphasis;
+    trailingIconType = widget.trailingIconType;
+    trailingEmphasis = widget.trailingEmphasis;
+    isHeaderSticky = widget.isHeaderSticky;
+    isAvatarEnabled = widget.isAvatarEnabled;
+    heightBetween = widget.heightBetween;
+    avatarTitle = widget.avatarTitle;
+    avatarTitleType = widget.avatarTitleType;
+    avatarTitleEmphasis = widget.avatarTitleEmphasis;
+    avatarSubtitle = widget.avatarSubtitle;
+    avatarSubtitleType = widget.avatarSubtitleType;
+    avatarSubtitleEmphasis = widget.avatarSubtitleEmphasis;
+    avatarImageUrl = widget.avatarImageUrl;
+    avatarImageBorderWidth = widget.avatarImageBorderWidth;
+    avatarImageRadius = widget.avatarImageRadius;
+    avatarClickedCallback = widget.avatarClickedCallback;
+    usePolygonAvatar = widget.usePolygonAvatar;
+    
+    headerPadding = widget.headerPadding ?? const EdgeInsets.all(0.0);
 
-    avatarPadding = avatarPadding ?? const EdgeInsets.all(0.0);
+    avatarPadding = widget.avatarPadding ?? const EdgeInsets.all(0.0);
 
-    listPadding = listPadding ?? const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0);
+    listPadding = widget.listPadding ?? const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0);
 
-    imageClipPath = imageClipPath ?? SimpleClipPath(
+    imageClipPath = widget.imageClipPath ?? SimpleClipPath(
         type: ClipPathType.DIAGONAL,
         bottomLeftPercentOfHeight: 80.0,
         bottomRightPercentOfHeight: 30.0
@@ -258,7 +215,7 @@ class _HeaderListState extends State<HeaderList> {
       key: key,
       child: Column(
         children: <Widget>[
-          Container(
+          SizedBox(
             height: mediaQuery.height * headerFlex / (headerFlex + itemsFlex),
             child: _createHeader(),
           ),
@@ -361,7 +318,7 @@ class _HeaderListState extends State<HeaderList> {
   }
 
   Widget _createPolygonAvatar() {
-    return Container(
+    return SizedBox(
       width: avatarImageRadius * 2.0,
       child: Stack(
         alignment: Alignment.center,
@@ -372,7 +329,7 @@ class _HeaderListState extends State<HeaderList> {
             rotate: 90.0,
             child: Container(color: context.watch<MaterialThemesManager>().colorPalette().primary),
           ),
-          Container(
+          SizedBox(
             width: (avatarImageRadius - avatarImageBorderWidth) * 2.0,
             child: ClipPolygon(
               sides: 6,
@@ -398,27 +355,25 @@ class _HeaderListState extends State<HeaderList> {
   Widget _createList(bool isInScrollview) {
     return  ListView.builder(
       physics: isInScrollview ? const NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
-      itemBuilder: (context, index) => Container(
-          child: ThemedListTileCard(
-            type: cardType,
-            elevationLevel: cardElevationLevel,
-            itemClickedCallback: listItems[index].itemClickedCallback,
-            itemLongClickedCallback: listItems[index].itemLongClickedCallback,
-            leadingIcon: listItems[index].leadingIcon,
-            leadingType: leadingIconType,
-            leadingEmphasis: leadingEmphasis,
-            leadingIconClickedCallback: listItems[index].leadingIconClickedCallback,
-            title: listItems[index].title,
-            titleType: titleType,
-            titleEmphasis: titleEmphasis,
-            subtitle: listItems[index].subtitle,
-            subtitleType: subtitleType,
-            subtitleEmphasis: subtitleEmphasis,
-            trailingIcon: listItems[index].trailingIcon,
-            trailingType: trailingIconType,
-            trailingEmphasis: trailingEmphasis,
-            trailingIconClickedCallback: listItems[index].trailingIconClickedCallback,
-          )
+      itemBuilder: (context, index) => ThemedListTileCard(
+        type: cardType,
+        elevationLevel: cardElevationLevel,
+        itemClickedCallback: listItems[index].itemClickedCallback,
+        itemLongClickedCallback: listItems[index].itemLongClickedCallback,
+        leadingIcon: listItems[index].leadingIcon,
+        leadingType: leadingIconType,
+        leadingEmphasis: leadingEmphasis,
+        leadingIconClickedCallback: listItems[index].leadingIconClickedCallback,
+        title: listItems[index].title,
+        titleType: titleType,
+        titleEmphasis: titleEmphasis,
+        subtitle: listItems[index].subtitle,
+        subtitleType: subtitleType,
+        subtitleEmphasis: subtitleEmphasis,
+        trailingIcon: listItems[index].trailingIcon,
+        trailingType: trailingIconType,
+        trailingEmphasis: trailingEmphasis,
+        trailingIconClickedCallback: listItems[index].trailingIconClickedCallback,
       ),
       shrinkWrap: true,
       itemCount: listItems.length,

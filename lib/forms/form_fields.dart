@@ -18,7 +18,8 @@ class ThemedLabelValue extends StatelessWidget {
   final Emphasis textEmphasis;
   final TextAlign textAlign;
 
-  ThemedLabelValue({
+  const ThemedLabelValue({
+    super.key,
     this.showLabel = true,
     this.labelText = "",
     this.labelType = ThemeGroupType.MOM,
@@ -70,7 +71,8 @@ class ThemedEditableLabelValue extends StatefulWidget {
   final ValueChanged<String>? onStringChangedCallback;
   final FormFieldValidator<String>? validator;
 
-  ThemedEditableLabelValue({
+  const ThemedEditableLabelValue({
+    super.key,
     this.showLabel = true,
     this.labelText = "",
     this.labelType = ThemeGroupType.MOM,
@@ -91,78 +93,60 @@ class ThemedEditableLabelValue extends StatefulWidget {
     this.validator
   });
 
-  _ThemedEditableLabelValueState createState() => _ThemedEditableLabelValueState(
-      this.showLabel,
-      this.labelText,
-      this.labelType,
-      this.labelEmphasis,
-      this.labelTextAlign,
-      this.prefixIcon,
-      this.prefixIconType,
-      this.prefixIconEmphasis,
-      this.text,
-      this.textType,
-      this.textEmphasis,
-      this.obscureText,
-      this.hintText,
-      this.hintTextType,
-      this.hintTextEmphasis,
-      this.backgroundType,
-      this.onStringChangedCallback,
-      this.validator
-  );
+  @override
+  ThemedEditableLabelValueState createState() => ThemedEditableLabelValueState();
 }
 
-class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
+class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
 
-  final bool showLabel;
-  final String labelText;
-  final ThemeGroupType labelType;
-  final Emphasis labelEmphasis;
-  final TextAlign labelTextAlign;
+  late bool showLabel;
+  late String labelText;
+  late ThemeGroupType labelType;
+  late Emphasis labelEmphasis;
+  late TextAlign labelTextAlign;
 
-  final IconData? prefixIcon;
-  final ThemeGroupType prefixIconType;
-  final Emphasis prefixIconEmphasis;
+  late IconData? prefixIcon;
+  late ThemeGroupType prefixIconType;
+  late Emphasis prefixIconEmphasis;
 
-  final String? text;
-  final ThemeGroupType textType;
-  final Emphasis textEmphasis;
-  //TODO final TextAlign textAlign;
-  final bool obscureText;
+  late String? text;
+  late ThemeGroupType textType;
+  late Emphasis textEmphasis;
+  //TODO late TextAlign textAlign;
+  late bool obscureText;
 
-  final String? hintText;
-  final ThemeGroupType hintTextType;
-  final Emphasis hintTextEmphasis;
-  //TODO final TextAlign hintTextAlign;
+  late String? hintText;
+  late ThemeGroupType hintTextType;
+  late Emphasis hintTextEmphasis;
+  //TODO late TextAlign hintTextAlign;
 
-  final ThemeGroupType backgroundType;
-  final ValueChanged<String>? onStringChangedCallback;
-  final FormFieldValidator<String>? validator;
+  late ThemeGroupType backgroundType;
+  late ValueChanged<String>? onStringChangedCallback;
+  late FormFieldValidator<String>? validator;
 
-  _ThemedEditableLabelValueState(
-    this.showLabel,
-    this.labelText,
-    this.labelType,
-    this.labelEmphasis,
-    this.labelTextAlign,
-    this.prefixIcon,
-    this.prefixIconType,
-    this.prefixIconEmphasis,
-    this.text,
-    this.textType,
-    this.textEmphasis,
-    this.obscureText,
-    this.hintText,
-    this.hintTextType,
-    this.hintTextEmphasis,
-    this.backgroundType,
-    this.onStringChangedCallback,
-    this.validator
-  );
+  ThemedEditableLabelValueState() {
+    showLabel = widget.showLabel;
+    labelText = widget.labelText;
+    labelType = widget.labelType;
+    labelEmphasis = widget.labelEmphasis;
+    labelTextAlign = widget.labelTextAlign;
+    prefixIcon = widget.prefixIcon;
+    prefixIconType = widget.prefixIconType;
+    prefixIconEmphasis = widget.prefixIconEmphasis;
+    text = widget.text;
+    textType = widget.textType;
+    textEmphasis = widget.textEmphasis;
+    obscureText = widget.obscureText;
+    hintText = widget.hintText;
+    hintTextType = widget.hintTextType;
+    hintTextEmphasis = widget.hintTextEmphasis;
+    backgroundType = widget.backgroundType;
+    onStringChangedCallback = widget.onStringChangedCallback;
+    validator = widget.validator;
+  }
 
   FormFieldValidator<String>? _validator() {
-    return validator != null ? validator : (value) => null;//return null indicates the field is valid
+    return validator ?? (value) => null;//return null indicates the field is valid
   }
 
   void _onChanged(String val) {
@@ -182,9 +166,9 @@ class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
       initialValue: text,
       decoration: InputDecoration(
         border: InputBorder.none,//hide the bottom EditText underscore bar
-        contentPadding: EdgeInsets.only(top: paddingSmall),
+        contentPadding: const EdgeInsets.only(top: paddingSmall),
         prefixIcon: ThemedIcon(prefixIcon, type: prefixIconType, emphasis: prefixIconEmphasis),
-        hintText: hintText != null ? hintText : "",
+        hintText: hintText ?? "",
         hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType, emphasis: hintTextEmphasis).textTheme.titleMedium,
       ),
       validator: _validator(),
@@ -201,8 +185,8 @@ class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
       initialValue: text,
       decoration: InputDecoration(
         border: InputBorder.none,//hide the bottom EditText underscore bar
-        contentPadding: EdgeInsets.symmetric(horizontal: paddingSmall),
-        hintText: hintText != null ? hintText : "",
+        contentPadding: const EdgeInsets.symmetric(horizontal: paddingSmall),
+        hintText: hintText ?? "",
         hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType).textTheme.titleMedium,
       ),
       validator: _validator(),
@@ -222,7 +206,7 @@ class _ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
             decoration: BoxDecoration (//TODO - move this styling to ThemeManager?
               color: context.watch<MaterialThemesManager>().getTheme(backgroundType).scaffoldBackgroundColor,//TODO - this should be card color, right?
               borderRadius: BorderRadius.circular(largeBorderRadius),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black12,
                   blurRadius: 2.0,
