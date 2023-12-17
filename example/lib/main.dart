@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +28,7 @@ class App extends StatelessWidget {
           themeMode: themeManager.getThemeMode(),
           theme: themeManager.getPrimaryLightTheme(),
           darkTheme: themeManager.getPrimaryDarkTheme(),
-          home: HomePage(),
+          home: const HomePage(),
         );
       },
     );

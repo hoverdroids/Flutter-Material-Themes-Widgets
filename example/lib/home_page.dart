@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
@@ -13,20 +15,22 @@ import 'package:material_themes_manager/material_themes_manager.dart';
 import 'dart:developer' as developer;
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
-  _HomePageState createState() => _HomePageState();
+  const HomePage({super.key});
+
+  @override
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedItem = 0;
 
   //TODO - are any/all of the following possible/
   //primary (ie primary cards on primary bg)
   //what you'd expect (ie primary cards on white/black bg)
   //inverted (ie white/black cards on primary bg)
-  var _pageController = PageController();
+  final _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +38,17 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _scaffoldKey,
       body: PageView(
+        onPageChanged: (index){
+          setState(() {
+            _selectedItem = index;
+          });
+        },
+        controller: _pageController,
         children: <Widget>[
           WireframeThemeListItemsPage(_scaffoldKey),
           GrayscaleThemeListItemsPage(_scaffoldKey),
           MainThemeListItemsPage(_scaffoldKey),
-          OnboardingScreen(
+          const OnboardingScreen(
             title: "A Title",
             titleMainAxisAlignment: MainAxisAlignment.end,
             descriptionFlex: 4,
@@ -50,23 +60,25 @@ class _HomePageState extends State<HomePage> {
             imageFit: BoxFit.cover,
           )
         ],
-        onPageChanged: (index){
-          setState(() {
-            _selectedItem = index;
-          });
-        },
-        controller: _pageController,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => developer.log("hey hey"),
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
       drawer: SimpleClipPathDrawer(
         leftIconType: ThemeGroupType.MOI,
         leftIconClickedCallback: () => Navigator.pop(context),
         rightIconType: ThemeGroupType.MOI,
         rightIconClickedCallback: () => _scaffoldKey.currentState?.openEndDrawer(),
+        clipPathType: ClipPathType.ROUNDED_DOWN,
+        title: "yo3",
+        titleType: ThemeGroupType.MOP,
+        showTitle: false,
+        showLeftIcon: true,
+        showRightIcon: true,
+        enableAppbarSafeArea: true,
+        appBarBackgroundColor: Colors.transparent,
         child: HeaderList(
             [
               ListItemModel(title: "Drama Mama", subtitle: "Lookie here", trailingIcon: Icons.more_vert),
@@ -94,14 +106,6 @@ class _HomePageState extends State<HomePage> {
           avatarClickedCallback: () => _scaffoldKey.currentState?.openEndDrawer(),
           //usePolygonAvatar: true,
         ),
-        clipPathType: ClipPathType.ROUNDED_DOWN,
-        title: "yo3",
-        titleType: ThemeGroupType.MOP,
-        showTitle: false,
-        showLeftIcon: true,
-        showRightIcon: true,
-        enableAppbarSafeArea: true,
-        appBarBackgroundColor: Colors.transparent,
         //padding: EdgeInsets.only(bottom: 0),
         //titleTextAlign: TextAlign.start,
         //padding: EdgeInsets.all(20.0),
@@ -111,10 +115,13 @@ class _HomePageState extends State<HomePage> {
         leftIconClickedCallback: () => Navigator.pop(context),
         rightIcon: Icons.edit,
         rightIconType: ThemeGroupType.MOP,
+        //padding: EdgeInsets.all(40.0),
+        clipPathType: ClipPathType.NONE,
+        backgroundGradientType: BackgroundGradientType.PRIMARY,
         child: SafeArea(
           child: ProfileScreen(
-            onEmailChangedCallback: (value) => { developer.log("Email changed" + value) },
-            onPasswordChangedCallback: (value) => { developer.log("Password changed" + value) },
+            onEmailChangedCallback: (value) => { developer.log("Email changed$value") },
+            onPasswordChangedCallback: (value) => { developer.log("Password changed$value") },
             onTapEdit: () => developer.log("On tap Edit2"),
             onTapSave: () => developer.log("on tap save2"),
             isFooterVertical: false,
@@ -133,9 +140,6 @@ class _HomePageState extends State<HomePage> {
             zip: "81203"
           )
         ),
-        //padding: EdgeInsets.all(40.0),
-        clipPathType: ClipPathType.NONE,
-        backgroundGradientType: BackgroundGradientType.PRIMARY,
       ),
       /*bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
