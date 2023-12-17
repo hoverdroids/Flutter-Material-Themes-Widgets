@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 class ThemedSwitch extends StatelessWidget {
 
   final ThemeGroupType type;
-  final Key? key;
   final bool value;
   final ValueChanged<bool>? onChanged;
   //final activeColor;
@@ -25,8 +24,8 @@ class ThemedSwitch extends StatelessWidget {
   final FocusNode? focusNode;
   final bool? autofocus;
 
-  ThemedSwitch({
-    this.key,
+  const ThemedSwitch({
+    super.key,
     required this.value,
     required this.onChanged,
     this.type = ThemeGroupType.MOM,

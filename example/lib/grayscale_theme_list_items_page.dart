@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +13,7 @@ class GrayscaleThemeListItemsPage extends StatelessWidget {
 
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  GrayscaleThemeListItemsPage(this.scaffoldKey);
+  const GrayscaleThemeListItemsPage(this.scaffoldKey, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +37,11 @@ class GrayscaleThemeListItemsPage extends StatelessWidget {
             )
           ],
         ),
-        body: Container(
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, pos) {
-              return ThemedListTileCard(title: "Title $pos", subtitle: "Subtitle $pos");
-            },
-          ),
+        body: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, pos) {
+            return ThemedListTileCard(title: "Title $pos", subtitle: "Subtitle $pos");
+          },
         )
     );
   }

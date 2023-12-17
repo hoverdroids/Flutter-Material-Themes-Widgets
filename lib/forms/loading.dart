@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 
 class Loading extends StatelessWidget {
 
+  const Loading({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: SpinKitChasingDots(
-          color: context.watch<MaterialThemesManager>().colorPalette().secondary,
-          size: 50.0,
-        ),
+    return Center(
+      child: SpinKitChasingDots(
+        color: context.watch<MaterialThemesManager>().colorPalette().secondary,
+        size: 50.0,
       ),
     );
   }

@@ -30,7 +30,8 @@ class IconTitleIconFakeAppBar extends StatelessWidget {
 
   final bool enableSafeArea;
 
-  IconTitleIconFakeAppBar({
+  const IconTitleIconFakeAppBar({
+    super.key,
     this.leftIcon = Icons.menu,
     this.showLeftIcon = true,
     this.leftIconClickedCallback,

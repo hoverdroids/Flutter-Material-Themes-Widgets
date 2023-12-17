@@ -6,9 +6,7 @@ import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_widgets/utils/validators.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
-
-  final Key? key;
-
+  
   final bool showLabels;
   final ThemeGroupType labelType;
   final Emphasis labelEmphasis;
@@ -29,9 +27,9 @@ class LoginRegisterScreen extends StatefulWidget {
   final ThemeGroupType textFieldBackgroundType;
   final bool showForgots;
   final ValueChanged<String>? onEmailChangedCallback;
-  bool showEmail;
+  final bool showEmail;
   final ValueChanged<String>? onPasswordChangedCallback;
-  bool showPassword;
+  final bool showPassword;
   final VoidCallback? onTapRegister;
   final VoidCallback? onTapLogin;
   final VoidCallback? onTapForgotPassword;
@@ -42,8 +40,8 @@ class LoginRegisterScreen extends StatefulWidget {
   final bool centerForm;
   final bool isLogin;
 
-  LoginRegisterScreen({
-    this.key,
+  const LoginRegisterScreen({
+    super.key,
     this.showLabels = true,
     this.labelType = ThemeGroupType.MOP,
     this.labelEmphasis = Emphasis.NONE,
@@ -70,106 +68,79 @@ class LoginRegisterScreen extends StatefulWidget {
     this.footerPadding = const EdgeInsets.all(paddingMini),
     this.centerForm = true,
     this.isLogin = true
-  }): super();
+  });
 
   @override
-  _LoginRegisterScreenState createState() => _LoginRegisterScreenState(
-    key,
-    showLabels,
-    labelType,
-    labelEmphasis,
-    labelTextAlign,
-    prefixIconType,
-    prefixIconEmphasis,
-    textType,
-    textEmphasis,
-    hintTextType,
-    hintTextEmphasis,
-    textFieldBackgroundType,
-    showForgots,
-    onEmailChangedCallback,
-    showEmail,
-    onPasswordChangedCallback,
-    showPassword,
-    onTapRegister,
-    onTapLogin,
-    onTapForgotPassword,
-    screenTitle,
-    padding,
-    headerPadding,
-    footerPadding,
-    centerForm,
-    isLogin
-  );
+  LoginRegisterScreenState createState() => LoginRegisterScreenState();
 }
 
-class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
+class LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
-  final Key? key;
+  late Key? key;
 
-  final bool showLabels;
-  final ThemeGroupType labelType;
-  final Emphasis labelEmphasis;
-  final TextAlign labelTextAlign;
+  late bool showLabels;
+  late ThemeGroupType labelType;
+  late Emphasis labelEmphasis;
+  late TextAlign labelTextAlign;
 
-  final ThemeGroupType prefixIconType;
-  final Emphasis prefixIconEmphasis;
+  late ThemeGroupType prefixIconType;
+  late Emphasis prefixIconEmphasis;
 
-  final ThemeGroupType textType;
-  final Emphasis textEmphasis;
-  //TODO final TextAlign textAlign;
+  late ThemeGroupType textType;
+  late Emphasis textEmphasis;
+  //TODO late TextAlign textAlign;
 
-  final ThemeGroupType hintTextType;
-  final Emphasis hintTextEmphasis;
-  //TODO final TextAlign hintTextAlign;
+  late ThemeGroupType hintTextType;
+  late Emphasis hintTextEmphasis;
+  //TODO late TextAlign hintTextAlign;
 
-  final ThemeGroupType textFieldBackgroundType;
+  late ThemeGroupType textFieldBackgroundType;
 
-  final bool showForgots;
-  final ValueChanged<String>? onEmailChangedCallback;
-  final bool showEmail;
-  final ValueChanged<String>? onPasswordChangedCallback;
-  final bool showPassword;
-  final VoidCallback? onTapRegister;
-  final VoidCallback? onTapLogin;
-  final VoidCallback? onTapForgotPassword;
-  final String? screenTitle;
-  final EdgeInsets padding;
-  final EdgeInsets headerPadding;
-  final EdgeInsets footerPadding;
-  final bool centerForm;
-  final bool isLogin;
+  late bool showForgots;
+  late ValueChanged<String>? onEmailChangedCallback;
+  late bool showEmail;
+  late ValueChanged<String>? onPasswordChangedCallback;
+  late bool showPassword;
+  late VoidCallback? onTapRegister;
+  late VoidCallback? onTapLogin;
+  late VoidCallback? onTapForgotPassword;
+  late String? screenTitle;
+  late EdgeInsets padding;
+  late EdgeInsets headerPadding;
+  late EdgeInsets footerPadding;
+  late bool centerForm;
+  late bool isLogin;
 
   final _formKey = GlobalKey<FormState>();
 
-  _LoginRegisterScreenState(
-    this.key,
-    this.showLabels,
-    this.labelType,
-    this.labelEmphasis,
-    this.labelTextAlign,
-    this.prefixIconType,
-    this.prefixIconEmphasis,
-    this.textType,
-    this.textEmphasis,
-    this.hintTextType,
-    this.hintTextEmphasis,
-    this.textFieldBackgroundType,
-    this.showForgots,
-    this.onEmailChangedCallback,
-    this.showEmail,
-    this.onPasswordChangedCallback,
-    this.showPassword,
-    this.onTapRegister,
-    this.onTapLogin,
-    this.onTapForgotPassword,
-    this.screenTitle,
-    this.padding,
-    this.headerPadding,
-    this.footerPadding,
-    this.centerForm,
-    this.isLogin
-  );
+  LoginRegisterScreenState() {
+    key = widget.key;
+    showLabels = widget.showLabels;
+    labelType = widget.labelType;
+    labelEmphasis = widget.labelEmphasis;
+    labelTextAlign = widget.labelTextAlign;
+    prefixIconType = widget.prefixIconType;
+    prefixIconEmphasis = widget.prefixIconEmphasis;
+    textType = widget.textType;
+    textEmphasis = widget.textEmphasis;
+    hintTextType = widget.hintTextType;
+    hintTextEmphasis = widget.hintTextEmphasis;
+    textFieldBackgroundType = widget.textFieldBackgroundType;
+    showForgots = widget.showForgots;
+    onEmailChangedCallback = widget.onEmailChangedCallback;
+    showEmail = widget.showEmail;
+    onPasswordChangedCallback = widget.onPasswordChangedCallback;
+    showPassword = widget.showPassword;
+    onTapRegister = widget.onTapRegister;
+    onTapLogin = widget.onTapLogin;
+    onTapForgotPassword = widget.onTapForgotPassword;
+    screenTitle = widget.screenTitle;
+    padding = widget.padding;
+    headerPadding = widget.headerPadding;
+    footerPadding = widget.footerPadding;
+    centerForm = widget.centerForm;
+    isLogin = widget.isLogin;
+  }
 
   Widget _buildHeader() {
     var loginRegTitle = isLogin ? "Login" : "Register";

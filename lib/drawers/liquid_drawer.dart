@@ -11,7 +11,8 @@ class ThemedLiquidDrawer extends StatelessWidget {
   final Color? startColor;
   final Color? endColor;
 
-  ThemedLiquidDrawer({
+  const ThemedLiquidDrawer({
+    super.key,
     this.content,
     this.percentOfWidth,
     this.archHeight,
@@ -26,7 +27,7 @@ class ThemedLiquidDrawer extends StatelessWidget {
     return Consumer<MaterialThemesManager> (
       builder: (context, themeManager, child) {
         //Construct a default widget in order to fall back on default values when the optional params aren't passed
-        var defaultLiquidDrawer = LiquidDrawer();
+        var defaultLiquidDrawer = const LiquidDrawer();
       
         return LiquidDrawer(
             content: content != null ? content! : defaultLiquidDrawer.content,
@@ -52,7 +53,8 @@ class LiquidDrawer extends StatefulWidget {
   final Color startColor;
   final Color endColor;
 
-  LiquidDrawer({
+  const LiquidDrawer({
+    super.key,
     this.content,
     this.percentOfWidth = 0.70,
     this.archHeight = 75,
@@ -63,36 +65,28 @@ class LiquidDrawer extends StatefulWidget {
   });
 
   @override
-  _LiquidDrawerState createState() => _LiquidDrawerState(
-    child: content != null ? content! : Container(),//TODO - we can't pass null but can't instantiate the Container as a default because, "the default value of an optional param must be constant"
-    percentOfWidth: percentOfWidth,
-    archHeight: archHeight,
-    showCurvedByDefault: showCurvedByDefault,
-    paint: paint,
-    startColor: startColor,
-    endColor: endColor
-  );
+  LiquidDrawerState createState() => LiquidDrawerState();
 }
 
-class _LiquidDrawerState extends State<LiquidDrawer> {
+class LiquidDrawerState extends State<LiquidDrawer> {
 
-  final Widget child;
-  final double percentOfWidth;
-  final int archHeight;
-  final bool showCurvedByDefault;
-  final Paint? paint;
-  final Color startColor;
-  final Color endColor;
+  late Widget child;
+  late double percentOfWidth;
+  late int archHeight;
+  late bool showCurvedByDefault;
+  late Paint? paint;
+  late Color startColor;
+  late Color endColor;
 
-  _LiquidDrawerState({
-    required this.child,
-    required this.percentOfWidth,
-    required this.archHeight,
-    required this.showCurvedByDefault,
-    required this.paint,
-    required this.startColor,
-    required this.endColor,
-  });
+  LiquidDrawerState() {
+    child = widget.content != null ? widget.content! : const SizedBox();
+    percentOfWidth = widget.percentOfWidth;
+    archHeight = widget.archHeight;
+    showCurvedByDefault = widget.showCurvedByDefault;
+    paint = widget.paint;
+    startColor = widget.startColor;
+    endColor = widget.endColor;
+  }
 
   GlobalKey globalKey = GlobalKey();//TODO - does this need a more descriptive name?
   Offset _offset = const Offset(0,0);
@@ -120,37 +114,37 @@ class _LiquidDrawerState extends State<LiquidDrawer> {
       _offset = Offset(initialDx, initialDy);
     }
 
-    return Container(
+    return SizedBox(
       width: sidebarSize,
       child: Drawer(
         child: SizedBox(
-              width: double.infinity,
-              child: GestureDetector(
-                onPanUpdate: (details) {
-                  setState((){
-                    isScrolling = true;
-                    _offset = details.localPosition;
-                  });
-                },
-                onPanEnd: (details) {
-                  setState(() {
-                    isScrolling = false;
-                    var finalDx = showCurvedByDefault ? sidebarSize + archHeight.toDouble() : 0.0;
-                    var finalDy = showCurvedByDefault ? mediaQuery.height/2 : 0.0;
-                    _offset = Offset(finalDx, finalDy);
-                  });
-                },
-                child: Stack(
-                  children: <Widget>[
-                    CustomPaint(
-                      size: Size(sidebarSize, mediaQuery.height),
-                      painter: DrawerPainter(offset: _offset, archHeight: archHeight, paint: getPaint(sidebarSize, mediaQuery.height), showCurvedByDefault: showCurvedByDefault),
-                    ),
-                    child,
-                  ],
+          width: double.infinity,
+          child: GestureDetector(
+            onPanUpdate: (details) {
+              setState((){
+                isScrolling = true;
+                _offset = details.localPosition;
+              });
+            },
+            onPanEnd: (details) {
+              setState(() {
+                isScrolling = false;
+                var finalDx = showCurvedByDefault ? sidebarSize + archHeight.toDouble() : 0.0;
+                var finalDy = showCurvedByDefault ? mediaQuery.height/2 : 0.0;
+                _offset = Offset(finalDx, finalDy);
+              });
+            },
+            child: Stack(
+              children: <Widget>[
+                CustomPaint(
+                  size: Size(sidebarSize, mediaQuery.height),
+                  painter: DrawerPainter(offset: _offset, archHeight: archHeight, paint: getPaint(sidebarSize, mediaQuery.height), showCurvedByDefault: showCurvedByDefault),
                 ),
-              ),
+                child,
+              ],
             ),
+          ),
+        ),
       ),
     );
   }

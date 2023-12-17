@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +14,7 @@ class WireframeThemeListItemsPage extends StatelessWidget {
 
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  WireframeThemeListItemsPage(this.scaffoldKey);
+  const WireframeThemeListItemsPage(this.scaffoldKey, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,21 +38,19 @@ class WireframeThemeListItemsPage extends StatelessWidget {
             )
           ],
         ),
-        body: Container(
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, pos) {
-              return ThemedCard(
-                elevationLevel: ElevationLevel.FLAT,
-                child: ListTile(
-                  title: ThemedTitle("Title $pos", type: ThemeGroupType.MOM, emphasis: Emphasis.HIGH),
-                  subtitle: ThemedSubTitle("SubTitle $pos", type: ThemeGroupType.MOM),
-                  leading: ThemedIcon(Icons.alarm, type: ThemeGroupType.MOM),
-                  trailing: ThemedIcon(Icons.chevron_right, type: ThemeGroupType.MOM),
-                ),
-              );
-            },
-          ),
+        body: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, pos) {
+            return ThemedCard(
+              elevationLevel: ElevationLevel.FLAT,
+              child: ListTile(
+                title: ThemedTitle("Title $pos", type: ThemeGroupType.MOM, emphasis: Emphasis.HIGH),
+                subtitle: ThemedSubTitle("SubTitle $pos", type: ThemeGroupType.MOM),
+                leading: const ThemedIcon(Icons.alarm, type: ThemeGroupType.MOM),
+                trailing: const ThemedIcon(Icons.chevron_right, type: ThemeGroupType.MOM),
+              ),
+            );
+          },
         )
     );
   }

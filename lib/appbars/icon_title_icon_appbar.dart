@@ -23,6 +23,7 @@ class IconTitleIconAppBar extends AppBar {
   final Emphasis rightIconEmphasis;
 
   IconTitleIconAppBar({
+    super.key,
     this.leftIcon = Icons.menu,
     this.showLeftIcon = true,
     this.leftIconClickedCallback,

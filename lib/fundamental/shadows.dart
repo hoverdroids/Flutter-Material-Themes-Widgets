@@ -7,7 +7,8 @@ class ColorizedShadow extends StatelessWidget {
   final bool isCircular;
   final Color color;
 
-  ColorizedShadow({
+  const ColorizedShadow({
+    super.key,
     required this.child,
     required this.height,
     this.isCircular = false,

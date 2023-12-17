@@ -6,17 +6,23 @@ import 'package:material_themes_widgets/fundamental/texts.dart';
 class ThemedCheckbox extends StatefulWidget {
   final String text;
 
-  ThemedCheckbox({required this.text});
+  const ThemedCheckbox({
+    super.key,
+    required this.text
+  });
 
-  _ThemedCheckboxState createState() => _ThemedCheckboxState(text: text);
+  @override
+  ThemedCheckboxState createState() => ThemedCheckboxState();
 }
 
-class _ThemedCheckboxState extends State<ThemedCheckbox> {
+class ThemedCheckboxState extends State<ThemedCheckbox> {
 
   bool _isChecked = false;
-  final String text;
+  late String text;
 
-  _ThemedCheckboxState({required this.text});
+  ThemedCheckboxState() {
+    text = widget.text;
+  }
 
   @override
   Widget build(BuildContext context) {
