@@ -191,7 +191,6 @@ class HeaderListState extends State<HeaderList> {
 
   Widget _createStickyHeaderList() {
     return  Column(
-      key: key,
       children: <Widget>[
         Flexible(
             flex: headerFlex,
@@ -211,7 +210,6 @@ class HeaderListState extends State<HeaderList> {
     Size mediaQuery = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
-      key: key,
       child: Column(
         children: <Widget>[
           SizedBox(

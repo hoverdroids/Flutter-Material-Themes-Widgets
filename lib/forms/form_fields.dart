@@ -153,9 +153,9 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
   void _onChanged(String val) {
     setState(() => {
       if(onStringChangedCallback != null) {
-        onStringChangedCallback!(val)
+        onStringChangedCallback?.call(val)
       } else {
-        developer.log("Changed:${hintText != null ? hintText! : "Hint Text"}")
+        developer.log("Changed:${hintText ?? 'Hint Text'}")
       }
     });
   }

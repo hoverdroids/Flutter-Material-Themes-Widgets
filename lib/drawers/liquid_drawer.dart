@@ -104,7 +104,7 @@ class LiquidDrawerState extends State<LiquidDrawer> {
   Widget build(BuildContext context) {
 
     Size mediaQuery = MediaQuery.of(context).size;
-    double sidebarSize = mediaQuery.width * percentOfWidth;//TODO - the drawer is always the same width percent!
+    double sidebarSize = mediaQuery.width * percentOfWidth;//TODO - the drawer is always the same width percent
 
     //Build is called each time the paint redraws and hence this offset will override the previous offset that was set in onPanUpdate.
     //So, to start out with a curve while still allowing the user's motion to move the curve, we must add the following check
@@ -149,15 +149,13 @@ class LiquidDrawerState extends State<LiquidDrawer> {
     );
   }
 
-  Paint getPaint(double width, double height) {
-    if (paint != null) {
-      return paint!;
-    } else {
-      //TODO - maybe make it easier to pass specific gradient fields vs making your own gradient
-      //https://stackoverflow.com/questions/60019684/use-gradient-with-paint-object-in-flutter-canvas
-      return Paint()..shader =
-        LinearGradient(colors: [startColor, endColor], begin: Alignment.topCenter, end: Alignment.bottomCenter).createShader(Rect.fromLTRB(0, 0, width, height));
-    }
+  Paint getPaint(double width, double height) => paint ?? createLinearGradient(width, height);
+
+  Paint createLinearGradient(double width, double height) {
+    //TODO - maybe make it easier to pass specific gradient fields vs making your own gradient
+    //https://stackoverflow.com/questions/60019684/use-gradient-with-paint-object-in-flutter-canvas
+    return Paint()..shader =
+    LinearGradient(colors: [startColor, endColor], begin: Alignment.topCenter, end: Alignment.bottomCenter).createShader(Rect.fromLTRB(0, 0, width, height));
   }
 }
 
@@ -174,9 +172,7 @@ class DrawerPainter extends CustomPainter {
     paint,
     required this.showCurvedByDefault
   }) {
-    if (paint != null) {
-      customPaint = paint!;
-    }
+    customPaint = paint ?? customPaint;
   }
 
   double getControlPointX(double width) {
