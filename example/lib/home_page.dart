@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
+import 'package:material_themes_widgets/defaults/dimens.dart';
 import 'package:material_themes_widgets/drawers/simple_clip_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/header_list.dart';
@@ -104,10 +105,10 @@ class HomePageState extends State<HomePage> {
       ListItemModel(leadingIcon: Icons.account_circle),
       ListItemModel(leadingIcon: Icons.access_alarm, itemClickedCallback: () => developer.log("Clicked item 4")),
       ListItemModel(title: "Drama Mama"),
-      ListItemModel(title: "Drama Papa", leadingIcon: Icons.filter_drama),
-      ListItemModel(title: "Your drama", leadingIcon: Icons.add, itemClickedCallback: () => developer.log("Clicked your drama")),
+      ListItemModel(title: "Drama Papa", leadingIcon: Icons.filter_drama, margin: indentationLevel1),
+      ListItemModel(title: "Your drama", leadingIcon: Icons.add, itemClickedCallback: () => developer.log("Clicked your drama"), margin: indentationLevel1),
       ListItemModel(leadingIcon: Icons.account_circle),
-      ListItemModel(leadingIcon: Icons.access_alarm, itemClickedCallback: () => developer.log("Clicked item 4")),
+      ListItemModel(leadingIcon: Icons.access_alarm, itemClickedCallback: () => developer.log("Clicked +item 4")),
     ],
     //cardElevationLevel: ElevationLevel.FLAT,
     imageUrl: "assets/food_1.jpg",
