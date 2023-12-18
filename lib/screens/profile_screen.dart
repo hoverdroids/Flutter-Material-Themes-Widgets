@@ -7,7 +7,7 @@ import 'package:material_themes_widgets/utils/validators.dart';
 import 'dart:developer' as developer;
 
 class ProfileScreen extends StatefulWidget {
-  
+
   final bool showLabels;
   final ThemeGroupType labelType;
   final Emphasis labelEmphasis;
@@ -147,8 +147,6 @@ class ProfileScreen extends StatefulWidget {
 
 class ProfileScreenState extends State<ProfileScreen> {
 
-  late Key? key;
-
   late bool showLabels;
   late ThemeGroupType labelType;
   late Emphasis labelEmphasis;
@@ -219,8 +217,10 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  ProfileScreenState() {
-    key = widget.key;
+  @override
+  void initState() {
+    super.initState();
+    
     showLabels = widget.showLabels;
     labelType = widget.labelType;
     labelEmphasis = widget.labelEmphasis;
@@ -252,7 +252,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     onTaglineChangedCallback = widget.onTaglineChangedCallback;
     showTagline = widget.showTagline;
     pronouns = widget.pronouns;
-    onPronounsChangedCallback = widget.onPronounsChangedCallback;
+    onPronounsChangedCallback = widget.onPasswordChangedCallback;
     showPronouns = widget.showPronouns;
     organization = widget.organization;
     onOrganizationChangedCallback = widget.onOrganizationChangedCallback;
@@ -506,7 +506,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      key: key,
+      key: widget.key,
       children: <Widget>[
         if (isHeaderSticky) ... [ _buildHeader() ],
         Flexible(

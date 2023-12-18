@@ -99,7 +99,7 @@ class HeaderList extends StatefulWidget {
 
 class HeaderListState extends State<HeaderList> {
 
-  late final Key? key;
+  late Key? key;
   late List<ListItemModel> listItems;
   late String? imageUrl;
   late BlendMode? imageBlendMode;
@@ -136,8 +136,11 @@ class HeaderListState extends State<HeaderList> {
   late double avatarImageRadius;
   late VoidCallback? avatarClickedCallback;
   late bool usePolygonAvatar;
+  
+  @override
+  void initState() {
+    super.initState();
 
-  HeaderListState(){
     key = widget.key;
     headerFlex = widget.headerFlex;
     headerAlignment = widget.headerAlignment;
@@ -145,8 +148,16 @@ class HeaderListState extends State<HeaderList> {
     imageBlendMode = widget.imageBlendMode;
     imageBlendColor = widget.imageBlendColor;
     headerGradientType = widget.headerGradientType;
+    headerPadding = widget.headerPadding ?? const EdgeInsets.all(0.0);
+    avatarPadding = widget.avatarPadding ?? const EdgeInsets.all(0.0);
+    imageClipPath = widget.imageClipPath ?? SimpleClipPath(
+        type: ClipPathType.DIAGONAL,
+        bottomLeftPercentOfHeight: 80.0,
+        bottomRightPercentOfHeight: 30.0
+    );
     listItems = widget.listItems;
     itemsFlex = widget.itemsFlex;
+    listPadding = widget.listPadding ?? const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0);
     cardType = widget.cardType;
     cardElevationLevel = widget.cardElevationLevel;
     leadingIconType = widget.leadingIconType;
@@ -171,18 +182,6 @@ class HeaderListState extends State<HeaderList> {
     avatarImageRadius = widget.avatarImageRadius;
     avatarClickedCallback = widget.avatarClickedCallback;
     usePolygonAvatar = widget.usePolygonAvatar;
-    
-    headerPadding = widget.headerPadding ?? const EdgeInsets.all(0.0);
-
-    avatarPadding = widget.avatarPadding ?? const EdgeInsets.all(0.0);
-
-    listPadding = widget.listPadding ?? const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0);
-
-    imageClipPath = widget.imageClipPath ?? SimpleClipPath(
-        type: ClipPathType.DIAGONAL,
-        bottomLeftPercentOfHeight: 80.0,
-        bottomRightPercentOfHeight: 30.0
-    );
   }
 
   @override

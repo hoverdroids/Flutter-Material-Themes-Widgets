@@ -41,7 +41,7 @@ class OnboardingScreen extends StatefulWidget {
   final EdgeInsetsGeometry screenPadding;
   final String? audioUrl;
 
-  const OnboardingScreen({
+  OnboardingScreen({
     super.key,
     this.title,
     this.titleFlex = 1,

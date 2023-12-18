@@ -30,8 +30,6 @@ class ThemedPlayButton extends StatefulWidget {
 
 class ThemedPlayButtonState extends State<ThemedPlayButton> with TickerProviderStateMixin {
 
-  //_ThemedPlayButtonState({this.widthHeight = 80});
-
   static const _kToggleDuration = Duration(milliseconds: 300);
   static const _kRotationDuration = Duration(seconds: 5);
 

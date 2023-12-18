@@ -1,9 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
-
 import 'package:flutter/material.dart';
 
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
-import 'package:material_themes_widgets/drawers/simple_clith_path_drawer.dart';
+import 'package:material_themes_widgets/drawers/simple_clip_path_drawer.dart';
 import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/header_list.dart';
 import 'package:material_themes_widgets/screens/onboarding_screen.dart';
@@ -48,7 +47,7 @@ class HomePageState extends State<HomePage> {
           WireframeThemeListItemsPage(_scaffoldKey),
           GrayscaleThemeListItemsPage(_scaffoldKey),
           MainThemeListItemsPage(_scaffoldKey),
-          const OnboardingScreen(
+          OnboardingScreen(
             title: "A Title",
             titleMainAxisAlignment: MainAxisAlignment.end,
             descriptionFlex: 4,

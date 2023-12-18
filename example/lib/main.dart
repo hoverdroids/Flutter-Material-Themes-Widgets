@@ -12,12 +12,15 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => MaterialThemesManager()),
       ],
-      child: App(),
+      child: const App(),
     ),
   );
 }
 
 class App extends StatelessWidget {
+
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<MaterialThemesManager>(

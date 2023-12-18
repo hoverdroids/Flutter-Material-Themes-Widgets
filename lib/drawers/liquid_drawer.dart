@@ -30,13 +30,13 @@ class ThemedLiquidDrawer extends StatelessWidget {
         var defaultLiquidDrawer = const LiquidDrawer();
       
         return LiquidDrawer(
-            content: content != null ? content! : defaultLiquidDrawer.content,
-            percentOfWidth: percentOfWidth != null ? percentOfWidth! : defaultLiquidDrawer.percentOfWidth,
-            archHeight: archHeight != null ? archHeight! : defaultLiquidDrawer.archHeight,
-            showCurvedByDefault: showCurvedByDefault != null ? showCurvedByDefault! : defaultLiquidDrawer.showCurvedByDefault,
-            paint: paint != null ? paint! : defaultLiquidDrawer.paint,
-            startColor: startColor != null ? startColor! : defaultLiquidDrawer.startColor,
-            endColor: endColor != null ? endColor! : defaultLiquidDrawer.endColor
+            content: content ?? defaultLiquidDrawer.content,
+            percentOfWidth: percentOfWidth ?? defaultLiquidDrawer.percentOfWidth,
+            archHeight: archHeight ?? defaultLiquidDrawer.archHeight,
+            showCurvedByDefault: showCurvedByDefault ?? defaultLiquidDrawer.showCurvedByDefault,
+            paint: paint ?? defaultLiquidDrawer.paint,
+            startColor: startColor ?? defaultLiquidDrawer.startColor,
+            endColor: endColor ?? defaultLiquidDrawer.endColor
         );
       });
   }
@@ -65,7 +65,15 @@ class LiquidDrawer extends StatefulWidget {
   });
 
   @override
-  LiquidDrawerState createState() => LiquidDrawerState();
+  LiquidDrawerState createState() => LiquidDrawerState(
+    child: content != null ? content! : Container(),//TODO - we can't pass null but can't instantiate the Container as a default because, "the default value of an optional param must be constant"
+    percentOfWidth: percentOfWidth,
+    archHeight: archHeight,
+    showCurvedByDefault: showCurvedByDefault,
+    paint: paint,
+    startColor: startColor,
+    endColor: endColor
+  );
 }
 
 class LiquidDrawerState extends State<LiquidDrawer> {
@@ -78,15 +86,15 @@ class LiquidDrawerState extends State<LiquidDrawer> {
   late Color startColor;
   late Color endColor;
 
-  LiquidDrawerState() {
-    child = widget.content != null ? widget.content! : const SizedBox();
-    percentOfWidth = widget.percentOfWidth;
-    archHeight = widget.archHeight;
-    showCurvedByDefault = widget.showCurvedByDefault;
-    paint = widget.paint;
-    startColor = widget.startColor;
-    endColor = widget.endColor;
-  }
+  LiquidDrawerState({
+    required this.child,
+    required this.percentOfWidth,
+    required this.archHeight,
+    required this.showCurvedByDefault,
+    required this.paint,
+    required this.startColor,
+    required this.endColor,
+  });
 
   GlobalKey globalKey = GlobalKey();//TODO - does this need a more descriptive name?
   Offset _offset = const Offset(0,0);

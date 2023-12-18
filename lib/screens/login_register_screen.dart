@@ -6,7 +6,7 @@ import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_widgets/utils/validators.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
-  
+
   final bool showLabels;
   final ThemeGroupType labelType;
   final Emphasis labelEmphasis;
@@ -113,7 +113,10 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  LoginRegisterScreenState() {
+  @override
+  void initState() {
+    super.initState();
+
     key = widget.key;
     showLabels = widget.showLabels;
     labelType = widget.labelType;

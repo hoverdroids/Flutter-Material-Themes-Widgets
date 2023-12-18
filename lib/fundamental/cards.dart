@@ -11,30 +11,20 @@ class ThemedCard extends Card {
   final ElevationLevel elevationLevel;
   
   const ThemedCard({
-    key,
     this.type = ThemeGroupType.MOM,
-    shadowColor,
     this.elevationLevel = ElevationLevel.LOW,
-    shape,
-    borderOnForeground = true,
-    margin,
-    clipBehavior,
-    child,
-    semanticContainer = true,
-  }): super(
-    key: key,
-    shadowColor: shadowColor,
-    shape: shape,
-    borderOnForeground: borderOnForeground,
-    margin: margin,
-    clipBehavior: clipBehavior,
-    child: child,
-    semanticContainer: semanticContainer,
-  );
+    super.key,
+    super.shadowColor,
+    super.shape,
+    super.borderOnForeground = true,
+    super.margin,
+    super.clipBehavior,
+    super.child,
+    super.semanticContainer = true,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
+  Widget build(BuildContext context) => Card(
       key: key,
       color: context.watch<MaterialThemesManager>().getTheme(type).cardTheme.color,
       shadowColor: shadowColor,
@@ -46,7 +36,6 @@ class ThemedCard extends Card {
       semanticContainer: semanticContainer,
       child: child,
     );
-  }
 }
 
 class ThemedListTileCard extends Card {
@@ -72,7 +61,7 @@ class ThemedListTileCard extends Card {
   final VoidCallback? trailingIconClickedCallback;
 
   const ThemedListTileCard({
-    key,
+    super.key,
     this.type = ThemeGroupType.MOM,
     this.elevationLevel = ElevationLevel.LOW,
     this.itemClickedCallback,
@@ -91,21 +80,13 @@ class ThemedListTileCard extends Card {
     this.trailingType = ThemeGroupType.MOM,
     this.trailingEmphasis = Emphasis.NONE,
     this.trailingIconClickedCallback,
-    shadowColor,
-    shape,
-    borderOnForeground = true,
-    margin,
-    clipBehavior,
-    semanticContainer = true,
-  }): super(
-    key: key,
-    shadowColor: shadowColor,
-    shape: shape,
-    borderOnForeground: borderOnForeground,
-    margin: margin,
-    clipBehavior: clipBehavior,
-    semanticContainer: semanticContainer,
-  );
+    super.shadowColor,
+    super.shape,
+    super.borderOnForeground = true,
+    super.margin,
+    super.clipBehavior,
+    super.semanticContainer = true,
+  });
 
   @override
   Widget build(BuildContext context) {
