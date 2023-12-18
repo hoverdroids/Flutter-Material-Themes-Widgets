@@ -6,7 +6,7 @@ import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:material_themes_widgets/utils/validators.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
-  
+
   final bool showLabels;
   final ThemeGroupType labelType;
   final Emphasis labelEmphasis;
@@ -113,7 +113,10 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  LoginRegisterScreenState() {
+  @override
+  void initState() {
+    super.initState();
+
     key = widget.key;
     showLabels = widget.showLabels;
     labelType = widget.labelType;
@@ -236,10 +239,10 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
         ElevatedButton(
           onPressed: () async {
             var valid = _formKey.currentState?.validate() ?? false;
-            if(valid && isLogin && onTapLogin != null) {
-              onTapLogin!.call();
-            } else if(valid && !isLogin && onTapRegister != null) {
-              onTapRegister!.call();
+            if(valid && isLogin) {
+              onTapLogin?.call();
+            } else if(valid && !isLogin) {
+              onTapRegister?.call();
             }
           },
           style: ElevatedButton.styleFrom(
@@ -254,10 +257,10 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
           alignment: Alignment.center,
           child: TextButton(
             onPressed: () => {
-              if(!isLogin && onTapLogin != null) {
-                onTapLogin!.call()
-              } else if(isLogin && onTapRegister != null) {
-                onTapRegister!.call()
+              if(!isLogin) {
+                onTapLogin?.call()
+              } else if(isLogin) {
+                onTapRegister?.call()
               }
             },
             child: ThemedSubTitle(isLogin ? "Register" : "Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),

@@ -1,5 +1,4 @@
 // ignore_for_file: constant_identifier_names
-
 import 'package:flutter/material.dart';
 
 //Derived from: https://www.developerlibs.com/2019/08/flutter-draw-custom-shaps-clip-path.html

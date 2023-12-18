@@ -30,13 +30,13 @@ class ThemedLiquidDrawer extends StatelessWidget {
         var defaultLiquidDrawer = const LiquidDrawer();
       
         return LiquidDrawer(
-            content: content != null ? content! : defaultLiquidDrawer.content,
-            percentOfWidth: percentOfWidth != null ? percentOfWidth! : defaultLiquidDrawer.percentOfWidth,
-            archHeight: archHeight != null ? archHeight! : defaultLiquidDrawer.archHeight,
-            showCurvedByDefault: showCurvedByDefault != null ? showCurvedByDefault! : defaultLiquidDrawer.showCurvedByDefault,
-            paint: paint != null ? paint! : defaultLiquidDrawer.paint,
-            startColor: startColor != null ? startColor! : defaultLiquidDrawer.startColor,
-            endColor: endColor != null ? endColor! : defaultLiquidDrawer.endColor
+            content: content ?? defaultLiquidDrawer.content,
+            percentOfWidth: percentOfWidth ?? defaultLiquidDrawer.percentOfWidth,
+            archHeight: archHeight ?? defaultLiquidDrawer.archHeight,
+            showCurvedByDefault: showCurvedByDefault ?? defaultLiquidDrawer.showCurvedByDefault,
+            paint: paint ?? defaultLiquidDrawer.paint,
+            startColor: startColor ?? defaultLiquidDrawer.startColor,
+            endColor: endColor ?? defaultLiquidDrawer.endColor
         );
       });
   }
@@ -78,15 +78,7 @@ class LiquidDrawerState extends State<LiquidDrawer> {
   late Color startColor;
   late Color endColor;
 
-  LiquidDrawerState() {
-    child = widget.content != null ? widget.content! : const SizedBox();
-    percentOfWidth = widget.percentOfWidth;
-    archHeight = widget.archHeight;
-    showCurvedByDefault = widget.showCurvedByDefault;
-    paint = widget.paint;
-    startColor = widget.startColor;
-    endColor = widget.endColor;
-  }
+  LiquidDrawerState();
 
   GlobalKey globalKey = GlobalKey();//TODO - does this need a more descriptive name?
   Offset _offset = const Offset(0,0);
@@ -95,6 +87,14 @@ class LiquidDrawerState extends State<LiquidDrawer> {
 
   @override
   void initState() {
+    child = widget.content ?? Container();//TODO - we can't pass null but can't instantiate the Container as a default because, "the default value of an optional param must be constant"
+    percentOfWidth = widget.percentOfWidth;
+    archHeight = widget.archHeight;
+    showCurvedByDefault = widget.showCurvedByDefault;
+    paint = widget.paint;
+    startColor = widget.startColor;
+    endColor = widget.endColor;
+
     limits= [0, 0, 0, 0, 0, 0];
     isScrolling = false;
     super.initState();
@@ -104,7 +104,7 @@ class LiquidDrawerState extends State<LiquidDrawer> {
   Widget build(BuildContext context) {
 
     Size mediaQuery = MediaQuery.of(context).size;
-    double sidebarSize = mediaQuery.width * percentOfWidth;//TODO - the drawer is always the same width percent!
+    double sidebarSize = mediaQuery.width * percentOfWidth;//TODO - the drawer is always the same width percent
 
     //Build is called each time the paint redraws and hence this offset will override the previous offset that was set in onPanUpdate.
     //So, to start out with a curve while still allowing the user's motion to move the curve, we must add the following check
@@ -149,15 +149,13 @@ class LiquidDrawerState extends State<LiquidDrawer> {
     );
   }
 
-  Paint getPaint(double width, double height) {
-    if (paint != null) {
-      return paint!;
-    } else {
-      //TODO - maybe make it easier to pass specific gradient fields vs making your own gradient
-      //https://stackoverflow.com/questions/60019684/use-gradient-with-paint-object-in-flutter-canvas
-      return Paint()..shader =
-        LinearGradient(colors: [startColor, endColor], begin: Alignment.topCenter, end: Alignment.bottomCenter).createShader(Rect.fromLTRB(0, 0, width, height));
-    }
+  Paint getPaint(double width, double height) => paint ?? createLinearGradient(width, height);
+
+  Paint createLinearGradient(double width, double height) {
+    //TODO - maybe make it easier to pass specific gradient fields vs making your own gradient
+    //https://stackoverflow.com/questions/60019684/use-gradient-with-paint-object-in-flutter-canvas
+    return Paint()..shader =
+    LinearGradient(colors: [startColor, endColor], begin: Alignment.topCenter, end: Alignment.bottomCenter).createShader(Rect.fromLTRB(0, 0, width, height));
   }
 }
 
@@ -174,9 +172,7 @@ class DrawerPainter extends CustomPainter {
     paint,
     required this.showCurvedByDefault
   }) {
-    if (paint != null) {
-      customPaint = paint!;
-    }
+    customPaint = paint ?? customPaint;
   }
 
   double getControlPointX(double width) {

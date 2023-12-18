@@ -124,7 +124,12 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
   late ValueChanged<String>? onStringChangedCallback;
   late FormFieldValidator<String>? validator;
 
-  ThemedEditableLabelValueState() {
+  FormFieldValidator<String>? _validator() => validator ?? (value) => null;//return null indicates the field is valid
+
+  @override
+  void initState() {
+    super.initState();
+
     showLabel = widget.showLabel;
     labelText = widget.labelText;
     labelType = widget.labelType;
@@ -145,16 +150,12 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
     validator = widget.validator;
   }
 
-  FormFieldValidator<String>? _validator() {
-    return validator ?? (value) => null;//return null indicates the field is valid
-  }
-
   void _onChanged(String val) {
     setState(() => {
       if(onStringChangedCallback != null) {
-        onStringChangedCallback!(val)
+        onStringChangedCallback?.call(val)
       } else {
-        developer.log("Changed:${hintText != null ? hintText! : "Hint Text"}")
+        developer.log("Changed:${hintText ?? 'Hint Text'}")
       }
     });
   }

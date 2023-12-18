@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +21,8 @@ abstract class ThemedText extends StatelessWidget {
   final TextWidthBasis? textWidthBasis;
   final TextHeightBehavior? textHeightBehavior;
 
-  ThemedText(this.text,
+  ThemedText(
+      this.text,
       {
         super.key,
         type,
@@ -37,6 +40,7 @@ abstract class ThemedText extends StatelessWidget {
         this.textHeightBehavior
       }
   ){
+
     this.emphasis = emphasis ?? Emphasis.NONE;
     this.type = type ?? ThemeGroupType.MOM;
   }
@@ -103,308 +107,286 @@ class ThemedH1 extends ThemedText {
 
 class ThemedH2 extends ThemedText {
 
-  ThemedH2(text, {type, emphasis, key, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedH2(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.displayMedium;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.displayMedium;
 }
 
 class ThemedH3 extends ThemedText {
 
-  ThemedH3(text, {type, emphasis, key, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedH3(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.displaySmall;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.displaySmall;
 }
 
 class ThemedH4 extends ThemedText {
 
-  ThemedH4(text, {type, emphasis, key, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedH4(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.headlineMedium;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.headlineMedium;
 }
 
 class ThemedH5 extends ThemedText {
 
-  ThemedH5(text, {type, emphasis, key, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedH5(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.headlineSmall;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.headlineSmall;
 }
 
 class ThemedTitle extends ThemedText {
 
-  ThemedTitle(text, {type, emphasis, key, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedTitle(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.titleLarge;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.titleLarge;
 }
 
 class ThemedSubTitle extends ThemedText {
 
-  ThemedSubTitle(text, {key, type, emphasis, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedSubTitle(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.titleMedium;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.titleMedium;
 }
 
 class ThemedSubTitle2 extends ThemedText {
 
-  ThemedSubTitle2(text, {key, type, emphasis, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedSubTitle2(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.titleSmall;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.titleSmall;
 }
 
 class ThemedBody extends ThemedText {
 
-  ThemedBody(text, {type, emphasis, key, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedBody(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.bodyLarge;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.bodyLarge;
 }
 
 class ThemedBody2 extends ThemedText {
 
-  ThemedBody2(text, {type, emphasis, key, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedBody2(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.bodyMedium;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.bodyMedium;
 }
 
 class ThemedCaption extends ThemedText {
 
-  ThemedCaption(text, {type, emphasis, key, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedCaption(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.bodySmall;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.bodySmall;
 }
 
 class ThemedOverline extends ThemedText {
 
-  ThemedOverline(text, {type, emphasis, key, strutStyle, textAlign, textDirection, locale, softWrap, overflow, textScaleFactor, maxLines, semanticsLabel, textWidthBasis, textHeightBehavior})
-      : super(
-      text,
-      type: type,
-      emphasis: emphasis,
-      key: key,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      textScaleFactor: textScaleFactor,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior:textHeightBehavior
-  );
+  ThemedOverline(
+    text,
+    {
+      super.type,
+      super.emphasis,
+      super.key,
+      super.strutStyle,
+      super.textAlign,
+      super.textDirection,
+      super.locale,
+      super.softWrap,
+      super.overflow,
+      super.textScaleFactor,
+      super.maxLines,
+      super.semanticsLabel,
+      super.textWidthBasis,
+      super.textHeightBehavior
+    }
+  ) : super(text);
 
   @override
-  TextStyle? getTextStyle(ThemeData themeData) {
-    return themeData.textTheme.labelSmall;
-  }
-
+  TextStyle? getTextStyle(ThemeData themeData) => themeData.textTheme.labelSmall;
 }

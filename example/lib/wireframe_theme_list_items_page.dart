@@ -1,5 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages
-
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,7 @@ import 'package:material_themes_widgets/fundamental/cards.dart';
 
 //This will appear as the user expects with standard theming in light/dark (e.g. white/black bg with colors on buttons and titles, all else are greys)
 class WireframeThemeListItemsPage extends StatelessWidget {
-  //TODO - there will be no difference between wirefram and grayscale without a palette change that uses borders instead of fills
+  //TODO - there will be no difference between wireframe and grayscale without a palette change that uses borders instead of fills
 
   final GlobalKey<ScaffoldState> scaffoldKey;
 
