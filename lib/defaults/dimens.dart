@@ -6,6 +6,9 @@ const paddingSmall = 14.0;
 const paddingMedium = 28.0;
 const paddingLarge = 42.0;
 
+const indentationLevel1 = EdgeInsets.fromLTRB(40, 0, 0, 0);
+const indentationLevel2 = EdgeInsets.fromLTRB(80, 0, 0, 0);
+
 const tinyBorderRadius = 2.0;
 const miniBorderRadius = 4.0;
 const smallBorderRadius = 6.0;

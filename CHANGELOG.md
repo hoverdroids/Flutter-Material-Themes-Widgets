@@ -1,3 +1,4 @@
+## [1.8.0]  - Added card fields to card items
 ## [1.7.2]  - Using Material Themes Manager 1.4.0
 ## [1.7.1]  - Fixed issues from 1.7.0
 ## [1.7.0]  - Applied Intellisense recommendations

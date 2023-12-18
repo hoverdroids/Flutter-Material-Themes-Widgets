@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_themes_manager/material_themes_manager.dart';
 
 class ListItemModel {
 
@@ -11,6 +12,18 @@ class ListItemModel {
   IconData? trailingIcon;
   VoidCallback? trailingIconClickedCallback;
 
+  ThemeGroupType? cardType;
+  ElevationLevel? elevationLevel;
+  ThemeGroupType? leadingIconType;
+  Emphasis? leadingEmphasis;
+  ThemeGroupType? titleType;
+  Emphasis? titleEmphasis;
+  ThemeGroupType? subtitleType;
+  Emphasis? subtitleEmphasis;
+  ThemeGroupType? trailingIconType;
+  Emphasis? trailingEmphasis;
+  EdgeInsetsGeometry? margin;
+
   ListItemModel({
     this.itemClickedCallback,
     this.itemLongClickedCallback,
@@ -19,6 +32,17 @@ class ListItemModel {
     this.title,
     this.subtitle,
     this.trailingIcon,
-    this.trailingIconClickedCallback
+    this.trailingIconClickedCallback,
+    this.cardType,
+    this.elevationLevel,
+    this.leadingIconType,
+    this.leadingEmphasis,
+    this.titleType,
+    this.titleEmphasis,
+    this.subtitleType,
+    this.subtitleEmphasis,
+    this.trailingIconType,
+    this.trailingEmphasis,
+    this.margin
   });
 }
