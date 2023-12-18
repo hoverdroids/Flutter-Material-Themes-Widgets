@@ -1,7 +1,7 @@
 #file: noinspection SpellCheckingInspection
 name: material_themes_widgets
 description: Widgets that use the Material Themes Manager by default in order to allow for theme udpates
-version: 1.7.1
+version: 1.7.2
 homepage: https://playtcubed.com
 
 environment:
@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  material_themes_manager: ^1.2.0
+  material_themes_manager: ^1.4.0
   provider: ^6.0.5
   circular_profile_avatar: ^2.0.5
   flutter_polygon: ^0.3.0+2
