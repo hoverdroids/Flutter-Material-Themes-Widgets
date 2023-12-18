@@ -47,7 +47,7 @@ class HomePageState extends State<HomePage> {
           WireframeThemeListItemsPage(_scaffoldKey),
           GrayscaleThemeListItemsPage(_scaffoldKey),
           MainThemeListItemsPage(_scaffoldKey),
-          OnboardingScreen(
+          const OnboardingScreen(
             title: "A Title",
             titleMainAxisAlignment: MainAxisAlignment.end,
             descriptionFlex: 4,

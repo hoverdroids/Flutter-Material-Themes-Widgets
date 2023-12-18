@@ -150,7 +150,7 @@ class HeaderListState extends State<HeaderList> {
     headerGradientType = widget.headerGradientType;
     headerPadding = widget.headerPadding ?? const EdgeInsets.all(0.0);
     avatarPadding = widget.avatarPadding ?? const EdgeInsets.all(0.0);
-    imageClipPath = widget.imageClipPath ?? SimpleClipPath(
+    imageClipPath = widget.imageClipPath ?? const SimpleClipPath(
         type: ClipPathType.DIAGONAL,
         bottomLeftPercentOfHeight: 80.0,
         bottomRightPercentOfHeight: 30.0
