@@ -1,3 +1,4 @@
+## [1.10.1] - Added sortList that sorts and returns list in one line
 ## [1.10.0] - Added Collection Utils with toUniqueList and toTrimmedUniqueList
 ## [1.9.0]  - Added TextEntryDialog
 ## [1.8.0]  - Added card fields to card items
