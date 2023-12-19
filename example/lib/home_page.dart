@@ -8,6 +8,8 @@ import 'package:material_themes_widgets/lists/list_item_model.dart';
 import 'package:material_themes_widgets/lists/header_list.dart';
 import 'package:material_themes_widgets/screens/onboarding_screen.dart';
 import 'package:material_themes_widgets/screens/profile_screen.dart';
+import 'package:material_themes_widgets/dialogs/text_entry_dialog.dart';
+import 'package:material_themes_widgets/utils/ui_utils.dart';
 import 'grayscale_theme_list_items_page.dart';
 import 'main_theme_list_items_page.dart';
 import 'wireframe_theme_list_items_page.dart';
@@ -52,9 +54,9 @@ class HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => developer.log("hey hey"),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: () => showTextEntryDialog(),
+        tooltip: 'Show text entry',
+        child: const Icon(Icons.dialpad_outlined),
       ), // This trailing comma makes auto-formatting nicer for build methods.
       drawer: buildDrawer(),
       endDrawer: buildEndDrawer(),
@@ -76,6 +78,21 @@ class HomePageState extends State<HomePage> {
         },
       ),*/
     );
+  }
+
+  void showTextEntryDialog() {
+    if (!mounted) return;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const TextEntryDialog(
+          title: "Text Entry",
+          description: "Enter some text and then hit ok homie"
+        );
+      },
+      barrierDismissible: false
+    ).then((value) => showToast("Entered value:$value"));
   }
 
   Widget buildDrawer() => SimpleClipPathDrawer(
