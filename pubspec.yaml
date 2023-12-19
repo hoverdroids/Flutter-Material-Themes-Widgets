@@ -1,7 +1,7 @@
 #file: noinspection SpellCheckingInspection
 name: material_themes_widgets
 description: Widgets that use the Material Themes Manager by default in order to allow for theme udpates
-version: 1.9.0
+version: 1.10.0
 homepage: https://playtcubed.com
 
 environment:
