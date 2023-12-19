@@ -4,6 +4,11 @@ extension ListStringUtils on List<String> {
   List<String> trimAll() => (this as Iterable<String>).trimAll() as List<String>;
 
   List<String> toUniqueList({bool growable = true}) => (this as Iterable<String>).toUniqueList(growable: growable) as List<String>;
+
+  List<String> sortList([int Function(String a, String b)? compare]) {
+    sort(compare);
+    return this;
+  }
 }
 
 extension IterableStringUtils on Iterable<String> {
