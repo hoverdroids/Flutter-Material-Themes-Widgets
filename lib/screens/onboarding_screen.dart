@@ -1,5 +1,4 @@
 // ignore_for_file: constant_identifier_names
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
@@ -7,6 +6,7 @@ import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 import 'package:material_themes_widgets/fundamental/buttons_media.dart';
 import 'package:material_themes_widgets/fundamental/texts.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OnboardingScreen extends StatefulWidget {
 
@@ -40,6 +40,8 @@ class OnboardingScreen extends StatefulWidget {
   final BoxFit imageFit;
   final EdgeInsetsGeometry screenPadding;
   final String? audioUrl;
+  final String? moreInfoUrl;
+  final ThemeGroupType moreInfoType;
 
   const OnboardingScreen({
     super.key,
@@ -68,7 +70,9 @@ class OnboardingScreen extends StatefulWidget {
     this.imageMainAxisAlignment = MainAxisAlignment.center,
     this.imageFit = BoxFit.fitHeight,
     this.screenPadding = const EdgeInsets.all(20.0),
-    this.audioUrl
+    this.audioUrl,
+    this.moreInfoUrl,
+    this.moreInfoType = ThemeGroupType.SOP,
   });
 
   @override
@@ -212,6 +216,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Widget _createDescription() {
+    var moreInfoUrl = widget.moreInfoUrl;
     return Flexible(
       flex: widget.descriptionFlex,
         child: Padding(
@@ -222,11 +227,18 @@ class OnboardingScreenState extends State<OnboardingScreen> {
               mainAxisAlignment: widget.descriptionMainAxisAlignment,
               children: <Widget>[
                 ThemedH5(widget.description, type: widget.descriptionType, emphasis: widget.descriptionEmphasis, textAlign: widget.descriptionTextAlign),
+                if (moreInfoUrl != null)...[
+                  InkWell(
+                    child: ThemedH5(moreInfoUrl, type: widget.moreInfoType, emphasis: widget.descriptionEmphasis, textAlign: widget.descriptionTextAlign),
+                    onTap: () {
+                      launch(moreInfoUrl);
+                    }
+                  ),
+                ]
             ]
           )
         ),
       ),
     );
   }
-
 }
