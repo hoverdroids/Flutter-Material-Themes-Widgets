@@ -1,3 +1,4 @@
+## [1.12.0] - Added icon_title_icon_icon_appbar
 ## [1.11.1] - Launching url when clicked
 ## [1.11.0] - Added link to onboarding screen
 ## [1.10.1] - Added sortList that sorts and returns list in one line
