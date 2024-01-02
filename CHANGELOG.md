@@ -1,3 +1,4 @@
+## [1.12.1] - Fixed pronouns on changed listener so that pronouns update when changed
 ## [1.12.0] - Added icon_title_icon_icon_appbar
 ## [1.11.1] - Launching url when clicked
 ## [1.11.0] - Added link to onboarding screen
