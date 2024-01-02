@@ -252,7 +252,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     onTaglineChangedCallback = widget.onTaglineChangedCallback;
     showTagline = widget.showTagline;
     pronouns = widget.pronouns;
-    onPronounsChangedCallback = widget.onPasswordChangedCallback;
+    onPronounsChangedCallback = widget.onPronounsChangedCallback;
     showPronouns = widget.showPronouns;
     organization = widget.organization;
     onOrganizationChangedCallback = widget.onOrganizationChangedCallback;
