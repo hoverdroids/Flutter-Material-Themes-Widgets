@@ -12,24 +12,45 @@ class LoginRegisterScreen extends StatefulWidget {
   final Emphasis labelEmphasis;
   final TextAlign labelTextAlign;
 
+  final bool? showIcons;
   final ThemeGroupType prefixIconType;
   final Emphasis prefixIconEmphasis;
 
   final ThemeGroupType textType;
   final Emphasis textEmphasis;
-  //TODO final TextAlign textAlign;
-  final bool obscureText;
+  final TextAlign textAlign;
+  final ThemeGroupType textFieldBackgroundType;
 
+  final bool? showHints;
   final ThemeGroupType hintTextType;
   final Emphasis hintTextEmphasis;
   //TODO final TextAlign hintTextAlign;
 
-  final ThemeGroupType textFieldBackgroundType;
-  final bool showForgots;
-  final ValueChanged<String>? onEmailChangedCallback;
+  final String email;
   final bool showEmail;
-  final ValueChanged<String>? onPasswordChangedCallback;
+  final bool canEditEmail;
+  final bool obscureEmail;
+  final ValueChanged<String>? onEmailChangedCallback;
+  final String emailLabel;
+  final bool? showEmailLabel;
+  final String emailHint;
+  final bool? showEmailHint;
+  final IconData? emailIcon;
+  final bool? showEmailIcon;
+
+  final String password;
   final bool showPassword;
+  final bool canEditPassword;
+  final bool obscurePassword;
+  final ValueChanged<String>? onPasswordChangedCallback;
+  final String passwordLabel;
+  final bool? showPasswordLabel;
+  final String passwordHint;
+  final bool? showPasswordHint;
+  final IconData? passwordIcon;
+  final bool? showPasswordIcon;
+
+  final bool showForgots;
   final VoidCallback? onTapRegister;
   final VoidCallback? onTapLogin;
   final VoidCallback? onTapForgotPassword;
@@ -46,19 +67,46 @@ class LoginRegisterScreen extends StatefulWidget {
     this.labelType = ThemeGroupType.MOP,
     this.labelEmphasis = Emphasis.NONE,
     this.labelTextAlign = TextAlign.start,
+
+    this.showIcons,
     this.prefixIconType = ThemeGroupType.MOM,
     this.prefixIconEmphasis = Emphasis.NONE,
+
     this.textType = ThemeGroupType.POM,
     this.textEmphasis = Emphasis.HIGH,
-    this.obscureText = false,
+    this.textAlign = TextAlign.start,
+    this.textFieldBackgroundType = ThemeGroupType.MOP,
+
+    this.showHints,
     this.hintTextType = ThemeGroupType.MOM,
     this.hintTextEmphasis = Emphasis.NONE,
-    this.textFieldBackgroundType = ThemeGroupType.MOP,
-    this.showForgots = false,
-    this.onEmailChangedCallback,
+    // this.hintTextAlign = TextAlign.start,
+
+    this.email = "",
     this.showEmail = true,
-    this.onPasswordChangedCallback,
+    this.canEditEmail = true,
+    this.obscureEmail = false,
+    this.onEmailChangedCallback,
+    this.emailLabel = "Email",
+    this.showEmailLabel,
+    this.emailHint = "Email",
+    this.showEmailHint,
+    this.emailIcon = Icons.email,
+    this.showEmailIcon,
+
+    this.password = "",
     this.showPassword = true,
+    this.canEditPassword = true,
+    this.obscurePassword = true,
+    this.onPasswordChangedCallback,
+    this.passwordLabel = "Password",
+    this.showPasswordLabel,
+    this.passwordHint = "Password",
+    this.showPasswordHint,
+    this.passwordIcon = Icons.password,
+    this.showPasswordIcon,
+
+    this.showForgots = false,
     this.onTapRegister,
     this.onTapLogin,
     this.onTapForgotPassword,
@@ -83,24 +131,45 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
   late Emphasis labelEmphasis;
   late TextAlign labelTextAlign;
 
+  late bool showIcons;
   late ThemeGroupType prefixIconType;
   late Emphasis prefixIconEmphasis;
 
   late ThemeGroupType textType;
   late Emphasis textEmphasis;
-  //TODO late TextAlign textAlign;
+  late TextAlign textAlign;
+  late ThemeGroupType textFieldBackgroundType;
 
+  late bool showHints;
   late ThemeGroupType hintTextType;
   late Emphasis hintTextEmphasis;
   //TODO late TextAlign hintTextAlign;
 
-  late ThemeGroupType textFieldBackgroundType;
+  late String email;
+  late bool showEmail;
+  late bool canEditEmail;
+  late bool obscureEmail;
+  late ValueChanged<String>? onEmailChangedCallback;
+  late String emailLabel;
+  late bool showEmailLabel;
+  late String emailHint;
+  late bool showEmailHint;
+  late IconData? emailIcon;
+  late bool showEmailIcon;
+
+  late String password;
+  late bool showPassword;
+  late bool canEditPassword;
+  late bool obscurePassword;
+  late ValueChanged<String>? onPasswordChangedCallback;
+  late String passwordLabel;
+  late bool showPasswordLabel;
+  late String passwordHint;
+  late bool showPasswordHint;
+  late IconData? passwordIcon;
+  late bool showPasswordIcon;
 
   late bool showForgots;
-  late ValueChanged<String>? onEmailChangedCallback;
-  late bool showEmail;
-  late ValueChanged<String>? onPasswordChangedCallback;
-  late bool showPassword;
   late VoidCallback? onTapRegister;
   late VoidCallback? onTapLogin;
   late VoidCallback? onTapForgotPassword;
@@ -118,22 +187,52 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
     super.initState();
 
     key = widget.key;
+
     showLabels = widget.showLabels;
     labelType = widget.labelType;
     labelEmphasis = widget.labelEmphasis;
     labelTextAlign = widget.labelTextAlign;
-    prefixIconType = widget.prefixIconType;
-    prefixIconEmphasis = widget.prefixIconEmphasis;
+
     textType = widget.textType;
     textEmphasis = widget.textEmphasis;
+    textAlign = widget.textAlign;
+    textFieldBackgroundType = widget.textFieldBackgroundType;
+
+    showHints = widget.showHints ?? !showLabels;
     hintTextType = widget.hintTextType;
     hintTextEmphasis = widget.hintTextEmphasis;
+    // hintTextAlign = widget.hintTextAlign;
     textFieldBackgroundType = widget.textFieldBackgroundType;
-    showForgots = widget.showForgots;
-    onEmailChangedCallback = widget.onEmailChangedCallback;
+
+    showIcons = widget.showIcons ?? showHints;
+    prefixIconType = widget.prefixIconType;
+    prefixIconEmphasis = widget.prefixIconEmphasis;
+
+    email = widget.email;
     showEmail = widget.showEmail;
-    onPasswordChangedCallback = widget.onPasswordChangedCallback;
+    canEditEmail = widget.canEditEmail;
+    obscureEmail = widget.obscureEmail;
+    onEmailChangedCallback = widget.onEmailChangedCallback;
+    emailLabel = widget.emailLabel;
+    showEmailLabel = widget.showEmailLabel ?? widget.showLabels;
+    emailHint = widget.emailHint;
+    showEmailHint = widget.showEmailHint ?? showHints;
+    emailIcon = widget.emailIcon;
+    showEmailIcon = widget.showEmailIcon ?? showIcons;
+
+    password = widget.password;
     showPassword = widget.showPassword;
+    canEditPassword = widget.canEditPassword;
+    obscurePassword = widget.obscurePassword;
+    onPasswordChangedCallback = widget.onPasswordChangedCallback;
+    passwordLabel = widget.passwordLabel;
+    showPasswordLabel = widget.showPasswordLabel ?? widget.showLabels;
+    passwordHint = widget.passwordHint;
+    showPasswordHint = widget.showPasswordHint ?? showHints;
+    passwordIcon = widget.passwordIcon;
+    showPasswordIcon = widget.showPasswordIcon ?? showIcons;
+
+    showForgots = widget.showForgots;
     onTapRegister = widget.onTapRegister;
     onTapLogin = widget.onTapLogin;
     onTapForgotPassword = widget.onTapForgotPassword;
@@ -177,15 +276,14 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   _buildHeader(),
                   smallTransparentDivider,
                   if (showEmail) ... [
-                    _buildStringEntry(labelText: "Email", hintText: showLabels ? "" : "Email", prefixIcon: showLabels ? null : Icons.email, onStringChangedCallback: onEmailChangedCallback,
+                    _buildStringEntry(canEditEmail, emailLabel, showEmailLabel, emailIcon, showEmailIcon, email, obscureEmail, emailHint, showEmailHint, onEmailChangedCallback,
                     validator: (value) => emailValidator(value, true)
                     ),
                     smallTransparentDivider
                   ],
                   if (showPassword) ... [
-                    _buildStringEntry(labelText: "Password", hintText: showLabels ? "" : "Password", prefixIcon: showLabels ? null : Icons.lock, onStringChangedCallback: onPasswordChangedCallback,
-                      validator: (value) => passwordValidator(value, true),
-                      obscureText: true
+                    _buildStringEntry(canEditPassword, passwordLabel, showPasswordLabel, passwordIcon, showPasswordIcon, password, obscurePassword, passwordHint, showPasswordHint, onPasswordChangedCallback,
+                      validator: (value) => passwordValidator(value, true)
                     ),
                     smallTransparentDivider
                   ],
@@ -199,37 +297,40 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildStringEntry({
-    String labelText = "",
+  Widget _buildStringEntry(
+    bool isEditable,
+    String labelText,
+    bool showLabel,
     IconData? prefixIcon,
-    String text = "",
-    bool obscureText = false,
-    String hintText = "",
+    bool showPrefixIcon,
+    String text,
+    bool obscureText,
+    String hintText,
+    bool showHintText,
     ValueChanged<String>? onStringChangedCallback,
-    FormFieldValidator<String>? validator
-  }) {
-
-    return ThemedEditableLabelValue(
-      showLabel: showLabels,
-      labelText: labelText,
-      labelType: labelType,
-      labelEmphasis: labelEmphasis,
-      labelTextAlign: labelTextAlign,
-      prefixIcon: prefixIcon,
-      prefixIconType: prefixIconType,
-      prefixIconEmphasis: prefixIconEmphasis,
-      text: text,
-      textType: textType,
-      textEmphasis: textEmphasis,
-      obscureText: obscureText,
-      hintText: hintText,
-      hintTextType: hintTextType,
-      hintTextEmphasis: hintTextEmphasis,
-      backgroundType: textFieldBackgroundType,
-      onStringChangedCallback: onStringChangedCallback,
-      validator: validator
-    );
-  }
+    {
+      FormFieldValidator<String>? validator
+    }
+  ) => ThemedEditableLabelValue(
+    showLabel: showLabel,
+    labelText: labelText,
+    labelType: labelType,
+    labelEmphasis: labelEmphasis,
+    labelTextAlign: labelTextAlign,
+    prefixIcon: showPrefixIcon ? prefixIcon : null,
+    prefixIconType: prefixIconType,
+    prefixIconEmphasis: prefixIconEmphasis,
+    text: text,
+    textType: textType,
+    textEmphasis: textEmphasis,
+    obscureText: obscureText,
+    hintText: showHintText ? hintText : "",
+    hintTextType: hintTextType,
+    hintTextEmphasis: hintTextEmphasis,
+    backgroundType: textFieldBackgroundType,
+    onStringChangedCallback: onStringChangedCallback,
+    validator: validator
+  );
 
   Widget _buildVerticalFooter() {
     return Padding(

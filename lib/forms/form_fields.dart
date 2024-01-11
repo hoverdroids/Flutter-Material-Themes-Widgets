@@ -59,7 +59,7 @@ class ThemedEditableLabelValue extends StatefulWidget {
   final String text;
   final ThemeGroupType textType;
   final Emphasis textEmphasis;
-  //TODO final TextAlign textAlign;
+  final TextAlign textAlign;
   final bool obscureText;
 
   final String hintText;
@@ -84,6 +84,7 @@ class ThemedEditableLabelValue extends StatefulWidget {
     this.text = "",
     this.textType = ThemeGroupType.MOM,
     this.textEmphasis = Emphasis.HIGH,
+    this.textAlign = TextAlign.start,
     this.obscureText = false,
     this.hintText = "",
     this.hintTextType = ThemeGroupType.MOM,
@@ -112,7 +113,7 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
   late String? text;
   late ThemeGroupType textType;
   late Emphasis textEmphasis;
-  //TODO late TextAlign textAlign;
+  late TextAlign textAlign;
   late bool obscureText;
 
   late String? hintText;
@@ -141,6 +142,7 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
     text = widget.text;
     textType = widget.textType;
     textEmphasis = widget.textEmphasis;
+    textAlign = widget.textAlign;
     obscureText = widget.obscureText;
     hintText = widget.hintText;
     hintTextType = widget.hintTextType;
@@ -172,6 +174,7 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
         hintText: hintText ?? "",
         hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType, emphasis: hintTextEmphasis).textTheme.titleMedium,
       ),
+      textAlign: textAlign,
       validator: _validator(),
       onChanged: (val) => _onChanged(val),
     );
@@ -190,6 +193,7 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
         hintText: hintText ?? "",
         hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType).textTheme.titleMedium,
       ),
+      textAlign: textAlign,
       validator: _validator(),
       onChanged: (val) => _onChanged(val),
     );
