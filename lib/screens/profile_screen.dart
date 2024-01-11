@@ -42,6 +42,7 @@ class ProfileScreen extends StatefulWidget {
   final bool? showEmailHint;
   final IconData? emailIcon;
   final bool? showEmailIcon;
+  final bool validateEmail;
 
   final String password;
   final bool showPassword;
@@ -54,6 +55,7 @@ class ProfileScreen extends StatefulWidget {
   final bool? showPasswordHint;
   final IconData? passwordIcon;
   final bool? showPasswordIcon;
+  final bool validatePassword;
   
   final String firstName;
   final bool showFirstName;
@@ -66,6 +68,7 @@ class ProfileScreen extends StatefulWidget {
   final bool? showFirstNameHint;
   final IconData? firstNameIcon;
   final bool? showFirstNameIcon;
+  final bool validateFirstName;
   
   final String lastName;
   final bool showLastName;
@@ -78,6 +81,7 @@ class ProfileScreen extends StatefulWidget {
   final bool? showLastNameHint;
   final IconData? lastNameIcon;
   final bool? showLastNameIcon;
+  final bool validateLastName;
   
   final String tagline;
   final bool showTagline;
@@ -176,6 +180,7 @@ class ProfileScreen extends StatefulWidget {
   final EdgeInsets footerPadding;
   final bool centerForm;
   final bool isEditMode;
+  final bool validateZip;
 
   const ProfileScreen({
     super.key,
@@ -213,6 +218,7 @@ class ProfileScreen extends StatefulWidget {
     this.showEmailHint,
     this.emailIcon = Icons.email,
     this.showEmailIcon,
+    this.validateEmail = true,
 
     this.password = "",
     this.showPassword = true,
@@ -225,6 +231,7 @@ class ProfileScreen extends StatefulWidget {
     this.showPasswordHint,
     this.passwordIcon = Icons.password,
     this.showPasswordIcon,
+    this.validatePassword = true,
     
     this.firstName = "",
     this.showFirstName = true,
@@ -237,6 +244,7 @@ class ProfileScreen extends StatefulWidget {
     this.showFirstNameHint,
     this.firstNameIcon,
     this.showFirstNameIcon,
+    this.validateFirstName = true,
     
     this.lastName = "",
     this.showLastName = true,
@@ -249,6 +257,7 @@ class ProfileScreen extends StatefulWidget {
     this.showLastNameHint,
     this.lastNameIcon,
     this.showLastNameIcon,
+    this.validateLastName = true,
     
     this.tagline = "",
     this.showTagline = true,
@@ -333,6 +342,7 @@ class ProfileScreen extends StatefulWidget {
     this.showZipHint,
     this.zipIcon,
     this.showZipIcon,
+    this.validateZip = true,
     
     this.onTapLogout,
     this.onTapEdit,
@@ -389,6 +399,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   late bool showEmailHint;
   late IconData? emailIcon;
   late bool showEmailIcon;
+  late bool validateEmail;
 
   late String password;
   late bool showPassword;
@@ -401,6 +412,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   late bool showPasswordHint;
   late IconData? passwordIcon;
   late bool showPasswordIcon;
+  late bool validatePassword;
 
   late String firstName;
   late bool showFirstName;
@@ -413,6 +425,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   late bool showFirstNameHint;
   late IconData? firstNameIcon;
   late bool showFirstNameIcon;
+  late bool validateFirstName;
 
   late String lastName;
   late bool showLastName;
@@ -425,6 +438,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   late bool showLastNameHint;
   late IconData? lastNameIcon;
   late bool showLastNameIcon;
+  late bool validateLastName;
 
   late String tagline;
   late bool showTagline;
@@ -509,6 +523,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   late bool showZipHint;
   late IconData? zipIcon;
   late bool showZipIcon;
+  late bool validateZip;
 
   late VoidCallback? onTapLogout;
   late VoidCallback? onTapEdit;
@@ -567,6 +582,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     showEmailHint = widget.showEmailHint ?? showHints;
     emailIcon = widget.emailIcon;
     showEmailIcon = widget.showEmailIcon ?? showIcons;
+    validateEmail = widget.validateEmail;
 
     password = widget.password;
     showPassword = widget.showPassword;
@@ -579,7 +595,8 @@ class ProfileScreenState extends State<ProfileScreen> {
     showPasswordHint = widget.showPasswordHint ?? showHints;
     passwordIcon = widget.passwordIcon;
     showPasswordIcon = widget.showPasswordIcon ?? showIcons;
-    
+    validatePassword = widget.validatePassword;
+
     firstName = widget.firstName;
     showFirstName = widget.showFirstName;
     canEditFirstName = widget.canEditFirstName;
@@ -591,6 +608,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     showFirstNameHint = widget.showFirstNameHint ?? showHints;
     firstNameIcon = widget.firstNameIcon;
     showFirstNameIcon = widget.showFirstNameIcon ?? showIcons;
+    validateFirstName = widget.validateFirstName;
     
     lastName = widget.lastName;
     showLastName = widget.showLastName;
@@ -603,6 +621,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     showLastNameHint = widget.showLastNameHint ?? showHints;
     lastNameIcon = widget.lastNameIcon;
     showLastNameIcon = widget.showLastNameIcon ?? showIcons;
+    validateLastName = widget.validateLastName;
     
     tagline = widget.tagline;
     showTagline = widget.showTagline;
@@ -687,6 +706,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     showZipHint = widget.showZipHint ?? showHints;
     zipIcon = widget.zipIcon;
     showZipIcon = widget.showZipIcon ?? showIcons;
+    validateZip = widget.validateZip;
     
     onTapLogout = widget.onTapLogout;
     onTapEdit = widget.onTapEdit;
@@ -734,24 +754,26 @@ class ProfileScreenState extends State<ProfileScreen> {
                   smallTransparentDivider,
                   if (showEmail) ... [
                     _buildStringField(canEditEmail, emailLabel, showEmailLabel, emailIcon, showEmailIcon, email, obscureEmail, emailHint, showEmailHint, onEmailChangedCallback,
-                      validator: (value) => emailValidator(value, true)
+                      validator: (value) => validateEmail ? emailValidator(value, true) : VALID
                     ),
                     smallTransparentDivider
                   ],
                   if (showPassword) ... [
                     _buildStringField(canEditPassword, passwordLabel, showPasswordLabel, passwordIcon, showPasswordIcon, password, obscurePassword, passwordHint, showPasswordHint, onPasswordChangedCallback,
-                      validator: (value) => passwordValidator(value, true),
+                      validator: (value) => validatePassword ? passwordValidator(value, true) : VALID,
                     ),
                     smallTransparentDivider
                   ],
                   if (showFirstName) ... [
                     _buildStringField(canEditFirstName, firstNameLabel, showFirstNameLabel, firstNameIcon, showFirstNameIcon, firstName, obscureFirstName, firstNameHint, showFirstNameHint, onFirstNameChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "First Name", true)),
+                      validator: (value) => validateFirstName ? nonEmptyValidator(value, "First Name", true) : VALID
+                    ),
                     smallTransparentDivider
                   ],
                   if (showLastName) ... [
                     _buildStringField(canEditLastName, lastNameLabel, showLastNameLabel, lastNameIcon, showLastNameIcon, lastName, obscureLastName, lastNameHint, showLastNameHint, onLastNameChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "Last Name", true)),
+                      validator: (value) => validateLastName ? nonEmptyValidator(value, "Last Name", true) : VALID
+                    ),
                     smallTransparentDivider
                   ],
                   if (showTagline) ... [
@@ -780,7 +802,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                   ],
                   if (showZip) ... [
                     _buildStringField(canEditZip, zipLabel, showZipLabel, zipIcon, showZipIcon, zip, obscureZip, zipHint, showZipHint, onZipChangedCallback,
-                      validator: (value) => nonEmptyValidator(value, "Zip", true)),
+                      validator: (value) => validateZip ? nonEmptyValidator(value, "Zip", true) : VALID
+                    ),
                     smallTransparentDivider
                   ],
                   if(doShowLoginRegisterButtons && !isFooterSticky && isFooterVertical) ... [ _buildVerticalFooter()]
