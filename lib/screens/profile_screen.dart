@@ -202,7 +202,7 @@ class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
     super.key,
 
-    this.screenTitle = "Profiles",
+    this.screenTitle = "Profile",
 
     this.showLabels = true,
     this.labelType = ThemeGroupType.MOP,
