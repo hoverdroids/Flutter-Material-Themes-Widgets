@@ -1,3 +1,5 @@
+## [1.14.1] - Fixed profile page title.
+## [1.14.0] - Moved all static text to widget ctors to allow localization from main app
 ## [1.13.1] - Allow validators to be disabled on profile screen
 ## [1.13.0] - Profile and Login screens have individual field control with fallback to widget-level control
 ## [1.12.1] - Fixed pronouns on changed listener so that pronouns update when changed
