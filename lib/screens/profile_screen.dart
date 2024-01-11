@@ -8,6 +8,8 @@ import 'dart:developer' as developer;
 
 class ProfileScreen extends StatefulWidget {
 
+  final String screenTitle;
+
   final bool showLabels;
   final ThemeGroupType labelType;
   final Emphasis labelEmphasis;
@@ -43,6 +45,7 @@ class ProfileScreen extends StatefulWidget {
   final IconData? emailIcon;
   final bool? showEmailIcon;
   final bool validateEmail;
+  final String invalidEmailText;
 
   final String password;
   final bool showPassword;
@@ -56,6 +59,8 @@ class ProfileScreen extends StatefulWidget {
   final IconData? passwordIcon;
   final bool? showPasswordIcon;
   final bool validatePassword;
+  final String invalidPasswordText;
+  final int passwordMinimumLength;
   
   final String firstName;
   final bool showFirstName;
@@ -69,6 +74,7 @@ class ProfileScreen extends StatefulWidget {
   final IconData? firstNameIcon;
   final bool? showFirstNameIcon;
   final bool validateFirstName;
+  final String invalidFirstNameText;
   
   final String lastName;
   final bool showLastName;
@@ -82,6 +88,7 @@ class ProfileScreen extends StatefulWidget {
   final IconData? lastNameIcon;
   final bool? showLastNameIcon;
   final bool validateLastName;
+  final String invalidLastNameText;
   
   final String tagline;
   final bool showTagline;
@@ -166,12 +173,22 @@ class ProfileScreen extends StatefulWidget {
   final bool? showZipHint;
   final IconData? zipIcon;
   final bool? showZipIcon;
-  
+  final String invalidZipText;
+
+  final String logoutText;
   final VoidCallback? onTapLogout;
+
+  final String editText;
   final VoidCallback? onTapEdit;
+
+  final String saveText;
   final VoidCallback? onTapSave;
-  final VoidCallback? onTapDelete;
+
+  final String deleteAccount;
+  final VoidCallback? onTapDeleteAccount;
+
   final bool doShowLoginRegisterButtons;
+
   final EdgeInsets padding;
   final bool isHeaderSticky;
   final bool isFooterSticky;
@@ -184,6 +201,9 @@ class ProfileScreen extends StatefulWidget {
 
   const ProfileScreen({
     super.key,
+
+    this.screenTitle = "Profiles",
+
     this.showLabels = true,
     this.labelType = ThemeGroupType.MOP,
     this.labelEmphasis = Emphasis.NONE,
@@ -219,6 +239,7 @@ class ProfileScreen extends StatefulWidget {
     this.emailIcon = Icons.email,
     this.showEmailIcon,
     this.validateEmail = true,
+    this.invalidEmailText = "Email is required",
 
     this.password = "",
     this.showPassword = true,
@@ -232,6 +253,8 @@ class ProfileScreen extends StatefulWidget {
     this.passwordIcon = Icons.password,
     this.showPasswordIcon,
     this.validatePassword = true,
+    this.invalidPasswordText = "Enter a password 6+ chars long",
+    this.passwordMinimumLength = 6,
     
     this.firstName = "",
     this.showFirstName = true,
@@ -245,6 +268,7 @@ class ProfileScreen extends StatefulWidget {
     this.firstNameIcon,
     this.showFirstNameIcon,
     this.validateFirstName = true,
+    this.invalidFirstNameText = "First name is required",
     
     this.lastName = "",
     this.showLastName = true,
@@ -258,6 +282,7 @@ class ProfileScreen extends StatefulWidget {
     this.lastNameIcon,
     this.showLastNameIcon,
     this.validateLastName = true,
+    this.invalidLastNameText = "Last name is required",
     
     this.tagline = "",
     this.showTagline = true,
@@ -343,11 +368,20 @@ class ProfileScreen extends StatefulWidget {
     this.zipIcon,
     this.showZipIcon,
     this.validateZip = true,
-    
+    this.invalidZipText = "Zip is required",
+
+    this.logoutText = "Logout",
     this.onTapLogout,
+
+    this.editText = "Edit",
     this.onTapEdit,
+
+    this.saveText = "Save",
     this.onTapSave,
-    this.onTapDelete,
+
+    this.deleteAccount = "Delete",
+    this.onTapDeleteAccount,
+
     this.doShowLoginRegisterButtons = true,
     this.padding = const EdgeInsets.symmetric(vertical: 0.0, horizontal: paddingMini),
     this.isHeaderSticky = true,
@@ -364,6 +398,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
+
+  late String screenTitle;
 
   late bool showLabels;
   late ThemeGroupType labelType;
@@ -400,6 +436,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   late IconData? emailIcon;
   late bool showEmailIcon;
   late bool validateEmail;
+  late String invalidEmailText;
 
   late String password;
   late bool showPassword;
@@ -413,6 +450,8 @@ class ProfileScreenState extends State<ProfileScreen> {
   late IconData? passwordIcon;
   late bool showPasswordIcon;
   late bool validatePassword;
+  late String invalidPasswordText;
+  late int passwordMinimumLength;
 
   late String firstName;
   late bool showFirstName;
@@ -426,6 +465,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   late IconData? firstNameIcon;
   late bool showFirstNameIcon;
   late bool validateFirstName;
+  late String invalidFirstNameText;
 
   late String lastName;
   late bool showLastName;
@@ -439,6 +479,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   late IconData? lastNameIcon;
   late bool showLastNameIcon;
   late bool validateLastName;
+  late String invalidLastNameText;
 
   late String tagline;
   late bool showTagline;
@@ -524,11 +565,20 @@ class ProfileScreenState extends State<ProfileScreen> {
   late IconData? zipIcon;
   late bool showZipIcon;
   late bool validateZip;
+  late String invalidZipText;
 
+  late String logoutText;
   late VoidCallback? onTapLogout;
+
+  late String editText;
   late VoidCallback? onTapEdit;
+
+  late String saveText;
   late VoidCallback? onTapSave;
-  late VoidCallback? onTapDelete;
+
+  late String deleteAccountText;
+  late VoidCallback? onTapDeleteAccount;
+
   late bool doShowLoginRegisterButtons;
   late EdgeInsets padding;
 
@@ -547,7 +597,9 @@ class ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    
+
+    screenTitle = widget.screenTitle;
+
     showLabels = widget.showLabels;
     labelType = widget.labelType;
     labelEmphasis = widget.labelEmphasis;
@@ -583,6 +635,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     emailIcon = widget.emailIcon;
     showEmailIcon = widget.showEmailIcon ?? showIcons;
     validateEmail = widget.validateEmail;
+    invalidEmailText = widget.invalidEmailText;
 
     password = widget.password;
     showPassword = widget.showPassword;
@@ -596,6 +649,8 @@ class ProfileScreenState extends State<ProfileScreen> {
     passwordIcon = widget.passwordIcon;
     showPasswordIcon = widget.showPasswordIcon ?? showIcons;
     validatePassword = widget.validatePassword;
+    invalidPasswordText = widget.invalidPasswordText;
+    passwordMinimumLength = widget.passwordMinimumLength;
 
     firstName = widget.firstName;
     showFirstName = widget.showFirstName;
@@ -609,6 +664,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     firstNameIcon = widget.firstNameIcon;
     showFirstNameIcon = widget.showFirstNameIcon ?? showIcons;
     validateFirstName = widget.validateFirstName;
+    invalidFirstNameText = widget.invalidFirstNameText;
     
     lastName = widget.lastName;
     showLastName = widget.showLastName;
@@ -622,6 +678,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     lastNameIcon = widget.lastNameIcon;
     showLastNameIcon = widget.showLastNameIcon ?? showIcons;
     validateLastName = widget.validateLastName;
+    invalidLastNameText = widget.invalidLastNameText;
     
     tagline = widget.tagline;
     showTagline = widget.showTagline;
@@ -707,11 +764,20 @@ class ProfileScreenState extends State<ProfileScreen> {
     zipIcon = widget.zipIcon;
     showZipIcon = widget.showZipIcon ?? showIcons;
     validateZip = widget.validateZip;
-    
+    invalidZipText = widget.invalidZipText;
+
+    logoutText = widget.logoutText;
     onTapLogout = widget.onTapLogout;
+
+    editText = widget.editText;
     onTapEdit = widget.onTapEdit;
+
+    saveText = widget.saveText;
     onTapSave = widget.onTapSave;
-    onTapDelete = widget.onTapDelete;
+
+    deleteAccountText = widget.deleteAccount;
+    onTapDeleteAccount = widget.onTapDeleteAccount;
+
     doShowLoginRegisterButtons = widget.doShowLoginRegisterButtons;
     padding = widget.padding;
     isHeaderSticky = widget.isHeaderSticky;
@@ -726,7 +792,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget _buildHeader() {
     return Padding(
       padding: headerPadding,
-      child:ThemedH4("Profile", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH)
+      child:ThemedH4(screenTitle, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH)
     );
   }
 
@@ -754,25 +820,25 @@ class ProfileScreenState extends State<ProfileScreen> {
                   smallTransparentDivider,
                   if (showEmail) ... [
                     _buildStringField(canEditEmail, emailLabel, showEmailLabel, emailIcon, showEmailIcon, email, obscureEmail, emailHint, showEmailHint, onEmailChangedCallback,
-                      validator: (value) => validateEmail ? emailValidator(value, true) : VALID
+                      validator: (value) => validateEmail ? emailValidator(value, invalidEmailText, true) : VALID
                     ),
                     smallTransparentDivider
                   ],
                   if (showPassword) ... [
                     _buildStringField(canEditPassword, passwordLabel, showPasswordLabel, passwordIcon, showPasswordIcon, password, obscurePassword, passwordHint, showPasswordHint, onPasswordChangedCallback,
-                      validator: (value) => validatePassword ? passwordValidator(value, true) : VALID,
+                      validator: (value) => validatePassword ? passwordValidator(value, passwordMinimumLength, invalidPasswordText, true) : VALID,
                     ),
                     smallTransparentDivider
                   ],
                   if (showFirstName) ... [
                     _buildStringField(canEditFirstName, firstNameLabel, showFirstNameLabel, firstNameIcon, showFirstNameIcon, firstName, obscureFirstName, firstNameHint, showFirstNameHint, onFirstNameChangedCallback,
-                      validator: (value) => validateFirstName ? nonEmptyValidator(value, "First Name", true) : VALID
+                      validator: (value) => validateFirstName ? nonEmptyValidator(value, invalidFirstNameText, true) : VALID
                     ),
                     smallTransparentDivider
                   ],
                   if (showLastName) ... [
                     _buildStringField(canEditLastName, lastNameLabel, showLastNameLabel, lastNameIcon, showLastNameIcon, lastName, obscureLastName, lastNameHint, showLastNameHint, onLastNameChangedCallback,
-                      validator: (value) => validateLastName ? nonEmptyValidator(value, "Last Name", true) : VALID
+                      validator: (value) => validateLastName ? nonEmptyValidator(value, invalidLastNameText, true) : VALID
                     ),
                     smallTransparentDivider
                   ],
@@ -802,7 +868,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   ],
                   if (showZip) ... [
                     _buildStringField(canEditZip, zipLabel, showZipLabel, zipIcon, showZipIcon, zip, obscureZip, zipHint, showZipHint, onZipChangedCallback,
-                      validator: (value) => validateZip ? nonEmptyValidator(value, "Zip", true) : VALID
+                      validator: (value) => validateZip ? nonEmptyValidator(value, invalidZipText, true) : VALID
                     ),
                     smallTransparentDivider
                   ],
@@ -879,7 +945,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               alignment: Alignment.center,
               child: TextButton(
                 onPressed: onTapLogout ?? () => developer.log("Tapped Logout"),
-                child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+                child: ThemedSubTitle2(logoutText, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
               ),
             )
         ),
@@ -888,8 +954,8 @@ class ProfileScreenState extends State<ProfileScreen> {
             child: Container(
               alignment: Alignment.center,
               child: TextButton(
-                onPressed: onTapDelete ?? () => developer.log("Tapped Delete Account"),
-                child: ThemedSubTitle2("Delete Account", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+                onPressed: onTapDeleteAccount ?? () => developer.log("Tapped Delete Account"),
+                child: ThemedSubTitle2(deleteAccountText, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
               ),
             )
         ),
@@ -911,7 +977,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 backgroundColor: Colors.white,
                 shape: const StadiumBorder(),
               ),
-              child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
+              child: ThemedTitle(isEditMode ? saveText : editText, type: ThemeGroupType.POM),
             )
           ),
         )
@@ -938,14 +1004,14 @@ class ProfileScreenState extends State<ProfileScreen> {
             backgroundColor: Colors.white,
             shape: const StadiumBorder(),
           ),
-          child: ThemedTitle(isEditMode ? "Save" : "Edit", type: ThemeGroupType.POM),
+          child: ThemedTitle(isEditMode ? saveText : editText, type: ThemeGroupType.POM),
         ),
         smallTransparentDivider,
         Container(
           alignment: Alignment.center,
           child: TextButton(
             onPressed: onTapLogout ?? () => developer.log("Tapped Logout"),
-            child: ThemedSubTitle2("Logout", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+            child: ThemedSubTitle2(logoutText, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
           ),
         )
       ]),

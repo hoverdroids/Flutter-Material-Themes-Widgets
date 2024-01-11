@@ -7,6 +7,8 @@ import 'package:material_themes_widgets/utils/validators.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
 
+  final String? screenTitle;
+
   final bool showLabels;
   final ThemeGroupType labelType;
   final Emphasis labelEmphasis;
@@ -37,6 +39,7 @@ class LoginRegisterScreen extends StatefulWidget {
   final bool? showEmailHint;
   final IconData? emailIcon;
   final bool? showEmailIcon;
+  final String invalidEmailText;
 
   final String password;
   final bool showPassword;
@@ -49,12 +52,20 @@ class LoginRegisterScreen extends StatefulWidget {
   final bool? showPasswordHint;
   final IconData? passwordIcon;
   final bool? showPasswordIcon;
+  final String invalidPasswordText;
+  final int passwordMinimumLength;
 
   final bool showForgots;
-  final VoidCallback? onTapRegister;
+
+  final String loginText;
   final VoidCallback? onTapLogin;
+
+  final String registerText;
+  final VoidCallback? onTapRegister;
+
   final VoidCallback? onTapForgotPassword;
-  final String? screenTitle;
+  final String forgotPasswordText;
+
   final EdgeInsets padding;
   final EdgeInsets headerPadding;
   final EdgeInsets footerPadding;
@@ -63,6 +74,9 @@ class LoginRegisterScreen extends StatefulWidget {
 
   const LoginRegisterScreen({
     super.key,
+
+    this.screenTitle,
+
     this.showLabels = true,
     this.labelType = ThemeGroupType.MOP,
     this.labelEmphasis = Emphasis.NONE,
@@ -93,6 +107,7 @@ class LoginRegisterScreen extends StatefulWidget {
     this.showEmailHint,
     this.emailIcon = Icons.email,
     this.showEmailIcon,
+    this.invalidEmailText = "Email is required",
 
     this.password = "",
     this.showPassword = true,
@@ -105,12 +120,20 @@ class LoginRegisterScreen extends StatefulWidget {
     this.showPasswordHint,
     this.passwordIcon = Icons.password,
     this.showPasswordIcon,
+    this.invalidPasswordText = "Enter a password 6+ chars long",
+    this.passwordMinimumLength = 6,
 
     this.showForgots = false,
+
+    this.registerText = "Register",
     this.onTapRegister,
+
+    this.loginText = "Login",
     this.onTapLogin,
+
+    this.forgotPasswordText = "Forgot password",
     this.onTapForgotPassword,
-    this.screenTitle,
+
     this.padding = const EdgeInsets.symmetric(vertical: 0.0, horizontal: paddingMini),
     this.headerPadding = const EdgeInsets.all(paddingMini),
     this.footerPadding = const EdgeInsets.all(paddingMini),
@@ -125,6 +148,8 @@ class LoginRegisterScreen extends StatefulWidget {
 class LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   late Key? key;
+
+  late String? screenTitle;
 
   late bool showLabels;
   late ThemeGroupType labelType;
@@ -156,6 +181,7 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
   late bool showEmailHint;
   late IconData? emailIcon;
   late bool showEmailIcon;
+  late String invalidEmailText;
 
   late String password;
   late bool showPassword;
@@ -168,12 +194,20 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
   late bool showPasswordHint;
   late IconData? passwordIcon;
   late bool showPasswordIcon;
+  late String invalidPasswordText;
+  late int passwordMinimumLength;
 
   late bool showForgots;
+
+  late String registerText;
   late VoidCallback? onTapRegister;
+
+  late String loginText;
   late VoidCallback? onTapLogin;
+
+  late String forgotPasswordText;
   late VoidCallback? onTapForgotPassword;
-  late String? screenTitle;
+
   late EdgeInsets padding;
   late EdgeInsets headerPadding;
   late EdgeInsets footerPadding;
@@ -187,6 +221,8 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
     super.initState();
 
     key = widget.key;
+
+    screenTitle = widget.screenTitle;
 
     showLabels = widget.showLabels;
     labelType = widget.labelType;
@@ -219,6 +255,7 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
     showEmailHint = widget.showEmailHint ?? showHints;
     emailIcon = widget.emailIcon;
     showEmailIcon = widget.showEmailIcon ?? showIcons;
+    invalidEmailText = widget.invalidEmailText;
 
     password = widget.password;
     showPassword = widget.showPassword;
@@ -231,12 +268,20 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
     showPasswordHint = widget.showPasswordHint ?? showHints;
     passwordIcon = widget.passwordIcon;
     showPasswordIcon = widget.showPasswordIcon ?? showIcons;
+    invalidPasswordText = widget.invalidPasswordText;
+    passwordMinimumLength = widget.passwordMinimumLength;
 
     showForgots = widget.showForgots;
+
+    registerText = widget.registerText;
     onTapRegister = widget.onTapRegister;
+
+    loginText = widget.loginText;
     onTapLogin = widget.onTapLogin;
+
+    forgotPasswordText = widget.forgotPasswordText;
     onTapForgotPassword = widget.onTapForgotPassword;
-    screenTitle = widget.screenTitle;
+
     padding = widget.padding;
     headerPadding = widget.headerPadding;
     footerPadding = widget.footerPadding;
@@ -245,7 +290,7 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
   }
 
   Widget _buildHeader() {
-    var loginRegTitle = isLogin ? "Login" : "Register";
+    var loginRegTitle = isLogin ? loginText : registerText;
     var title = screenTitle ?? loginRegTitle;
     return Padding(
       padding: headerPadding,
@@ -277,13 +322,13 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   smallTransparentDivider,
                   if (showEmail) ... [
                     _buildStringEntry(canEditEmail, emailLabel, showEmailLabel, emailIcon, showEmailIcon, email, obscureEmail, emailHint, showEmailHint, onEmailChangedCallback,
-                    validator: (value) => emailValidator(value, true)
+                    validator: (value) => emailValidator(value, invalidEmailText, true)
                     ),
                     smallTransparentDivider
                   ],
                   if (showPassword) ... [
                     _buildStringEntry(canEditPassword, passwordLabel, showPasswordLabel, passwordIcon, showPasswordIcon, password, obscurePassword, passwordHint, showPasswordHint, onPasswordChangedCallback,
-                      validator: (value) => passwordValidator(value, true)
+                      validator: (value) => passwordValidator(value, passwordMinimumLength, invalidPasswordText, true)
                     ),
                     smallTransparentDivider
                   ],
@@ -351,7 +396,7 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
             backgroundColor: Colors.white,
             shape: const StadiumBorder(),
           ),
-          child: ThemedTitle(isLogin ? "Login" : "Register", type: ThemeGroupType.POM),
+          child: ThemedTitle(isLogin ? loginText : registerText, type: ThemeGroupType.POM),
         ),
         smallTransparentDivider,
         Container(
@@ -364,7 +409,7 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 onTapRegister?.call()
               }
             },
-            child: ThemedSubTitle(isLogin ? "Register" : "Login", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+            child: ThemedSubTitle(isLogin ? registerText : loginText, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
           ),
         ),
         if(isLogin)...[
@@ -374,7 +419,7 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
               onPressed: () => {
                 onTapForgotPassword?.call()
               },
-              child: ThemedSubTitle("Forgot password", type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
+              child: ThemedSubTitle(forgotPasswordText, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
             ),
           )
         ]
