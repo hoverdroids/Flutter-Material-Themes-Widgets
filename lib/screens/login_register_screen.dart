@@ -72,6 +72,9 @@ class LoginRegisterScreen extends StatefulWidget {
   final bool centerForm;
   final bool isLogin;
 
+  /// Extra widgets shown under the login/register buttons, e.g. "Sign in with Google"
+  final List<Widget> footerChildren;
+
   const LoginRegisterScreen({
     super.key,
 
@@ -138,6 +141,7 @@ class LoginRegisterScreen extends StatefulWidget {
     this.headerPadding = const EdgeInsets.all(paddingMini),
     this.footerPadding = const EdgeInsets.all(paddingMini),
     this.centerForm = true,
+    this.footerChildren = const <Widget>[],
     this.isLogin = true
   });
 
@@ -422,7 +426,8 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
               child: ThemedSubTitle(forgotPasswordText, type: ThemeGroupType.MOP, emphasis: Emphasis.HIGH),
             ),
           )
-        ]
+        ],
+        ...widget.footerChildren,
       ]),
     );
   }
