@@ -1,3 +1,4 @@
+## [1.15.0] - Replaced discontinued assets_audio_player with just_audio. Updated fluttertoast to 10.x. Builds with Flutter 3.47 (replaced removed toggleableActiveColor and deprecated launch)
 ## [1.14.1] - Fixed profile page title.
 ## [1.14.0] - Moved all static text to widget ctors to allow localization from main app
 ## [1.13.1] - Allow validators to be disabled on profile screen

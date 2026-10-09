@@ -56,7 +56,7 @@ class ThemedSwitch extends StatelessWidget {
             key: key ?? defaultSwitch.key,
             value: value,
             onChanged: onChanged,
-            activeColor: themeManager.getTheme(type).toggleableActiveColor,
+            activeThumbColor: themeManager.getTheme(type).colorScheme.secondary,
             activeTrackColor: activeTrackColor ?? defaultSwitch.activeTrackColor,
             inactiveThumbColor: inactiveThumbColor ?? defaultSwitch.inactiveThumbColor,
             inactiveTrackColor: inactiveTrackColor ?? defaultSwitch.inactiveTrackColor,

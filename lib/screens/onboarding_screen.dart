@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names
-import 'package:assets_audio_player/assets_audio_player.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:material_themes_manager/material_themes_manager.dart';
 import 'package:material_themes_widgets/clippaths/clip_paths.dart';
 import 'package:material_themes_widgets/fundamental/buttons_media.dart';
@@ -81,20 +83,33 @@ class OnboardingScreen extends StatefulWidget {
 
 class OnboardingScreenState extends State<OnboardingScreen> {
 
-  final _assetsAudioPlayer = AssetsAudioPlayer();
+  final _audioPlayer = AudioPlayer();
+  StreamSubscription<PlayerState>? _playerStateSubscription;
   bool _isAudioPlaying = false;
   bool _isAudioLoaded = false;
 
   @override
   void initState() {
-    _assetsAudioPlayer.playlistFinished.listen((finished) {
-      if (finished) {
-        setState(() {
-          _isAudioPlaying = false;
-        });
+    super.initState();
+    _playerStateSubscription = _audioPlayer.playerStateStream.listen((state) {
+      if (state.processingState == ProcessingState.completed) {
+        // Rewind so the next tap plays from the start
+        _audioPlayer.pause();
+        _audioPlayer.seek(Duration.zero);
+        if (mounted) {
+          setState(() {
+            _isAudioPlaying = false;
+          });
+        }
       }
     });
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _playerStateSubscription?.cancel();
+    _audioPlayer.dispose();
+    super.dispose();
   }
 
   @override
@@ -187,19 +202,18 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                               });
                               var audioUrl = widget.audioUrl;
                               if (audioUrl != null) {
-                                _assetsAudioPlayer.open(Audio(audioUrl));
+                                _audioPlayer.setAsset(audioUrl).then((_) => _audioPlayer.play());
                               }
-                              _assetsAudioPlayer.play();
                             } else if (_isAudioPlaying) {
                               setState(() {
                                 _isAudioPlaying = false;
                               });
-                              _assetsAudioPlayer.pause();
+                              _audioPlayer.pause();
                             } else {
                               setState(() {
                                 _isAudioPlaying = true;
                               });
-                              _assetsAudioPlayer.play();
+                              _audioPlayer.play();
                             }
                           },
                           isPlaying: _isAudioPlaying
@@ -231,7 +245,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                   InkWell(
                     child: ThemedH5(moreInfoUrl, type: widget.moreInfoType, emphasis: widget.descriptionEmphasis, textAlign: widget.descriptionTextAlign),
                     onTap: () {
-                      launch(moreInfoUrl);
+                      launchUrl(Uri.parse(moreInfoUrl));
                     }
                   ),
                 ]
