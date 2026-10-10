@@ -140,7 +140,18 @@ class HeaderListState extends State<HeaderList> {
   @override
   void initState() {
     super.initState();
+    _readWidget();
+  }
 
+  // Pick up new values, such as a checkbox row that changed, without remounting: a remount
+  // would scroll the list back to the top
+  @override
+  void didUpdateWidget(covariant HeaderList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _readWidget();
+  }
+
+  void _readWidget() {
     key = widget.key;
     headerFlex = widget.headerFlex;
     headerAlignment = widget.headerAlignment;

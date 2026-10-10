@@ -1,3 +1,4 @@
+## [1.16.0] - HeaderList picks up new list items and header values when it rebuilds, so a changed row updates in place without remounting (which scrolled the list back to the top)
 ## [1.15.0] - Added LoginRegisterScreen.footerChildren for extra sign-in buttons. Added ThemedOverlayIconButton for icons drawn over images or cards. Replaced discontinued assets_audio_player with just_audio. Updated fluttertoast to 10.x. Builds with Flutter 3.47 (replaced removed toggleableActiveColor and deprecated launch). Requires Flutter 3.32+ and Material Themes Manager 1.5.0
 ## [1.14.1] - Fixed profile page title.
 ## [1.14.0] - Moved all static text to widget ctors to allow localization from main app
