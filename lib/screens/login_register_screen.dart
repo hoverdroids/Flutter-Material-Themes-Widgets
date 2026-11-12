@@ -55,6 +55,18 @@ class LoginRegisterScreen extends StatefulWidget {
   final String invalidPasswordText;
   final int passwordMinimumLength;
 
+  /// Eye button that shows or hides the password fields
+  final bool showPasswordToggle;
+  final String showPasswordText;
+  final String hidePasswordText;
+
+  /// Second password field that must match the first. Defaults to shown on register, hidden on login
+  final bool? showConfirmPassword;
+  final ValueChanged<String>? onConfirmPasswordChangedCallback;
+  final String confirmPasswordLabel;
+  final String confirmPasswordHint;
+  final String passwordsDoNotMatchText;
+
   final bool showForgots;
 
   final String loginText;
@@ -125,6 +137,16 @@ class LoginRegisterScreen extends StatefulWidget {
     this.showPasswordIcon,
     this.invalidPasswordText = "Enter a password 6+ chars long",
     this.passwordMinimumLength = 6,
+
+    this.showPasswordToggle = true,
+    this.showPasswordText = "Show password",
+    this.hidePasswordText = "Hide password",
+
+    this.showConfirmPassword,
+    this.onConfirmPasswordChangedCallback,
+    this.confirmPasswordLabel = "Re-enter password",
+    this.confirmPasswordHint = "Re-enter password",
+    this.passwordsDoNotMatchText = "Passwords do not match",
 
     this.showForgots = false,
 
@@ -201,6 +223,11 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
   late String invalidPasswordText;
   late int passwordMinimumLength;
 
+  late bool showConfirmPassword;
+
+  // What is typed, so the re-entered password can be checked against it
+  late String enteredPassword;
+
   late bool showForgots;
 
   late String registerText;
@@ -275,6 +302,9 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
     invalidPasswordText = widget.invalidPasswordText;
     passwordMinimumLength = widget.passwordMinimumLength;
 
+    showConfirmPassword = widget.showConfirmPassword ?? !widget.isLogin;
+    enteredPassword = password;
+
     showForgots = widget.showForgots;
 
     registerText = widget.registerText;
@@ -331,8 +361,20 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
                     smallTransparentDivider
                   ],
                   if (showPassword) ... [
-                    _buildStringEntry(canEditPassword, passwordLabel, showPasswordLabel, passwordIcon, showPasswordIcon, password, obscurePassword, passwordHint, showPasswordHint, onPasswordChangedCallback,
-                      validator: (value) => passwordValidator(value, passwordMinimumLength, invalidPasswordText, true)
+                    _buildStringEntry(canEditPassword, passwordLabel, showPasswordLabel, passwordIcon, showPasswordIcon, password, obscurePassword, passwordHint, showPasswordHint,
+                      (value) {
+                        enteredPassword = value;
+                        onPasswordChangedCallback?.call(value);
+                      },
+                      validator: (value) => passwordValidator(value, passwordMinimumLength, invalidPasswordText, true),
+                      showObscureToggle: widget.showPasswordToggle && obscurePassword
+                    ),
+                    smallTransparentDivider
+                  ],
+                  if (showPassword && showConfirmPassword) ... [
+                    _buildStringEntry(canEditPassword, widget.confirmPasswordLabel, showPasswordLabel, passwordIcon, showPasswordIcon, "", obscurePassword, widget.confirmPasswordHint, showPasswordHint, widget.onConfirmPasswordChangedCallback,
+                      validator: (value) => (value ?? "") == enteredPassword ? null : widget.passwordsDoNotMatchText,
+                      showObscureToggle: widget.showPasswordToggle && obscurePassword
                     ),
                     smallTransparentDivider
                   ],
@@ -358,7 +400,8 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
     bool showHintText,
     ValueChanged<String>? onStringChangedCallback,
     {
-      FormFieldValidator<String>? validator
+      FormFieldValidator<String>? validator,
+      bool showObscureToggle = false
     }
   ) => ThemedEditableLabelValue(
     showLabel: showLabel,
@@ -373,6 +416,9 @@ class LoginRegisterScreenState extends State<LoginRegisterScreen> {
     textType: textType,
     textEmphasis: textEmphasis,
     obscureText: obscureText,
+    showObscureToggle: showObscureToggle,
+    showTextTooltip: widget.showPasswordText,
+    hideTextTooltip: widget.hidePasswordText,
     hintText: showHintText ? hintText : "",
     hintTextType: hintTextType,
     hintTextEmphasis: hintTextEmphasis,

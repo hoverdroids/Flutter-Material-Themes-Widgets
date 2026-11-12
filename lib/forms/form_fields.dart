@@ -62,6 +62,11 @@ class ThemedEditableLabelValue extends StatefulWidget {
   final TextAlign textAlign;
   final bool obscureText;
 
+  /// Shows an eye button at the end of an obscured field that shows or hides the text
+  final bool showObscureToggle;
+  final String showTextTooltip;
+  final String hideTextTooltip;
+
   final String hintText;
   final ThemeGroupType hintTextType;
   final Emphasis hintTextEmphasis;
@@ -86,6 +91,9 @@ class ThemedEditableLabelValue extends StatefulWidget {
     this.textEmphasis = Emphasis.HIGH,
     this.textAlign = TextAlign.start,
     this.obscureText = false,
+    this.showObscureToggle = false,
+    this.showTextTooltip = "Show",
+    this.hideTextTooltip = "Hide",
     this.hintText = "",
     this.hintTextType = ThemeGroupType.MOM,
     this.hintTextEmphasis = Emphasis.NONE,
@@ -126,6 +134,15 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
   late FormFieldValidator<String>? validator;
 
   FormFieldValidator<String>? _validator() => validator ?? (value) => null;//return null indicates the field is valid
+
+  Widget? _buildObscureToggle() {
+    if (!widget.showObscureToggle) return null;
+    return IconButton(
+      icon: ThemedIcon(obscureText ? Icons.visibility : Icons.visibility_off, type: prefixIconType, emphasis: prefixIconEmphasis),
+      tooltip: obscureText ? widget.showTextTooltip : widget.hideTextTooltip,
+      onPressed: () => setState(() => obscureText = !obscureText),
+    );
+  }
 
   @override
   void initState() {
@@ -171,6 +188,7 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
         border: InputBorder.none,//hide the bottom EditText underscore bar
         contentPadding: const EdgeInsets.only(top: paddingSmall),
         prefixIcon: ThemedIcon(prefixIcon, type: prefixIconType, emphasis: prefixIconEmphasis),
+        suffixIcon: _buildObscureToggle(),
         hintText: hintText ?? "",
         hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType, emphasis: hintTextEmphasis).textTheme.titleMedium,
       ),
@@ -190,6 +208,7 @@ class ThemedEditableLabelValueState extends State<ThemedEditableLabelValue> {
       decoration: InputDecoration(
         border: InputBorder.none,//hide the bottom EditText underscore bar
         contentPadding: const EdgeInsets.symmetric(horizontal: paddingSmall),
+        suffixIcon: _buildObscureToggle(),
         hintText: hintText ?? "",
         hintStyle: context.watch<MaterialThemesManager>().getTheme(hintTextType).textTheme.titleMedium,
       ),
